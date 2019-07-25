@@ -1,0 +1,62 @@
+@import url("https://use.typekit.net/sfj1yxs.css");
+
+$tradegothiccompressed: trade-gothic-next-compressed, sans-serif;
+$tradegothiccondensed:  trade-gothic-next-condensed, sans-serif;
+$caslon: williams-caslon-text, serif;
+$bigcaslon: big-caslon-fb, serif;
+
+body {
+  color: #393D40;
+}
+
+.App {
+  flex: 1;
+  width: 100vw;
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+
+  // Scroll Places Styles
+  .scroll-places-row {
+    flex: .4;
+    width: 580px;
+    height: 100vh;
+    display: flex;
+    .col {
+      width: 100%;
+      height: 100vh;
+      background-color: #FFF;
+      h1 {
+        font-family: $bigcaslon;
+      }
+    }
+  }
+
+  // Google Map Styles
+  .scroll-map-container {
+    flex: .6;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    .scroll-map-row {
+      width: 100%;
+      height: 100vh;
+      .scroll-map-col {
+        width: 100%;
+        height: 100vh;
+        .map-marker {
+          opacity: .7;
+          &:hover {
+            opacity: 1;
+            .map-marker-isfocus {
+              opacity: 1;
+            }
+          }
+          .map-marker-isfocus {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}
