@@ -19,7 +19,7 @@ body {
   // Scroll Places Styles
   .scroll-places-row {
     flex: .4;
-    width: 580px;
+    width: 40vw;
     height: 100vh;
     display: flex;
     .col {
@@ -35,7 +35,7 @@ body {
   // Google Map Styles
   .scroll-map-container {
     flex: .6;
-    width: 100%;
+    width: 60vw;
     height: 100vh;
     display: flex;
     .scroll-map-row {
