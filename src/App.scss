@@ -1,12 +1,16 @@
 @import url("https://use.typekit.net/sfj1yxs.css");
 
-$tradegothiccompressed: trade-gothic-next-compressed, sans-serif;
-$tradegothiccondensed:  trade-gothic-next-condensed, sans-serif;
-$caslon: williams-caslon-text, serif;
+// Fonts
 $bigcaslon: big-caslon-fb, serif;
+$caslon: williams-caslon-text, serif;
+$tradegothiccondensed:  trade-gothic-next-condensed, sans-serif;
+$tradegothiccompressed: trade-gothic-next-compressed, sans-serif;
+
+// Font colors
+$fontColorPrimary: #393D40;
 
 body {
-  color: #393D40;
+  color: $fontColorPrimary;
 }
 
 .App {
