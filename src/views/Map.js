@@ -1,55 +1,75 @@
+// Created By: Victor Ragojos
+
 import React from 'react';
-import { Container } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { assignMapRef, changeMapZoom } from '../Redux/Actions/Map';
 import { GoogleMap, withGoogleMap, withScriptjs, KmlLayer } from 'react-google-maps';
-import { assignMapRef } from '../Redux/Actions/Map';
 
 // TODO: Move API Key to an environment variable
-const GMap = withScriptjs(withGoogleMap((props) => {
+const GoogleMaps = withScriptjs(withGoogleMap((props) => {
     const dispatch = useDispatch();
-    const refs = { map: undefined };
-    const { defaultCenter } = props;
+
+    const refs = {
+        map: undefined
+    };
+
+    // Retrieve props
+    const { zoom, mapOptions, defaultZoom, defaultCenter, hasKmlLayer, kmlLayerURL } = props;
+
+    // GoogleMap Parent Component
     return (
         <GoogleMap
-            defaultZoom={11}
-            onTilesLoaded={() => dispatch(assignMapRef(refs.map))}
-            ref={(ref) => { refs.map = ref; }}
-            options={
-                {
-                    disableDefaultUI: true
-                }
-            }
+            zoom={zoom}
+            defaultZoom={defaultZoom}
+            hasKmlLayer={hasKmlLayer}
+            options={{ ...mapOptions }}
             defaultCenter={defaultCenter}
+            ref={(ref) => { refs.map = ref; }}
+            onClick={(e) => console.log(e)}
+            onIdle={() => { dispatch(changeMapZoom(13)) }}
+            onTilesLoaded={() => { dispatch(assignMapRef(refs.map)); }}
         >
             {props.children}
-            <KmlLayer
-                options={
-                    {
-                        preserveViewport: true,
-                        suppressInfoWindows: true
-                    }
-                }
-                url={"http://www.google.com/maps/d/kml?forcekml=1&mid=1GzhhLKvqqJfFwnxdnkwW5q8qVaWZpzPI"}
-            />
+            {
+                // Check if wanted KML layer for boundaries etc.
+                hasKmlLayer ?
+                    <KmlLayer
+                        options={
+                            {
+                                clickable: true,
+                                preserveViewport: true,
+                                suppressInfoWindows: true
+                            }
+                        }
+                        onClick={(e) => console.log(e)}
+                        url={kmlLayerURL}
+                    />
+                    : null
+            }
+
         </GoogleMap>
     )
-}))
+}));
 
 const Map = (props) => {
-    const { defaultCenter } = props;
     const { mapZoom } = useSelector((state) => state.Map);
+    const { apiKey, mapOptions, defaultZoom, defaultCenter, hasKmlLayer, kmlLayerURL, mapClassName, containerClassName } = props;
     return (
-        <GMap
+        <GoogleMaps
             zoom={mapZoom}
             isMarkerShown={true}
+            mapOptions={mapOptions}
+            hasKmlLayer={hasKmlLayer}
+            kmlLayerURL={kmlLayerURL}
+            defaultZoom={defaultZoom}
             defaultCenter={defaultCenter}
-            mapElement={<div className="scroll-map-row" />}
             loadingElement={<div style={{ width: "100%" }} />}
-            containerElement={<Container className="scroll-map-container" />}
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfLyiMPaR2VvvyGTqY7S6kX-SYcjUJyYE"
+            mapElement={<div className={mapClassName || "map-element"} />}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
+            containerElement={<div className={containerClassName || "map-element-container"} />}
         >
             {props.children}
-        </GMap>
+        </GoogleMaps>
     )
 }
 

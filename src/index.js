@@ -1,12 +1,15 @@
-import dotenv from 'dotenv';
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { store } from './Redux/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import { store } from './Redux/store';
+
+// FOR DEV ONLY
+import dotenv from 'dotenv';
 dotenv.config();
+// FOR DEV ONLY
 
 ReactDOM.render(
     <Provider store={store}>
