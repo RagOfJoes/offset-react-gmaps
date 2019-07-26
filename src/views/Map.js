@@ -1,11 +1,19 @@
-// Created By: Victor Ragojos
+/**
+ * Map View using react-google-maps Component by @author [Tom Chent](https://github.com/tomchentw)
+ * 
+ * @version 1.0.0
+ * @author [Victor Ragojos](https://github.com/RagofJoes)
+ */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { assignMapRef, changeMapZoom } from '../Redux/Actions/Map';
 import { GoogleMap, withGoogleMap, withScriptjs, KmlLayer } from 'react-google-maps';
 
-// TODO: Move API Key to an environment variable
+/**
+ * @see See [Wikipedia](https://tomchentw.github.io/react-google-maps/)
+ */
 const GoogleMaps = withScriptjs(withGoogleMap((props) => {
     const dispatch = useDispatch();
 
@@ -72,5 +80,39 @@ const Map = (props) => {
         </GoogleMaps>
     )
 }
+
+Map.propTypes = ({
+    /**
+     * @param {string} apiKey for Google Maps API Key [required]
+     */
+    apiKey: PropTypes.string.isRequired,
+
+    /**
+     * @param {object} mapOptions for Google Maps Options
+     * @see See [Wikipedia](https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions) for a list of fields
+     */
+    mapOptions: PropTypes.object,
+
+    /**
+     * @param {Int} defaultZoom for defaultZoom for Google Map [required]
+     * @param {Int} defaultCenter for defaultCenter for Google Map [required]
+     */
+    defaultZoom: PropTypes.number.isRequired,
+    defaultCenter: PropTypes.number.isRequired,
+
+    /**
+     * @param {boolean} hasKmlLayer allows for custom KML Layer for boundaries etc.
+     * @param {string} kmlLayerURL if @property hasHmlLayer === true [required]
+     */
+    hasKmlLayer: PropTypes.bool,
+    kmlLayerURL: PropTypes.bool,
+
+    /**
+     * @param {string} mapClassName custom Google Map Element className @default "map-element"
+     * @param {string} containerClassName custom Google Map Container Element className @default "map-element-container"
+     */
+    mapClassName: PropTypes.string,
+    containerClassName: PropTypes.string
+})
 
 export default Map;
