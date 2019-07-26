@@ -2,9 +2,10 @@ import './App.scss';
 import React from 'react';
 import Map from './views/Map';
 import Marker from './views/Marker';
+import Section from './views/Section';
 import { useSelector } from 'react-redux';
 import { mapStyle } from './config/mapStyle';
-import { coordinates } from './config/coords';
+import { coordinates, vineyardNames } from './config/coords';
 import { Container, Row, Col } from 'reactstrap';
 
 // TODO: Get API key
@@ -15,15 +16,13 @@ const App = () => {
   return (
     <Container fluid className="App">
       <Row className="scroll-places-row">
-        <Col>
-          {/* TODO: Create Card component and get captions etc.*/}
-          <h1>NORTHERN CALIFORNIA</h1>
+        <Col className="scroll-places-col">
+          <Section/>
         </Col>
       </Row>
-
       <Map
         // Map style props
-        defaultZoom={10}
+        defaultZoom={12}
         mapClassName="scroll-map-row"
         containerClassName="scroll-map-container"
 
@@ -38,7 +37,7 @@ const App = () => {
         // Map Options Props
         mapOptions={
           {
-            minZoom: 10,
+            minZoom: 12,
             maxZoom: 13,
             disableDefaultUI: true,
 
@@ -49,8 +48,8 @@ const App = () => {
       >
         {
           // Map entire coordinates array for Markers and Vineyard names
-          coordinates.map((coord) => {
-            const { lat, lng, Vineyard } = coord;
+          vineyardNames.map((vineyard) => {
+            const { lat, lng } = coordinates[vineyard];
             return (
               <Marker
                 // Position props
@@ -58,7 +57,8 @@ const App = () => {
                 lng={lng}
 
                 // Key/Ref props
-                key={Vineyard}
+                key={vineyard}
+                text={vineyard.includes("Estate") || vineyard.includes("Ranch") ? vineyard : vineyard.concat(" Vineyard")}
 
                 // customIcon prop
                 customIconImage={require("./assets/CustomMarker.svg")}
