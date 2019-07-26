@@ -36,6 +36,11 @@ const CustomMarker = (props) => {
                     url: customIconImage ? customIconImage : null
                 }
             }
+            label={
+                {
+                    text: text
+                }
+            }
             clickable={isClickable}
             position={{ lat, lng }}
             ref={ref => refs.marker = ref}
