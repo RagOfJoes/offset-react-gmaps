@@ -49,7 +49,7 @@ const GoogleMaps = withScriptjs(withGoogleMap((props) => {
                                 suppressInfoWindows: true
                             }
                         }
-                        onClick={(e) => console.log(e)}
+                        // onClick={(e) => console.log(e)}
                         url={kmlLayerURL}
                     />
                     : null
@@ -98,14 +98,14 @@ Map.propTypes = ({
      * @param {Int} defaultCenter for defaultCenter for Google Map [required]
      */
     defaultZoom: PropTypes.number.isRequired,
-    defaultCenter: PropTypes.number.isRequired,
+    defaultCenter: PropTypes.object.isRequired,
 
     /**
      * @param {boolean} hasKmlLayer allows for custom KML Layer for boundaries etc.
      * @param {string} kmlLayerURL if @property hasHmlLayer === true [required]
      */
     hasKmlLayer: PropTypes.bool,
-    kmlLayerURL: PropTypes.bool,
+    kmlLayerURL: PropTypes.string,
 
     /**
      * @param {string} mapClassName custom Google Map Element className @default "map-element"
