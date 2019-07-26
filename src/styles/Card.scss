@@ -1,0 +1,46 @@
+@import "../App.scss";
+
+.card-container {
+    width: 100%;
+    height: 100%;
+    .card-container-col {
+        width: 100%;
+        height: 100%;
+        .card-image-row {
+            width: 100%;
+            height: 40%;                
+            background-size: cover;
+            background: url("../assets/temp-vineyard-img.png") center no-repeat;
+        }
+        .card-text-row {
+            width: 100%;
+            // height: 60%;
+            // .card-text-col {
+            //     width: 100%;
+            //     // height: 100%;
+            //     color: $fontColorPrimary;
+            //     h1, p {
+            //     margin: 10px 0 10px 0;
+                // }
+                .card-text-title-row {
+                    width: 100%;
+                    // height: 100%;
+                    font-size: 1.25rem;
+                    font-family: $bigcaslon;
+                }
+                    .card-text-location-row {
+                    width: 100%;
+                    // height: 100%;
+                    font-weight: 700;
+                    font-size: 1.3rem;
+                    font-family: $tradegothiccondensed;
+                }
+                    .card-text-description-row {
+                    width: 100%;
+                    // height: 100%;
+                    font-family: $caslon;
+                }
+            }
+        // }
+    }
+}
