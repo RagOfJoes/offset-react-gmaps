@@ -13,15 +13,14 @@ const App = () => {
   // console.log(process.env)
   const { mapCenter } = useSelector((state) => state.Map);
   return (
-    // TODO: Create Card component and 
     <Container fluid className="App">
       <Row className="scroll-places-row">
         <Col>
+          {/* TODO: Create Card component and get captions etc.*/}
           <h1>NORTHERN CALIFORNIA</h1>
         </Col>
       </Row>
 
-      {/* Start Map View */}
       <Map
         // Map style props
         defaultZoom={10}
@@ -66,13 +65,17 @@ const App = () => {
 
                 // isFocused props
                 isClickable
+                /**  
+                 * toPrecision method is for ensuring that lang & lng returned by onClick event, @see See [src/views](Marker), are the same as,
+                 * @see See [src/config](coords), lat & lng
+                 * 
+                */
                 isFocused={lat.toPrecision(10) === mapCenter.lat.toPrecision(10) && lng.toPrecision(10) === mapCenter.lng.toPrecision(10)}
               />
             )
           })
         }
       </Map>
-      {/* End Map View */}
     </Container>
   );
 }
