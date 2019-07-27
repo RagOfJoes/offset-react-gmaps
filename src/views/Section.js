@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card } from './Card';
+import "../styles/Section.scss";
 import { Row, Col } from 'reactstrap';
 import { vineyardNames, coordinates } from '../config/coords';
 
@@ -26,11 +27,6 @@ const Section = (props) => {
                     </Col>
                 </Row>
                 <Card/>
-                {/* <Row className="section-card-row">
-                    <Col>
-                        <Card></Card>
-                    </Col>
-                </Row> */}
             </Col>
         </Row>
 

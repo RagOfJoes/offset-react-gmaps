@@ -1,0 +1,68 @@
+@import "../App.scss";
+
+.section-container {
+    width: 85%;
+    height: 100%;
+    margin: 0 !important;
+    .section-container-col {
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        .section-text-row {
+            height: auto;
+            color: $fontColorPrimary;
+            margin-left: auto;
+            margin-right: auto;
+            .section-text-col {
+                padding: 0;
+                height: 100%;
+                .section-text-sectionTitle-row {
+                    font-size: 1.5rem;
+                    font-family: $bigcaslon;
+                }
+                .section-text-appellations-row {
+                    color: $fontColorPrimary;
+                    h1 {
+                        font-size: 1rem;
+                        font-weight: 100;
+                        margin-bottom: 0;
+                        word-break: break-all;
+                        color: $fontColorPrimary;
+                        font-family: $tradegothiccondensed;
+                        mark {
+                            font-size: 1.2rem;
+                            font-weight: bold;
+                            color: $fontColorPrimary;
+                            background-color: transparent;                  
+                            font-family: $tradegothiccondensed;
+                        }
+                    }
+                }
+                .section-text-sectionDescription-row {
+                    font-family: $bigcaslon;
+                    color: $fontColorPrimary;
+                    p {
+                        margin-bottom: 0;
+                        font-size: 1.2rem;
+                    }
+                }
+                .section-divider-row {
+                    width: 100%;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    .section-divider {
+                        width: 100%;
+                        border: .5px solid #7D7D7D;
+                    }
+                }
+            }
+        }
+        .section-card-row {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
