@@ -1,30 +1,83 @@
 const initState = {
-    mapRef: "",
-    mapZoom: 10,
-    mapCenter: { lat: 38.5781274, lng: -122.8758549 },
-}
+    refs: {
+        map: {
+            zoom: 11,
+            ref: undefined,
+            center: {
+                lat: 38.5781274,
+                lng: -122.8758549
+            }
+        },
+        scroll: {
+            ref: undefined,
+            isScrolling: false
+        }
+    },
+};
 
 const reducer = (state = initState, action) => {
     switch (action.type) {
+        case "ASSIGN_SCROLL_REF":
+            return {
+                ...state,
+                refs: {
+                    ...state.refs,
+                    scroll: {
+                        ...state.refs.scroll,
+                        ref: action.ref
+                    }
+                }
+            };
+        case "IS_SCROLLING":
+            return {
+                ...state,
+                refs: {
+                    ...state.refs,
+                    scroll: {
+                        ...state.refs.scroll,
+                        isScrolling: action.isScrolling
+                    }
+                }
+            };
         case "ASSIGN_MAP_REF":
             return {
                 ...state,
-                mapRef: action.ref
-            }
+                refs: {
+                    ...state.refs,
+                    map: {
+                        ...state.refs.map,
+                        ref: action.ref
+                    }
+                }
+            };
         case "CHANGE_MAP_ZOOM":
             return {
                 ...state,
-                mapZoom: action.zoom
-            }
+                refs: {
+                    ...state.refs,
+                    map: {
+                        ...state.refs.map,
+                        zoom: action.zoom
+                    }
+                }
+            };
         case "CHANGE_MAP_CENTER":
             return {
                 ...state,
-                mapZoom: action.zoom,
-                mapCenter: { lat: action.lat, lng: action.lng }
-            }
+                refs: {
+                    ...state.refs,
+                    map: {
+                        ...state.refs.map,
+                        center: {
+                            lat: action.lat,
+                            lng: action.lng
+                        }
+                    }
+                }
+            };
         default:
             return state;
     }
-}
+};
 
 export default reducer;
