@@ -11,7 +11,7 @@ const isInBounds = ({dispatch, refs}, {lat, lng}, scrollElem, cardRef, mapRef) =
     const scrollPosition = scrollElem.scrollTop;
 
     const cardHeight = cardRef.getBoundingClientRect();
-    const cardTopPosition = scrollPosition - cardHeight.top;
+    const cardTopPosition = scrollPosition - (cardHeight.top + 50);
     const cardBottomPosition = cardTopPosition + cardHeight.height;
 
     if(scrollPosition >=  cardTopPosition && scrollPosition <= cardBottomPosition && center.lat !== lat) {
