@@ -1,34 +1,68 @@
-import React from 'react';
-import "../styles/Card.scss"
-import { Container, Row, Col } from 'reactstrap';
+import React from "react";
+import "../styles/Card.scss";
+import { connect } from 'react-redux';
+import { Row, Col, Button } from "reactstrap";
+import { changeMapCenter } from "../Redux/Actions/Map";
 
 // TODO: Create a custom styles and className option
 // TODO: Create a Desktop and Mobile version
-export const Card = (props) => {
-    const { title, location, description } = props;
-    return (
-        <Row className="card-container">
-            <Col className="card-container-col">
-                <Row className="card-image-row">
-                    <Col className="card-image-col">
-                    </Col>
-                </Row>
-                <Row className="card-text-row">
-                    <Col className="card-text-col">
-                        <Row className="card-text-title-row">
-                            <h1>{title}</h1>
-                        </Row>
-                        <Row className="card-text-location-row">
-                            <p>{location}</p>
-                        </Row>
-                        <Row className="card-text-description-row">
-                            <p>Lorem ipsum dolor sit amet consectetur,
-                            adipisicing elit. Atque nesciunt fugit officia debitis
-                        nobis iusto doloremque error facilis fugiat laboriosam.</p>
-                        </Row>
-                    </Col>
-                </Row>
-            </Col>
-        </Row>
-    )
+const isInBounds = ({dispatch, refs}, {lat, lng}, scrollElem, cardRef, mapRef) => {
+    const {center} = refs.map;
+    const scrollPosition = scrollElem.scrollTop;
+
+    const cardHeight = cardRef.getBoundingClientRect();
+    const cardTopPosition = scrollPosition - cardHeight.top;
+    const cardBottomPosition = cardTopPosition + cardHeight.height;
+
+    if(scrollPosition >=  cardTopPosition && scrollPosition <= cardBottomPosition && center.lat !== lat) {
+        mapRef.panTo({lat, lng});
+        dispatch(changeMapCenter(11, lat, lng));
+    }
 }
+
+class Card extends React.Component {
+    render() {
+        const { title, location, caption, position, mapElem, scrollElem } = this.props;
+        if(mapElem && scrollElem && this.props.refs.scroll.isScrolling) {
+            isInBounds(this.props, position, scrollElem, this.cardRef, mapElem);
+        }
+        
+        return (
+            <div className={`card-container col-12 ${title}`} ref={(ref) => this.cardRef = ref}>
+                <Row className="card-container-row">
+                    <Col className="card-image-col col-12" />
+                    <Col className="card-title-col col-12">
+                        <h1>
+                            {title.includes("Estate") || title.includes("Ranch")
+                                ? title
+                                : title.concat(" Vineyard")}
+                        </h1>
+                    </Col>
+                    <Col className="card-location-col col-12">
+                        <h2>{location.toUpperCase()}</h2>
+                    </Col>
+                    <Col className="card-caption-col col-12">
+                        <p>{caption}</p>
+                    </Col>
+                    <Col className="card-button-col col-12">
+                        <a
+                            href={`https://www.google.com/maps/search/?api=1&query=${
+                                position.lat
+                            },${position.lng}`}
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            <Button color="primary">EXPLORE IN MAP</Button>
+                        </a>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return state.Map;
+}
+
+export default connect(mapStateToProps)(Card);
