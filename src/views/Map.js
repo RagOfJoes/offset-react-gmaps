@@ -15,14 +15,10 @@ import { GoogleMap, withGoogleMap, withScriptjs, KmlLayer } from 'react-google-m
  * @see See [Wikipedia](https://tomchentw.github.io/react-google-maps/)
  */
 const GoogleMaps = withScriptjs(withGoogleMap((props) => {
-    const dispatch = useDispatch();
-
-    const refs = {
-        map: undefined
-    };
+    const { map } = useSelector((state) => state.Map.refs);
 
     // Retrieve props
-    const { zoom, mapOptions, defaultZoom, defaultCenter, hasKmlLayer, kmlLayerURL } = props;
+    const { zoom, mapOptions, defaultZoom, defaultCenter, hasKmlLayer, kmlLayerURL, onMapMounted } = props;
 
     // GoogleMap Parent Component
     return (
@@ -32,10 +28,7 @@ const GoogleMaps = withScriptjs(withGoogleMap((props) => {
             hasKmlLayer={hasKmlLayer}
             options={{ ...mapOptions }}
             defaultCenter={defaultCenter}
-            ref={(ref) => { refs.map = ref; }}
-            onClick={(e) => console.log(e)}
-            onIdle={() => { dispatch(changeMapZoom(13)) }}
-            onTilesLoaded={() => { dispatch(assignMapRef(refs.map)); }}
+            ref={(ref) => map.ref !== ref ? onMapMounted(ref) : null}
         >
             {props.children}
             {
@@ -60,11 +53,12 @@ const GoogleMaps = withScriptjs(withGoogleMap((props) => {
 }));
 
 const Map = (props) => {
-    const { mapZoom } = useSelector((state) => state.Map);
+    const dispatch = useDispatch();
+    const { zoom } = useSelector((state) => state.Map.refs.map);
     const { apiKey, mapOptions, defaultZoom, defaultCenter, hasKmlLayer, kmlLayerURL, mapClassName, containerClassName } = props;
     return (
         <GoogleMaps
-            zoom={mapZoom}
+            zoom={zoom}
             isMarkerShown={true}
             mapOptions={mapOptions}
             hasKmlLayer={hasKmlLayer}
@@ -72,6 +66,7 @@ const Map = (props) => {
             defaultZoom={defaultZoom}
             defaultCenter={defaultCenter}
             loadingElement={<div style={{ width: "100%" }} />}
+            onMapMounted={(ref) => dispatch(assignMapRef(ref))}
             mapElement={<div className={mapClassName || "map-element"} />}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
             containerElement={<div className={containerClassName || "map-element-container"} />}
