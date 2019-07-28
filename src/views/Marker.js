@@ -18,15 +18,12 @@ import { useDispatch, useSelector } from 'react-redux';
 */
 const CustomMarker = (props) => {
     const dispatch = useDispatch();
-    const refs = {
-        marker: undefined
-    }
-
+    
     // Retrieve props
     const { lat, lng, text, customIconImage, isClickable, isFocused } = props;
 
     // Retrieve MapRef DOM Node from Redux
-    const { mapRef, mapZoom } = useSelector(state => state.Map)
+    const { ref, zoom } = useSelector(state => state.Map.refs.map)
     return (
         <Marker
             key={text}
@@ -36,14 +33,13 @@ const CustomMarker = (props) => {
                     url: customIconImage ? customIconImage : null
                 }
             }
-            label={
-                {
-                    text: text
-                }
-            }
+            // label={
+            //     {
+            //         text: text
+            //     }
+            // }
             clickable={isClickable}
             position={{ lat, lng }}
-            ref={ref => refs.marker = ref}
             // Check if clicked marker is the same as mapCenter
             opacity={isClickable && isFocused ? 1 : .7}
             onClick={(mouseEvent) => {
@@ -53,11 +49,12 @@ const CustomMarker = (props) => {
 
                 // Pan to given Lat and Long coord if mapMarker is clickable
                 if (isClickable) {
-                    mapRef.panTo({ lat, lng })
+                    ref.panTo({ lat, lng })
 
                     // Change Map Center for checking if marker isFocused
-                    dispatch(changeMapCenter(mapZoom === 10 ? 13 : 10, lat, lng));
+                    dispatch(changeMapCenter(zoom === 11 ? 13 : 11, lat, lng));
                 }
+                // document.getElementsByClassName("scroll--row")[0].scrollIntoView();
             }}
         />
     )
