@@ -4,8 +4,8 @@ const initState = {
             zoom: 11,
             ref: undefined,
             center: {
-                lat: 38.5781274,
-                lng: -122.8758549
+                lat: 45.2825284,
+                lng: -123.0408265
             }
         },
         scroll: {
