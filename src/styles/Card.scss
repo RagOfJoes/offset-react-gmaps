@@ -55,8 +55,8 @@
         }
 
         .card-button-col {
-            opacity: .7;
             padding: 0;
+            opacity: .7;
             max-width: 85%;
             transition: .3s linear all;
 
@@ -65,10 +65,16 @@
             }
 
             button {
-                border: 0px;
+                color: #AB9664;
+                border-radius: 0;
                 box-shadow: none !important;
-                background-color: #AB9664 !important;
+                border: 1px solid #AB9664;
+                background-color: #FFFFFF !important;
 
+                &:hover {
+                    color: #FFFFFF;
+                    background-color: #AB9664 !important;
+                }
             }
         }
     }
