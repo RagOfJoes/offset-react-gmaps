@@ -14,10 +14,6 @@ import { assignScrollRef, isScrolling, } from "./Redux/Actions/Map";
 // TODO: Get API key
 // TODO: Import google maps API
 class App extends React.Component {
-    componentWillUnmount() {
-        this.scrollRef.removeListener("scroll");
-    }
-
     render() {
         const { refs } = this.props;
         const { center } = refs.map;
@@ -27,13 +23,12 @@ class App extends React.Component {
             if(!this.scrollRef) {
                 this.scrollRef = ref;
                 this.props.dispatch(assignScrollRef(ref));
-                this.scrollRef.addEventListener("scroll", () => this.props.dispatch(isScrolling(true)));
             }
         }
 
         return (
             <Container fluid className="App">
-                <div className="scroll-places-row" ref={(ref) => assignScroll(ref) }>
+                <div className="scroll-places-row" ref={(ref) => assignScroll(ref) } onScroll={() => this.props.dispatch(isScrolling(true))}>
                     {sections.map(section => {
                         const {
                             sectionTitle,
@@ -77,7 +72,7 @@ class App extends React.Component {
                     containerClassName="scroll-map-container"
                     // Required props
                     apiKey="AIzaSyAfLyiMPaR2VvvyGTqY7S6kX-SYcjUJyYE"
-                    defaultCenter={{ lat: 38.5781274, lng: -122.8758549 }}
+                    defaultCenter={{ lat: 45.2825284, lng: -123.0408265 }}
                     // KML Layer Props
                     hasKmlLayer
                     kmlLayerURL="http://www.google.com/maps/d/kml?forcekml=1&mid=1GzhhLKvqqJfFwnxdnkwW5q8qVaWZpzPI"
