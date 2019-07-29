@@ -1,38 +1,37 @@
 /**
  * Marker View using react-google-maps Component by @author [Tom Chent](https://github.com/tomchentw)
- * 
+ *
  * @version 1.0.0
  * @author [Victor Ragojos](https://github.com/RagofJoes)
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Marker } from 'react-google-maps';
-import { changeMapCenter } from '../Redux/Actions/Map';
-import { useDispatch, useSelector } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { Marker } from "react-google-maps";
+import { changeMapCenter } from "../Redux/Actions/Map";
+import { useDispatch, useSelector } from "react-redux";
 
 /**
-*   Figure Custom Marker View Component   
-*
-*   @see See [Wikipedia](https://tomchentw.github.io/react-google-maps/) for a list of different props
-*/
-const CustomMarker = (props) => {
+ *   Figure Custom Marker View Component
+ *
+ *   @see See [Wikipedia](https://tomchentw.github.io/react-google-maps/) for a list of different props
+ */
+const CustomMarker = React.memo(props => {
     const dispatch = useDispatch();
-    
+
     // Retrieve props
     const { lat, lng, text, customIconImage, isClickable, isFocused } = props;
 
     // Retrieve MapRef DOM Node from Redux
-    const { ref, zoom } = useSelector(state => state.Map.refs.map)
+    const { ref, zoom } = useSelector(state => state.Map.refs.map);
     return (
         <Marker
             key={text}
-            icon={
-                {
-                    // Retrieve from local files image
-                    url: customIconImage ? customIconImage : null
-                }
-            }
+            icon={{
+                // Retrieve from local files image
+                url: customIconImage ? customIconImage : null
+            }}
+            animation={2}
             // label={
             //     {
             //         text: text
@@ -41,15 +40,14 @@ const CustomMarker = (props) => {
             clickable={isClickable}
             position={{ lat, lng }}
             // Check if clicked marker is the same as mapCenter
-            opacity={isClickable && isFocused ? 1 : .7}
-            onClick={(mouseEvent) => {
-                // Retrieve Lat and Long from Google Maps API event
-                const lat = mouseEvent.latLng.lat();
-                const lng = mouseEvent.latLng.lng();
-
+            opacity={isClickable && isFocused ? 1 : 0.7}
+            onClick={mouseEvent => {
                 // Pan to given Lat and Long coord if mapMarker is clickable
                 if (isClickable) {
-                    ref.panTo({ lat, lng })
+                    // Retrieve Lat and Long from Google Maps API event
+                    const lat = mouseEvent.latLng.lat();
+                    const lng = mouseEvent.latLng.lng();
+                    ref.panTo({ lat, lng });
 
                     // Change Map Center for checking if marker isFocused
                     dispatch(changeMapCenter(zoom === 11 ? 13 : 11, lat, lng));
@@ -57,10 +55,10 @@ const CustomMarker = (props) => {
                 // document.getElementsByClassName("scroll--row")[0].scrollIntoView();
             }}
         />
-    )
-}
+    );
+});
 
-CustomMarker.propTypes = ({
+CustomMarker.propTypes = {
     /**
      * @param {float} lat for latitude
      * @param {flaot} lng for longtitude
@@ -79,6 +77,6 @@ CustomMarker.propTypes = ({
      */
     isClickable: PropTypes.bool,
     isFocused: PropTypes.bool
-})
+};
 
 export default CustomMarker;
