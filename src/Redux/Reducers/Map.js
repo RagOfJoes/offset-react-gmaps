@@ -3,6 +3,7 @@ const initState = {
         map: {
             zoom: 11,
             ref: undefined,
+            hasMounted: false,
             center: {
                 lat: 45.2825284,
                 lng: -123.0408265
@@ -46,7 +47,8 @@ const reducer = (state = initState, action) => {
                     ...state.refs,
                     map: {
                         ...state.refs.map,
-                        ref: action.ref
+                        ref: action.ref,
+                        hasMounted: true
                     }
                 }
             };

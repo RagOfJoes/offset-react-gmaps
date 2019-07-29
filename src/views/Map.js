@@ -1,64 +1,87 @@
 /**
  * Map View using react-google-maps Component by @author [Tom Chent](https://github.com/tomchentw)
- * 
+ *
  * @version 1.0.0
  * @author [Victor Ragojos](https://github.com/RagofJoes)
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { assignMapRef, changeMapZoom } from '../Redux/Actions/Map';
-import { GoogleMap, withGoogleMap, withScriptjs, KmlLayer } from 'react-google-maps';
+import React from "react";
+import PropTypes from "prop-types";
+import { assignMapRef } from "../Redux/Actions/Map";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    GoogleMap,
+    withGoogleMap,
+    withScriptjs,
+    KmlLayer
+} from "react-google-maps";
 
 /**
  * @see See [Wikipedia](https://tomchentw.github.io/react-google-maps/)
  */
-const GoogleMaps = withScriptjs(withGoogleMap((props) => {
-    const { map } = useSelector((state) => state.Map.refs);
+const GoogleMaps = withScriptjs(
+    withGoogleMap(
+        React.memo(props => {
+            const dispatch = useDispatch();
+            const { map } = useSelector(state => state.Map.refs);
 
-    // Retrieve props
-    const { zoom, mapOptions, defaultZoom, defaultCenter, hasKmlLayer, kmlLayerURL, onMapMounted } = props;
+            // Retrieve props
+            const {
+                zoom,
+                mapOptions,
+                defaultZoom,
+                hasKmlLayer,
+                kmlLayerURL,
+                defaultCenter
+            } = props;
 
-    // GoogleMap Parent Component
-    return (
-        <GoogleMap
-            zoom={zoom}
-            defaultZoom={defaultZoom}
-            hasKmlLayer={hasKmlLayer}
-            options={{ ...mapOptions }}
-            defaultCenter={defaultCenter}
-            ref={(ref) => map.ref !== ref ? onMapMounted(ref) : null}
-        >
-            {props.children}
-            {
-                // Check if wanted KML layer for boundaries etc.
-                hasKmlLayer ?
-                    <KmlLayer
-                        options={
-                            {
-                                clickable: true,
+            // GoogleMap Parent Component
+            return (
+                <GoogleMap
+                    zoom={zoom}
+                    defaultZoom={defaultZoom}
+                    hasKmlLayer={hasKmlLayer}
+                    options={{ ...mapOptions }}
+                    defaultCenter={defaultCenter}
+                    ref={(ref) => {
+                        if (ref !== null && ref !== map.ref) {
+                            dispatch(assignMapRef(ref));
+                        }
+                    }}
+                >
+                    {// Check if wanted KML layer for boundaries etc.
+                    hasKmlLayer ? (
+                        <KmlLayer
+                            options={{
+                                clickable: false,
                                 preserveViewport: true,
                                 suppressInfoWindows: true
-                            }
-                        }
-                        // onClick={(e) => console.log(e)}
-                        url={kmlLayerURL}
-                    />
-                    : null
-            }
-
-        </GoogleMap>
+                            }}
+                            url={kmlLayerURL}
+                        />
+                    ) : null}
+                    {props.children}
+                </GoogleMap>
+            );
+        })
     )
-}));
+);
 
-const Map = (props) => {
-    const dispatch = useDispatch();
-    const { zoom } = useSelector((state) => state.Map.refs.map);
-    const { apiKey, mapOptions, defaultZoom, defaultCenter, hasKmlLayer, kmlLayerURL, mapClassName, containerClassName } = props;
+const Map = React.memo(props => {
+    const { map } = useSelector(state => state.Map.refs);
+    const {
+        apiKey,
+        mapOptions,
+        defaultZoom,
+        hasKmlLayer,
+        kmlLayerURL,
+        mapClassName,
+        defaultCenter,
+        containerClassName
+    } = props;
     return (
         <GoogleMaps
-            zoom={zoom}
+            zoom={map.zoom}
             isMarkerShown={true}
             mapOptions={mapOptions}
             hasKmlLayer={hasKmlLayer}
@@ -66,17 +89,20 @@ const Map = (props) => {
             defaultZoom={defaultZoom}
             defaultCenter={defaultCenter}
             loadingElement={<div style={{ width: "100%" }} />}
-            onMapMounted={(ref) => dispatch(assignMapRef(ref))}
             mapElement={<div className={mapClassName || "map-element"} />}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
-            containerElement={<div className={containerClassName || "map-element-container"} />}
+            containerElement={
+                <div
+                    className={containerClassName || "map-element-container"}
+                />
+            }
         >
             {props.children}
         </GoogleMaps>
-    )
-}
+    );
+});
 
-Map.propTypes = ({
+Map.propTypes = {
     /**
      * @param {string} apiKey for Google Maps API Key [required]
      */
@@ -108,6 +134,6 @@ Map.propTypes = ({
      */
     mapClassName: PropTypes.string,
     containerClassName: PropTypes.string
-})
+};
 
 export default Map;
