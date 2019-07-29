@@ -6,7 +6,9 @@
  */
 
 import React from "react";
+import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
+import Card from "./Card";
 import { Marker } from "react-google-maps";
 import { changeMapCenter } from "../Redux/Actions/Map";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,8 +53,10 @@ const CustomMarker = React.memo(props => {
 
                     // Change Map Center for checking if marker isFocused
                     dispatch(changeMapCenter(zoom === 11 ? 13 : 11, lat, lng));
+
+                    // Scrolls to respective Card Component
+                    document.getElementsByClassName(`${text}`)[0].scrollIntoView();
                 }
-                // document.getElementsByClassName("scroll--row")[0].scrollIntoView();
             }}
         />
     );
