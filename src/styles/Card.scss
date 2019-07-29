@@ -1,5 +1,7 @@
 @import "../App.scss";
-
+body {
+	padding: 0 !important;
+}
 .card-container {
     width: 100%;
     height: 100%;
@@ -22,16 +24,16 @@
         justify-content: center;
 
         .card-image-col {
-            padding: 0;
-            height: 40vh;
-            max-width: 85%;
+            height: 0;
+            padding-bottom: 56%;
+            width: 100%;
             background-size: cover;
             background: url("../assets/temp-vineyard-img.png") no-repeat center;
         }
 
         .card-title-col {
             padding: 0;
-            max-width: 85%;
+
 
             h1 {
                 color: $fontColorPrimary;
@@ -41,7 +43,6 @@
 
         .card-location-col {
             padding: 0;
-            max-width: 85%;
 
             h2 {
                 font-weight: 600;
@@ -53,7 +54,7 @@
 
         .card-caption-col {
             padding: 0;
-            max-width: 85%;
+
 
             p {
                 color: $fontColorPrimary;
@@ -64,7 +65,7 @@
         .card-button-col {
             padding: 0;
             opacity: .7;
-            max-width: 85%;
+
             transition: .3s linear all;
 
             &:hover {
@@ -86,3 +87,4 @@
         }
     }
 }
+

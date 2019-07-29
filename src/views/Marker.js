@@ -6,9 +6,7 @@
  */
 
 import React from "react";
-import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
-import Card from "./Card";
 import { Marker } from "react-google-maps";
 import { changeMapCenter } from "../Redux/Actions/Map";
 import { useDispatch, useSelector } from "react-redux";
