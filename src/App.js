@@ -1,5 +1,5 @@
 import "./App.scss";
-import React, { useReducer } from "react";
+import React from "react";
 import Map from "./views/Map";
 import Card from "./views/Card";
 import Marker from "./views/Marker";
@@ -11,7 +11,6 @@ import { sections } from "./config/regions";
 import { coordinates, vineyardNames } from "./config/coords";
 import { assignScrollRef, isScrolling, } from "./Redux/Actions/Map";
 
-// TODO: Import google maps API
 class App extends React.Component {
     render() {
         const { refs } = this.props;
