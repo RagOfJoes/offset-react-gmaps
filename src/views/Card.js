@@ -77,7 +77,7 @@ class Card extends React.Component {
                             target="_blank"
                             className="btn btn-primary"
                         >
-                            Explore in Map
+                            Explore Vineyard
                         </a>
                     </Col>
                 </div>
