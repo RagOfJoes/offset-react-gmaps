@@ -9,24 +9,29 @@ import { Container } from "reactstrap";
 import { mapStyle } from "./config/mapStyle";
 import { sections } from "./config/regions";
 import { coordinates, vineyardNames } from "./config/coords";
-import { assignScrollRef, isScrolling, } from "./Redux/Actions/Map";
+import { assignScrollRef, isScrolling } from "./Redux/Actions/Map";
+import { InfoWindow } from "react-google-maps";
 
 class App extends React.Component {
     render() {
         const { refs } = this.props;
         const { center } = refs.map;
 
-        const assignScroll = (ref) => {
+        const assignScroll = ref => {
             // Prevents from executing assignRef multiple times
             if (!this.scrollRef) {
                 this.scrollRef = ref;
                 this.props.dispatch(assignScrollRef(ref));
             }
-        }
+        };
 
         return (
             <Container fluid className="App">
-                <div className="scroll-places-row" ref={(ref) => assignScroll(ref)} onScroll={() => this.props.dispatch(isScrolling(true))}>
+                <div
+                    className="scroll-places-row"
+                    ref={ref => assignScroll(ref)}
+                    onScroll={() => this.props.dispatch(isScrolling(true))}
+                >
                     {sections.map(section => {
                         const {
                             sectionTitle,
@@ -65,7 +70,7 @@ class App extends React.Component {
                 </div>
                 <Map
                     // Map style props
-                    defaultZoom={11}
+                    defaultZoom={10}
                     mapClassName="scroll-map-row"
                     containerClassName="scroll-map-container"
                     // Required props
@@ -76,8 +81,9 @@ class App extends React.Component {
                     kmlLayerURL="http://www.google.com/maps/d/kml?forcekml=1&mid=1GzhhLKvqqJfFwnxdnkwW5q8qVaWZpzPI"
                     // Map Options Props
                     mapOptions={{
-                        minZoom: 11,
-                        maxZoom: 11,
+                        // minZoom: 10,
+                        // maxZoom: 11,
+                        zoomControl: true,
                         disableDefaultUI: true,
 
                         // Custom Map Style
@@ -85,34 +91,36 @@ class App extends React.Component {
                     }}
                 >
                     {// Map entire coordinates array for Markers and Vineyard names
-                        vineyardNames.map(vineyard => {
-                            const { lat, lng } = coordinates[vineyard];
-                            return (
-                                <Marker
-                                    // Position props
-                                    lat={lat}
-                                    lng={lng}
-                                    // Key/Ref props
-                                    key={vineyard}
-                                    text={vineyard}
-                                    // customIcon prop
-                                    customIconImage={require("./assets/CustomMarker.svg")}
-                                    // isFocused props
-                                    isClickable
-                                    /**
-                                     * toPrecision method is for ensuring that lang & lng returned by onClick event, @see See [src/views](Marker), are the same as,
-                                     * @see See [src/config](coords), lat & lng
-                                     */
-                                    isFocused={
-                                        lat.toPrecision(10) ===
+                    vineyardNames.map(vineyard => {
+                        const { lat, lng } = coordinates[vineyard];
+                        return (
+                            <Marker
+                                // Position props
+                                lat={lat}
+                                lng={lng}
+                                // Key/Ref props
+                                key={vineyard}
+                                text={vineyard}
+                                // customIcon prop
+                                images={{
+                                    on: require("./assets/markeron.svg"),
+                                    off: require("./assets/markeroff.svg")
+                                }}
+                                // isFocused props
+                                isClickable
+                                /**
+                                 * toPrecision method is for ensuring that lang & lng returned by onClick event, @see See [src/views](Marker), are the same as,
+                                 * @see See [src/config](coords), lat & lng
+                                 */
+                                isFocused={
+                                    lat.toPrecision(10) ===
                                         center.lat.toPrecision(10) &&
-                                        lng.toPrecision(10) ===
+                                    lng.toPrecision(10) ===
                                         center.lng.toPrecision(10)
-                                    }
-                                />
-                            );
-                        })
-                    }
+                                }
+                            />
+                        );
+                    })}
                 </Map>
             </Container>
         );
