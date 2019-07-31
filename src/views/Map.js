@@ -38,7 +38,7 @@ const GoogleMaps = withScriptjs(
             // GoogleMap Parent Component
             return (
                 <GoogleMap
-                    zoom={zoom}
+                    // zoom={zoom}
                     defaultZoom={defaultZoom}
                     hasKmlLayer={hasKmlLayer}
                     options={{ ...mapOptions }}
