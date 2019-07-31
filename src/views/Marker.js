@@ -5,9 +5,9 @@
  * @author [Victor Ragojos](https://github.com/RagofJoes)
  */
 
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Marker } from "react-google-maps";
+import { Marker, InfoWindow } from "react-google-maps";
 import { changeMapCenter } from "../Redux/Actions/Map";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,45 +18,63 @@ import { useDispatch, useSelector } from "react-redux";
  */
 const CustomMarker = React.memo(props => {
     const dispatch = useDispatch();
+    const [isInfoWindowOpen, toggleInfoWindow] = useState(false);
 
     // Retrieve props
-    const { lat, lng, text, customIconImage, isClickable, isFocused } = props;
+    const { lat, lng, text, images, isClickable, isFocused } = props;
 
     // Retrieve MapRef DOM Node from Redux
     const { ref, zoom } = useSelector(state => state.Map.refs.map);
     return (
-        <Marker
-            key={text}
-            icon={{
-                // Retrieve from local files image
-                url: customIconImage ? customIconImage : null
-            }}
-            animation={2}
-            // label={
-            //     {
-            //         text: text
-            //     }
-            // }
-            clickable={isClickable}
-            position={{ lat, lng }}
-            // Check if clicked marker is the same as mapCenter
-            opacity={isClickable && isFocused ? 1 : 0.7}
-            onClick={mouseEvent => {
-                // Pan to given Lat and Long coord if mapMarker is clickable
-                if (isClickable) {
-                    // Retrieve Lat and Long from Google Maps API event
-                    const lat = mouseEvent.latLng.lat();
-                    const lng = mouseEvent.latLng.lng();
-                    ref.panTo({ lat, lng });
+        <div>
+            <Marker
+                key={text}
+                icon={{
+                    url: isFocused ? images.on : images.off
+                }}
+                animation={2}
+                // label={{
+                //     color: 'black',
+                //     fontSize: '30px',
+                //     fontWeight: "bold",
+                //     text: text.toUpperCase(),
+                //     fontFamily: 'Open+Sans+Condensed',
+                // }}
+                clickable={isClickable}
+                position={{ lat, lng }}
+                zIndex={isFocused ? 2 : 1}
+                // Check if clicked marker is the same as mapCenter
+                opacity={isClickable && isFocused ? 1 : 0.7}
+                onClick={mouseEvent => {
+                    // Pan to given Lat and Long coord if mapMarker is clickable
+                    if (isClickable) {
+                        // Retrieve Lat and Long from Google Maps API event
+                        const lat = mouseEvent.latLng.lat();
+                        const lng = mouseEvent.latLng.lng();
+                        ref.panTo({ lat, lng });
 
-                    // Change Map Center for checking if marker isFocused
-                    dispatch(changeMapCenter(zoom === 11 ? 13 : 11, lat, lng));
+                        // Change Map Center for checking if marker isFocused
+                        dispatch(
+                            changeMapCenter(zoom === 11 ? 13 : 11, lat, lng)
+                        );
 
-                    // Scrolls to respective Card Component
-                    document.getElementsByClassName(`${text}`)[0].scrollIntoView();
-                }
-            }}
-        />
+                        // Scrolls to respective Card Component
+                        toggleInfoWindow(true);
+                        document
+                            .getElementsByClassName(`${text}`)[0]
+                            .scrollIntoView();
+                    }
+                }}
+            >
+                {isInfoWindowOpen ? (
+                    <InfoWindow
+                        onCloseClick={() => toggleInfoWindow(false)}
+                    >
+                        <div>HELLO</div>
+                    </InfoWindow>
+                ) : null}
+            </Marker>
+        </div>
     );
 });
 
