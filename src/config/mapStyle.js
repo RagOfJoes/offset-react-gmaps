@@ -1,119 +1,108 @@
 export const mapStyle = [
     {
-        "featureType": "administrative.land_parcel",
-        "elementType": "all",
-        "stylers": [
+        featureType: "administrative.locality",
+        elementType: "label",
+        stylers: [{ visibility: "simplified" }]
+    },
+    {
+        featureType: "administrative.province",
+        elementType: "label",
+        stylers: [{ visibility: "off" }]
+    },
+    {
+        featureType: "administrative.neighborhood",
+        elementType: "label",
+        stylers: [{ visibility: "off" }]
+    },
+    {
+        featureType: "landscape",
+        elementType: "geometry.fill",
+        stylers: [
             {
-                "visibility": "off"
+                color: "#F8F6EC"
             }
         ]
     },
     {
-        "featureType": "landscape.man_made",
-        "elementType": "all",
-        "stylers": [
+        featureType: "landscape.man_made",
+        elementType: "all",
+        stylers: [
             {
-                "visibility": "off"
+                visibility: "off"
             }
         ]
     },
     {
-        "featureType": "poi",
-        "elementType": "labels",
-        "stylers": [
+        featureType: "poi",
+        elementType: "label",
+        stylers: [
             {
-                "visibility": "off"
+                visibility: "simplified"
             }
         ]
     },
     {
-        "featureType": "road",
-        "elementType": "labels",
-        "stylers": [
+        featureType: "poi.park",
+        elementType: "all",
+        stylers: [
             {
-                "visibility": "simplified"
-            },
-            {
-                "lightness": 20
+                color: "#DEEFD7",
+                visibility: "on"
             }
         ]
     },
     {
-        "featureType": "road.highway",
-        "elementType": "geometry",
-        "stylers": [
+        featureType: "road.highway",
+        elementType: "labels",
+        stylers: [
             {
-                "hue": "#f49935"
+                visibility: "off"
             }
         ]
     },
     {
-        "featureType": "road.highway",
-        "elementType": "labels",
-        "stylers": [
+        featureType: "road.arterial",
+        elementType: "labels",
+        stylers: [
             {
-                "visibility": "simplified"
+                visibility: "off"
             }
         ]
     },
     {
-        "featureType": "road.arterial",
-        "elementType": "geometry",
-        "stylers": [
+        featureType: "road.local",
+        elementType: "geometry",
+        stylers: [
             {
-                "hue": "#fad959"
+                visibility: "simplified"
             }
         ]
     },
     {
-        "featureType": "road.arterial",
-        "elementType": "labels",
-        "stylers": [
+        featureType: "road.local",
+        elementType: "labels",
+        stylers: [
             {
-                "visibility": "off"
+                visibility: "off"
             }
         ]
     },
     {
-        "featureType": "road.local",
-        "elementType": "geometry",
-        "stylers": [
+        featureType: "transit",
+        elementType: "all",
+        stylers: [
             {
-                "visibility": "simplified"
+                visibility: "off"
             }
         ]
     },
     {
-        "featureType": "road.local",
-        "elementType": "labels",
-        "stylers": [
+        featureType: "water",
+        elementType: "all",
+        stylers: [
             {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "hue": "#a1cdfc"
-            },
-            {
-                "saturation": 30
-            },
-            {
-                "lightness": 49
+                color: "#E9EFFA"
             }
         ]
     }
-]
+];
