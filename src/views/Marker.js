@@ -1,18 +1,26 @@
-/**
- * Marker View using react-google-maps Component by @author [Tom Chent](https://github.com/tomchentw)
- *
- * @version 1.0.0
- * @author [Victor Ragojos](https://github.com/RagofJoes)
- */
-
 import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { Marker, InfoWindow } from "react-google-maps";
 
 /**
- *   Figure Custom Marker View Component
+ * Marker View using react-google-maps Component by @author [Tom Chent](https://github.com/tomchentw)
  *
- *   @see See [Wikipedia](https://tomchentw.github.io/react-google-maps/) for a list of different props
+ * @property {float} lat for latitude
+ * @property {float} lng for longtitude
+ * @property {string} text Text to assign component a unique key and to connect to respective Card View component
+ * @property {string} customIconImage for a custom icon image(recommend an SVG)
+ * @property {node} mapRef Map View Component's React ref. node
+ * @property {boolean} isClickable for determining whether marker is clickable for centering and zooming effects
+ * @property {boolean} isFocused for centering and zooming effects
+ * @property {boolean} hasInfoWindow for assigning Marker its own info window component
+ * @property {boolean} hasScrollEffect for informing component if scroll element is present
+ * @property {boolean} hasInfoWindowOpen for when another info. window is open
+ * @property {function} toggleInfoWindow ensures that only one info window is open
+ * @property {element} infoWindowComponent custom info window content
+ *
+ * @version 1.0.0
+ * @author [Victor Ragojos](https://github.com/RagofJoes)
+ * @see See [Wikipedia](https://tomchentw.github.io/react-google-maps/) for a list of different props
  */
 const CustomMarker = React.memo(props => {
     // Retrieve props
@@ -46,12 +54,10 @@ const CustomMarker = React.memo(props => {
             icon={{
                 url: isFocused ? images.on : images.off
             }}
-            // animation={2}
             clickable={isClickable}
             position={{ lat, lng }}
             zIndex={isFocused ? 2 : 1}
             // Check if clicked marker is the same as mapCenter
-            // opacity={isClickable && isFocused ? 1 : 0.6}
             opacity={
                 hasInfoWindow
                     ? infoWindow
@@ -96,24 +102,21 @@ const CustomMarker = React.memo(props => {
 });
 
 CustomMarker.propTypes = {
-    /**
-     * @param {float} lat for latitude
-     * @param {flaot} lng for longtitude
-     */
     lat: PropTypes.number.isRequired,
     lng: PropTypes.number.isRequired,
 
-    /**
-     * @param {string} customIconImage for a custom icon image(recommend an SVG)
-     */
+    text: PropTypes.string.isRequired,
     customIconImage: PropTypes.string,
 
-    /**
-     * @param {boolean} isClickable for determining whether marker is clickable for centering and zooming effects
-     * @param {boolean} isFocused for centering and zooming effects
-     */
+    mapRef: PropTypes.node.isRequired,
+
     isClickable: PropTypes.bool,
-    isFocused: PropTypes.bool
+    isFocused: PropTypes.bool,
+    hasInfoWindow: PropTypes.bool,
+    hasScrollEffect: PropTypes.bool,
+    hasInfoWindowOpen: PropTypes.bool,
+    toggleInfoWindow: PropTypes.bool,
+    infoWindowComponent: PropTypes.element
 };
 
 export default CustomMarker;

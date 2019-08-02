@@ -1,5 +1,15 @@
 import React from "react";
 
+/**
+ * Section View Component
+ * 
+ * @property {string} title
+ * @property {string} appellations
+ * @property {string} description
+ * 
+ * @version 1.0.0
+ * @author [VictorRagojos](https://github.com/ragofjoes)
+ */
 const Section = props => {
     const { title, appellations } = props;
     return (

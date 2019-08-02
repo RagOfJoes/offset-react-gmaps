@@ -1,10 +1,3 @@
-/**
- * Map View using react-google-maps Component by @author [Tom Chent](https://github.com/tomchentw)
- *
- * @version 1.0.0
- * @author [Victor Ragojos](https://github.com/RagofJoes)
- */
-
 import React from "react";
 import PropTypes from "prop-types";
 import {
@@ -63,6 +56,28 @@ const GoogleMaps = withScriptjs(
     )
 );
 
+/**
+ * Map View using react-google-maps Component by @author [Tom Chent](https://github.com/tomchentw)
+ *
+ * @property {string} apiKey for Google Maps API Key [required]
+ *
+ * @property {node} mapRef for assigning React ref. node to Google Maps [required]
+ * @property {object} mapOptions for Google Maps Options
+ * @see See [Wikipedia](https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions) for a list of fields
+ * @property {function} dispatchMapRef for Redux [required]
+ *
+ * @property {number} defaultZoom for defaultZoom for Google Map [required]
+ * @property {object} defaultCenter for defaultCenter for Google Map [required]
+ *
+ * @property {boolean} hasKmlLayer allows for custom KML Layer for boundaries etc.
+ * @property {string} kmlLayerURL if @property hasHmlLayer === true [required]
+ *
+ * @property {string} mapClassName custom Google Map Element className @default "map-element"
+ * @property {string} containerClassName custom Google Map Container Element className @default "map-element-container"
+ *
+ * @version 1.0.0
+ * @author [Victor Ragojos](https://github.com/RagofJoes)
+ */
 const Map = React.memo(props => {
     const {
         apiKey,
@@ -87,7 +102,9 @@ const Map = React.memo(props => {
             defaultCenter={defaultCenter}
             loadingElement={<div style={{ width: "100%" }} />}
             mapElement={<div className={mapClassName || "map-element"} />}
-            dispatchMapRef={(ref) => dispatchMapRef ? dispatchMapRef(ref) : null}
+            dispatchMapRef={ref =>
+                dispatchMapRef ? dispatchMapRef(ref) : null
+            }
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
             containerElement={
                 <div
@@ -101,35 +118,18 @@ const Map = React.memo(props => {
 });
 
 Map.propTypes = {
-    /**
-     * @param {string} apiKey for Google Maps API Key [required]
-     */
     apiKey: PropTypes.string.isRequired,
 
-    /**
-     * @param {object} mapOptions for Google Maps Options
-     * @see See [Wikipedia](https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions) for a list of fields
-     */
+    mapRef: PropTypes.node.isRequired,
     mapOptions: PropTypes.object,
+    dispatchMapRef: PropTypes.func.isRequired,
 
-    /**
-     * @param {Int} defaultZoom for defaultZoom for Google Map [required]
-     * @param {Int} defaultCenter for defaultCenter for Google Map [required]
-     */
     defaultZoom: PropTypes.number.isRequired,
     defaultCenter: PropTypes.object.isRequired,
 
-    /**
-     * @param {boolean} hasKmlLayer allows for custom KML Layer for boundaries etc.
-     * @param {string} kmlLayerURL if @property hasHmlLayer === true [required]
-     */
     hasKmlLayer: PropTypes.bool,
-    kmlLayerURL: PropTypes.string,
+    kmlLayerURL: PropTypes.string.isRequired,
 
-    /**
-     * @param {string} mapClassName custom Google Map Element className @default "map-element"
-     * @param {string} containerClassName custom Google Map Container Element className @default "map-element-container"
-     */
     mapClassName: PropTypes.string,
     containerClassName: PropTypes.string
 };

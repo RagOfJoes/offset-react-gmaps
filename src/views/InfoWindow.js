@@ -1,9 +1,20 @@
 import React from "react";
 
+/**
+ * Custom Info Window content for Google Maps
+ * 
+ * @property {string} region
+ * @property {string} appellations
+ * 
+ * @version 1.0.0
+ * @author [Victor Ragojos](https://github.com/ragofjoes)
+ */
 const InfoWindow = React.memo(props => {
     const { region, appellations } = props;
 
+    // Will essentially replace all spaces with - to make URL for SEO friendly
     const regionLink = region.split(' ').join('-').toLowerCase();
+
     return (
         <div className="info-window-container">
             <div className="info-window-image">

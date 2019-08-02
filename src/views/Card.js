@@ -1,26 +1,24 @@
 import React from "react";
 import { Col } from "reactstrap";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { changeMapCenter } from "../Redux/Actions/Map";
-
-// TODO: Create a custom styles and className option
-// TODO: Create a Desktop and Mobile version
+import CustomMarker from "./Marker";
 
 /**
  * Checks if Card is within the vicinity of Scoll bar, if so perform scoll animation
  *
- * @param {Object} props Destructs default props
- * @param {Object} position Destructs position to get lat and lng
- * @param {Ref} scrollElem React Ref. node to point to the scoll element
- * @param {Ref} cardRef React Ref. node to point to this particular Card component
  * @param {Ref} mapRef React Ref. node to point to the Google Maps component
+ * @param {Ref} cardRef React Ref. node to point to this particular Card component
+ * @param {Ref} scrollElem React Ref. node to point to the scoll element
+ * @param {Object} position Destructs position to get lat and lng
+ * @param {Object} props Destructs default props
  */
 const isInBounds = (
-    { dispatch, refs },
-    { lat, lng },
-    scrollElem,
+    mapRef,
     cardRef,
-    mapRef
+    scrollElem,
+    { lat, lng },
+    { cardClick, refs }
 ) => {
     const { center } = refs.map;
     const scrollPosition = scrollElem.scrollTop;
@@ -34,52 +32,72 @@ const isInBounds = (
         scrollPosition <= cardBottomPosition &&
         center.lat !== lat
     ) {
-        mapRef.panTo({ lat, lng });
-        dispatch(changeMapCenter(lat, lng));
+        cardClick();
     }
 };
 
+/**
+ * Adds to the title when necessary
+ *
+ * @param {string} title Card's title prop
+ */
+const cardTitle = title => {
+    if (title.includes("Estate") || title.includes("Ranch")) {
+        return title;
+    } else {
+        return title.concat(" Vineyard");
+    }
+};
+
+/**
+ * Card View Component
+ *
+ * @property {string} title The title of the card
+ * @property {string} caption Caption of the card
+ * @property {string} cardImage Image of the card
+ * @property {string} location Location of the vineyard
+ * @property {node} mapRef React map ref. node
+ * @property {node} scrollElem React scroll element's ref. node
+ * @property {object} position Position of the card's marker
+ * @property {function} cardClick Action to take when card's image is clicked or when in bounds
+ *
+ * @version 1.0.0
+ * @author [Victor Ragojos](https://github.com/RagofJoes)
+ */
 class Card extends React.PureComponent {
     render() {
         const {
             title,
-            dispatch,
-            location,
+            mapRef,
             caption,
+            location,
             position,
-            mapElem,
+            cardClick,
+            cardImage,
             scrollElem
         } = this.props;
-        if (mapElem && scrollElem && this.props.refs.scroll.isScrolling) {
-            isInBounds(this.props, position, scrollElem, this.cardRef, mapElem);
-        }
 
-        const { lat, lng } = position;
+        // Check if mapRef and scrollElem has been assigned ref
+        if (mapRef && scrollElem) {
+            isInBounds(mapRef, this.cardRef, scrollElem, position, this.props);
+        }
 
         return (
             <div
                 className={`card-container ${title}`}
-                ref={ref => (this.cardRef = ref)}
+                ref={ref => {
+                    // Assign ref. and make sure assignment is only executed once
+                    if (ref !== null && ref !== this.cardRef) {
+                        this.cardRef = ref;
+                    }
+                }}
             >
                 <div className="card-container-row justify-content-center row">
-                    <Col
-                        className="card-image-col"
-                        onClick={() => {
-                            mapElem.panTo({ lat, lng });
-                            dispatch(changeMapCenter(lat, lng));
-                        }}
-                    >
-                        <img
-                            src={require("../assets/temp-vineyard-img.png")}
-                            alt={`${title}`}
-                        />
+                    <Col className="card-image-col" onClick={cardClick}>
+                        <img src={cardImage} alt={`${title}`} />
                     </Col>
                     <Col className="card-title-col col-12">
-                        <h2 className="club-name">
-                            {title.includes("Estate") || title.includes("Ranch")
-                                ? title
-                                : title.concat(" Vineyard")}
-                        </h2>
+                        <h2 className="club-name">{cardTitle(title)}</h2>
                     </Col>
                     <Col className="card-location-col col-12">
                         <h3>{location.toUpperCase()}</h3>
@@ -105,8 +123,25 @@ class Card extends React.PureComponent {
     }
 }
 
+// Retrieve Redux state and assign to props
 const mapStateToProps = state => {
     return state.Map;
+};
+
+CustomMarker.propTypes = {
+    title: PropTypes.string,
+    caption: PropTypes.string,
+    location: PropTypes.string,
+    cardImage: PropTypes.string,
+
+    mapRef: PropTypes.node,
+    scrollElem: PropTypes.node,
+
+    position: PropTypes.objectOf({
+        lat: PropTypes.number,
+        lng: PropTypes.number
+    }),
+    cardClick: PropTypes.func
 };
 
 export default connect(mapStateToProps)(Card);
