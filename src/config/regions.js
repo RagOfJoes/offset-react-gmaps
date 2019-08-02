@@ -4,13 +4,13 @@
  * @property {string} appellations Region's appellations
  * @property {string} caption Section's caption/description
  * @property {string[]} vineyardNames Section's Vineyards, this will be used to render list of @see See [src/view] Card.js
- * 
+ *
  * @author [Victor Ragojos](https://github.com/RagOfJoes)
  */
 
 export const sections = [
     {
-        sectionTitle: "Oregon",
+        sectionTitle: "Willamette Valley",
         appellations: "Willamette Valley, Dundee Hills",
         caption:
             "Lorem ipsum dolor sit amet, conse ctetur adipiscing elit sed.",
