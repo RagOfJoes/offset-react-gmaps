@@ -13,12 +13,7 @@ export const assignMapRef = (ref) => ({
     ref
 })
 
-export const changeMapCenter = (zoom, lat, lng) => ({
+export const changeMapCenter = (lat, lng) => ({
     type: "CHANGE_MAP_CENTER",
-    zoom, lat, lng
-})
-
-export const changeMapZoom = (zoom) => ({
-    type: "CHANGE_MAP_ZOOM",
-    zoom
+    lat, lng
 })

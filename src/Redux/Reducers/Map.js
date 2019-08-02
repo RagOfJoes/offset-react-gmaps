@@ -1,7 +1,6 @@
 const initState = {
     refs: {
         map: {
-            zoom: 11,
             ref: undefined,
             hasMounted: false,
             center: {
@@ -49,17 +48,6 @@ const reducer = (state = initState, action) => {
                         ...state.refs.map,
                         ref: action.ref,
                         hasMounted: true
-                    }
-                }
-            };
-        case "CHANGE_MAP_ZOOM":
-            return {
-                ...state,
-                refs: {
-                    ...state.refs,
-                    map: {
-                        ...state.refs.map,
-                        zoom: action.zoom
                     }
                 }
             };
