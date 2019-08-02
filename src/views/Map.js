@@ -7,8 +7,6 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { assignMapRef } from "../Redux/Actions/Map";
-import { useDispatch, useSelector } from "react-redux";
 import {
     GoogleMap,
     withGoogleMap,
@@ -22,17 +20,15 @@ import {
 const GoogleMaps = withScriptjs(
     withGoogleMap(
         React.memo(props => {
-            const dispatch = useDispatch();
-            const { map } = useSelector(state => state.Map.refs);
-
             // Retrieve props
             const {
-                zoom,
+                mapRef,
                 mapOptions,
                 defaultZoom,
                 hasKmlLayer,
                 kmlLayerURL,
-                defaultCenter
+                defaultCenter,
+                dispatchMapRef
             } = props;
 
             // GoogleMap Parent Component
@@ -43,9 +39,9 @@ const GoogleMaps = withScriptjs(
                     hasKmlLayer={hasKmlLayer}
                     options={{ ...mapOptions }}
                     defaultCenter={defaultCenter}
-                    ref={(ref) => {
-                        if (ref !== null && ref !== map.ref) {
-                            dispatch(assignMapRef(ref));
+                    ref={ref => {
+                        if (ref !== null && ref !== mapRef) {
+                            dispatchMapRef(ref);
                         }
                     }}
                 >
@@ -68,20 +64,21 @@ const GoogleMaps = withScriptjs(
 );
 
 const Map = React.memo(props => {
-    const { map } = useSelector(state => state.Map.refs);
     const {
         apiKey,
+        mapRef,
         mapOptions,
         defaultZoom,
         hasKmlLayer,
         kmlLayerURL,
         mapClassName,
         defaultCenter,
+        dispatchMapRef,
         containerClassName
     } = props;
     return (
         <GoogleMaps
-            zoom={map.zoom}
+            mapRef={mapRef}
             isMarkerShown={true}
             mapOptions={mapOptions}
             hasKmlLayer={hasKmlLayer}
@@ -90,6 +87,7 @@ const Map = React.memo(props => {
             defaultCenter={defaultCenter}
             loadingElement={<div style={{ width: "100%" }} />}
             mapElement={<div className={mapClassName || "map-element"} />}
+            dispatchMapRef={(ref) => dispatchMapRef ? dispatchMapRef(ref) : null}
             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${apiKey}`}
             containerElement={
                 <div

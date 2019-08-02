@@ -5,6 +5,16 @@ import { changeMapCenter } from "../Redux/Actions/Map";
 
 // TODO: Create a custom styles and className option
 // TODO: Create a Desktop and Mobile version
+
+/**
+ * Checks if Card is within the vicinity of Scoll bar, if so perform scoll animation
+ * 
+ * @param {Object} props Destructs default props  
+ * @param {Object} position Destructs position to get lat and lng
+ * @param {Ref} scrollElem React Ref. node to point to the scoll element 
+ * @param {Ref} cardRef React Ref. node to point to this particular Card component 
+ * @param {Ref} mapRef React Ref. node to point to the Google Maps component 
+ */
 const isInBounds = (
     { dispatch, refs },
     { lat, lng },
@@ -25,11 +35,11 @@ const isInBounds = (
         center.lat !== lat
     ) {
         mapRef.panTo({ lat, lng });
-        dispatch(changeMapCenter(11, lat, lng));
+        dispatch(changeMapCenter(lat, lng));
     }
 };
 
-class Card extends React.Component {
+class Card extends React.PureComponent {
     render() {
         const {
             title,
