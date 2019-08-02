@@ -4,7 +4,7 @@ import Marker from "../views/Marker";
 import InfoWindow from "../views/InfoWindow";
 import { mapStyle } from "../config/mapStyle";
 import { regionNames, coordinates } from "../config/regionCoords";
-const App = () => {
+const App = React.memo(() => {
     const [hasInfoWindowOpen, toggleInfoWindows] = useState(false);
 
     const toggleInfoWindow = () => {
@@ -48,7 +48,7 @@ const App = () => {
                         isClickable
                         hasInfoWindow
                         hasInfoWindowOpen={hasInfoWindowOpen}
-                        toggleInfoWindow={(toggle) => toggleInfoWindow(toggle)}
+                        toggleInfoWindow={toggle => toggleInfoWindow(toggle)}
                         infoWindowComponent={
                             <InfoWindow
                                 region={region}
@@ -60,6 +60,6 @@ const App = () => {
             })}
         </Map>
     );
-};
+});
 
 export default App;

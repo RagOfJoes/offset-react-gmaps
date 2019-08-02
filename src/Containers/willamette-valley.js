@@ -53,18 +53,28 @@ class Region extends React.PureComponent {
                         appellations={appellations}
                     >
                         {vineyardNames.map(vineyard => {
-                            const { lat, lng, caption, location } = coordinates[
+                            const { lat, lng, image, caption, location } = coordinates[
                                 vineyard
                             ]; // Get vineyard's info
                             return (
                                 <Card
                                     key={vineyard}
                                     title={vineyard}
+                                    cardImage={image}
                                     caption={caption}
                                     location={location}
+                                    mapRef={refs.map.ref}
                                     position={{ lat, lng }}
-                                    mapElem={refs.map.ref}
                                     scrollElem={this.scrollRef}
+                                    cardClick={() => {
+                                        refs.map.ref.panTo({
+                                            lat,
+                                            lng
+                                        });
+                                        this.props.dispatch(
+                                            changeMapCenter(lat, lng)
+                                        );
+                                    }}
                                 />
                             );
                         })}

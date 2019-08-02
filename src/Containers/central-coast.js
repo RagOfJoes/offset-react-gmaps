@@ -57,6 +57,7 @@ class Region extends React.PureComponent {
                                 const {
                                     lat,
                                     lng,
+                                    image,
                                     caption,
                                     location
                                 } = coordinates[vineyard]; // Get vineyard's info
@@ -65,10 +66,20 @@ class Region extends React.PureComponent {
                                         key={vineyard}
                                         title={vineyard}
                                         caption={caption}
+                                        cardImage={image}
                                         location={location}
+                                        mapRef={refs.map.ref}
                                         position={{ lat, lng }}
-                                        mapElem={refs.map.ref}
                                         scrollElem={this.scrollRef}
+                                        cardClick={() => {
+                                            refs.map.ref.panTo({
+                                                lat,
+                                                lng
+                                            });
+                                            this.props.dispatch(
+                                                changeMapCenter(lat, lng)
+                                            );
+                                        }}
                                     />
                                 );
                             })}
