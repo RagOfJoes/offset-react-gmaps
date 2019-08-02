@@ -8,12 +8,12 @@ import { changeMapCenter } from "../Redux/Actions/Map";
 
 /**
  * Checks if Card is within the vicinity of Scoll bar, if so perform scoll animation
- * 
- * @param {Object} props Destructs default props  
+ *
+ * @param {Object} props Destructs default props
  * @param {Object} position Destructs position to get lat and lng
- * @param {Ref} scrollElem React Ref. node to point to the scoll element 
- * @param {Ref} cardRef React Ref. node to point to this particular Card component 
- * @param {Ref} mapRef React Ref. node to point to the Google Maps component 
+ * @param {Ref} scrollElem React Ref. node to point to the scoll element
+ * @param {Ref} cardRef React Ref. node to point to this particular Card component
+ * @param {Ref} mapRef React Ref. node to point to the Google Maps component
  */
 const isInBounds = (
     { dispatch, refs },
@@ -43,6 +43,7 @@ class Card extends React.PureComponent {
     render() {
         const {
             title,
+            dispatch,
             location,
             caption,
             position,
@@ -53,13 +54,21 @@ class Card extends React.PureComponent {
             isInBounds(this.props, position, scrollElem, this.cardRef, mapElem);
         }
 
+        const { lat, lng } = position;
+
         return (
             <div
                 className={`card-container ${title}`}
                 ref={ref => (this.cardRef = ref)}
             >
                 <div className="card-container-row justify-content-center row">
-                    <Col className="card-image-col">
+                    <Col
+                        className="card-image-col"
+                        onClick={() => {
+                            mapElem.panTo({ lat, lng });
+                            dispatch(changeMapCenter(lat, lng));
+                        }}
+                    >
                         <img
                             src={require("../assets/temp-vineyard-img.png")}
                             alt={`${title}`}
