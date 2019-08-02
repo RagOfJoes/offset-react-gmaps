@@ -1,17 +1,17 @@
 export const mapStyle = [
     {
         featureType: "administrative.locality",
-        elementType: "label",
+        elementType: "labels",
         stylers: [{ visibility: "simplified" }]
     },
     {
         featureType: "administrative.province",
-        elementType: "label",
+        elementType: "labels",
         stylers: [{ visibility: "off" }]
     },
     {
         featureType: "administrative.neighborhood",
-        elementType: "label",
+        elementType: "labels",
         stylers: [{ visibility: "off" }]
     },
     {
@@ -34,7 +34,7 @@ export const mapStyle = [
     },
     {
         featureType: "poi",
-        elementType: "label",
+        elementType: "labels",
         stylers: [
             {
                 visibility: "simplified"
