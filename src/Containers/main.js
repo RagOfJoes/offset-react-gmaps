@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Map from "../views/Map";
 import Marker from "../views/Marker";
 import InfoWindow from "../views/InfoWindow";
 import { mapStyle } from "../config/mapStyle";
 import { regionNames, coordinates } from "../config/regionCoords";
 const App = () => {
+    const [hasInfoWindowOpen, toggleInfoWindows] = useState(false);
+
+    const toggleInfoWindow = () => {
+        toggleInfoWindows(!hasInfoWindowOpen);
+    };
+
     return (
         <Map
             defaultZoom={6}
@@ -14,6 +20,9 @@ const App = () => {
             mapOptions={{
                 // Zoom control options
                 zoomControl: true, // shows Zoom buttons in Google Maps
+
+                // Gesture options
+                gestureHandling: "greedy",
 
                 // UI Control
                 disableDefaultUI: true,
@@ -38,6 +47,8 @@ const App = () => {
                         // Clickable/Info Window Props
                         isClickable
                         hasInfoWindow
+                        hasInfoWindowOpen={hasInfoWindowOpen}
+                        toggleInfoWindow={(toggle) => toggleInfoWindow(toggle)}
                         infoWindowComponent={
                             <InfoWindow
                                 region={region}
