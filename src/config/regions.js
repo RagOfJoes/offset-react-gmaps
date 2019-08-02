@@ -12,8 +12,10 @@ export const sections = [
     {
         sectionTitle: "Willamette Valley",
         appellations: "Willamette Valley, Dundee Hills",
-        caption:
-            "Lorem ipsum dolor sit amet, conse ctetur adipiscing elit sed.",
+        caption: `Lorem ipsum dolor sit, amet consectetur adipisicing
+        elit. Sapiente modi quis porro recusandae ab ea omnis
+        quisquam nemo in quidem. Lorem ipsum dolor sit, amet
+        consectetur adipisicing elit.`,
         vineyardNames: ["Prince Hill"]
     },
     {

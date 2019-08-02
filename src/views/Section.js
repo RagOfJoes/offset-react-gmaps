@@ -12,8 +12,10 @@ const Section = props => {
                 </p>
 
                 <p className="appellation-description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Labore, illo?
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Sapiente modi quis porro recusandae ab ea omnis quisquam
+                    nemo in quidem. Lorem ipsum dolor sit, amet consectetur
+                    adipisicing elit.
                 </p>
             </div>
             <div className="section-card-row row">{props.children}</div>
