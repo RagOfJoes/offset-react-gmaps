@@ -14,15 +14,15 @@ export const mapStyle = [
         elementType: "labels",
         stylers: [{ visibility: "off" }]
     },
-    {
-        featureType: "landscape",
-        elementType: "geometry.fill",
-        stylers: [
-            {
-                color: "#F8F6EC"
-            }
-        ]
-    },
+    // {
+    //     featureType: "landscape",
+    //     elementType: "geometry.fill",
+    //     stylers: [
+    //         {
+    //             color: "#F8F6EC"
+    //         }
+    //     ]
+    // },
     {
         featureType: "landscape.man_made",
         elementType: "all",
@@ -46,7 +46,7 @@ export const mapStyle = [
         elementType: "all",
         stylers: [
             {
-                color: "#DEEFD7",
+                color: "#D5E8CC",
                 visibility: "on"
             }
         ]
@@ -101,7 +101,7 @@ export const mapStyle = [
         elementType: "all",
         stylers: [
             {
-                color: "#E9EFFA"
+                color: "#DCe5F5"
             }
         ]
     }
