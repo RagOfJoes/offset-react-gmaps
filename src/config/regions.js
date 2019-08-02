@@ -20,8 +20,7 @@ export const sections = [
     },
     {
         sectionTitle: "North Coast",
-        appellations:
-            "Anderson Valley, Russian River Valley, Dry Creek Valley, Napa Valley, Oakville, Calistoga",
+        appellations: "Anderson Valley, Russian River Valley, Dry Creek Valley, Napa Valley, Oakville, Calistoga",
         vineyardNames: [
             "Monument Tree",
             "Philo Estate",

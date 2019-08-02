@@ -1,3 +1,9 @@
+/**
+ * Custom Google Map Style
+ * 
+ * @see See [Google Docs](https://developers.google.com/maps/documentation/javascript/style-reference)
+ * @author [Victor Ragojos](https://github.com/ragofjoes)
+ */
 export const mapStyle = [
     {
         featureType: "administrative.locality",
@@ -14,15 +20,6 @@ export const mapStyle = [
         elementType: "labels",
         stylers: [{ visibility: "off" }]
     },
-    // {
-    //     featureType: "landscape",
-    //     elementType: "geometry.fill",
-    //     stylers: [
-    //         {
-    //             color: "#F8F6EC"
-    //         }
-    //     ]
-    // },
     {
         featureType: "landscape.man_made",
         elementType: "all",

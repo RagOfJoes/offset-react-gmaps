@@ -1,11 +1,9 @@
 /**
  * @variables {object} coordinates HashMap of Map Marker Locations
- * @variables {Array} vineyardNames Array of Map Markers for lookup and rendering <Card/> View Components @see See [src/views] Card.js
+ * @variables {Array} regionNames Array of Map Markers for lookup and rendering <Marker/> View Components @see See [src/views] Marker.js
  * @property {number} lat The marker's latitude coordinate
  * @property {number} lng The marker's longtitude coordinate
- * @property {string} location The marker's general location
- * @property {string} image This will be used to render custom image onto @see See [src/views] Card.js
- * @property {string} caption This will be used to render custom caption/desciption of vineyard onto @see See [src/views] Card.js
+ * @property {string} appellations Will be used for <InfoWindow/> View Component @see See [src/views] InfoWindow.js
  *
  * @author [Victor Ragojos](https://github.com/RagOfJoes)
  */
