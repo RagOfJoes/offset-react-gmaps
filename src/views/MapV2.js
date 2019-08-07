@@ -6,13 +6,21 @@ const MapV2 = props => {
     const { viewport, changeView, mapLoaded, onTransition } = props;
     return (
         <MapGL
-            reuseMaps
+            reuseMap
             {...viewport}
             width="100%"
             height="100vh"
             onLoad={() => mapLoaded(true)}
             onViewportChange={viewport => {
                 changeView(viewport);
+            }}
+            onInteractionStateChange={(interactionState) => {
+                const {isZooming, inTransition} = interactionState;
+                if(isZooming) {
+                    onTransition(isZooming);
+                } else {
+                    onTransition(inTransition);
+                }
             }}
             onTransitionEnd={() => onTransition(false)}
             onTransitionStart={() => onTransition(true)}

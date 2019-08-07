@@ -59,6 +59,7 @@ const V2 = () => {
                                             if (isLoaded && !isMoving) {
                                                 changeViewport(prevState => ({
                                                     ...prevState,
+                                                    zoom: 11,
                                                     latitude: lat,
                                                     longitude: lng,
                                                     transitionDuration: 1500,
@@ -95,9 +96,10 @@ const V2 = () => {
                                 moveToMarker={(lat, lng) => {
                                     changeViewport(prevState => ({
                                         ...prevState,
+                                        zoom: 11,
                                         latitude: lat,
                                         longitude: lng,
-                                        transitionDuration: 800,
+                                        transitionDuration: 1500,
                                         transitionInterpolator: new FlyToInterpolator()
                                     }));
                                     vineyardCard.scrollIntoView();
