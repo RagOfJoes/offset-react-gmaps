@@ -97,7 +97,7 @@ class Region extends React.PureComponent {
                     }
                     // KML Layer Props, This is for the geofencing of Vineyards etc.
                     hasKmlLayer
-                    kmlLayerURL="http://www.google.com/maps/d/u/0/kml?forcekml=1&mid=1Dgj_2rrvHqho_-dt2h8v-YnZ9P4g62hu"
+                    kmlLayerURL="http://www.google.com/maps/d/u/0/kml?forcekml=0&mid=1Dgj_2rrvHqho_-dt2h8v-YnZ9P4g62hu"
                     // Map Options Props
                     mapOptions={{
                         // Zoom control options
