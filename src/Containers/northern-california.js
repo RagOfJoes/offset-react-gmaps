@@ -41,7 +41,7 @@ class Region extends React.PureComponent {
         };
 
         return (
-            <Container fluid className="App">
+            <div fluid className="App">
                 <div
                     className="scroll-places-row"
                     ref={ref => assignScroll(ref)}
@@ -159,7 +159,7 @@ class Region extends React.PureComponent {
                         );
                     })}
                 </Map>
-            </Container>
+            </div>
         );
     }
 }

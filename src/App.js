@@ -1,5 +1,6 @@
 import "./App.scss";
 import React from "react";
+import MapV2 from "./Containers/v2";
 import main from "./Containers/main";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
@@ -22,6 +23,7 @@ class App extends React.Component {
                         component={NorthernCalifornia}
                     />
                     <Route path="/central-coast" component={CentralCoast} />
+                    <Route path="/v2" component={MapV2}/>
                 </Switch>
             </div>
         );
