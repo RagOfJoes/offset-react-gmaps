@@ -2,15 +2,10 @@ import App from "./App";
 import React from "react";
 import ReactDOM from "react-dom";
 import { store } from "./Redux/store";
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-//import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from "./serviceWorker";
-
-// FOR DEV ONLY
-//import dotenv from 'dotenv';
-//dotenv.config();
-// FOR DEV ONLY
 
 ReactDOM.render(
     <Provider store={store}>
