@@ -4,7 +4,6 @@ import Card from "../views/Card";
 import Marker from "../views/Marker";
 import Section from "../views/Section";
 import { connect } from "react-redux";
-import { Container } from "reactstrap";
 import { mapStyle } from "../config/mapStyle";
 import { sections } from "../config/regions";
 import { coordinates } from "../config/coords";

@@ -14,11 +14,11 @@ const V2 = () => {
     const [isLoaded, setMapLoaded] = useState(false);
     const [isMoving, changeMoving] = useState(false);
     const [viewport, changeViewport] = useState({
-        zoom: 11,
-        pitch: 200,
-        bearing: 340,
-        latitude: 38.4411547,
-        longitude: -122.3828042,
+        zoom: 12,
+        pitch: 65,
+        bearing: 300,
+        latitude: 45.2825284,
+        longitude: -123.0408265,
         transitionInterruption: TRANSITION_EVENTS.UPDATE
     });
     const { latitude, longitude } = viewport;
@@ -53,16 +53,16 @@ const V2 = () => {
                                         cardImage={image}
                                         location={location}
                                         position={{ lat, lng }}
-                                        mapCenter={{ latitude, longitude }}
                                         scrollElem={scrollElem}
+                                        mapCenter={{ latitude, longitude }}
                                         cardClick={(lat, lng) => {
                                             if (isLoaded && !isMoving) {
                                                 changeViewport(prevState => ({
                                                     ...prevState,
-                                                    zoom: 11,
+                                                    // zoom: 11,
                                                     latitude: lat,
                                                     longitude: lng,
-                                                    transitionDuration: 1500,
+                                                    transitionDuration: 1200,
                                                     transitionInterpolator: new FlyToInterpolator()
                                                 }));
                                             }
@@ -78,16 +78,16 @@ const V2 = () => {
                 <Map
                     viewport={viewport}
                     mapLoaded={() => setMapLoaded(true)}
-                    changeView={viewport =>
-                        isLoaded ? changeViewport(viewport) : null
-                    }
+                    changeView={viewport => changeViewport(viewport)}
                     onTransition={trans => {
                         changeMoving(trans);
                     }}
                 >
                     {vineyardNames.map(vineyard => {
                         const { lat, lng } = coordinates[vineyard];
-                        const vineyardCard = document.getElementsByClassName(`${vineyard}`)[0];
+                        const vineyardCard = document.getElementsByClassName(
+                            `${vineyard}`
+                        )[0];
                         return (
                             <Marker
                                 lat={lat}

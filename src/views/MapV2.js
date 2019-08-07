@@ -1,6 +1,5 @@
 import React from "react";
 import MapGL from "react-map-gl";
-import MAP_STYLE from "../config/mapStylev2";
 
 const MapV2 = props => {
     const { viewport, changeView, mapLoaded, onTransition } = props;
