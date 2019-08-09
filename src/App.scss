@@ -1,1 +1,66 @@
 @import url("https://staging-dawecude.kinsta.cloud/wp-content/themes/twomey_theme/style.css?ver=5.2.3");
+
+.mapboxgl-popup {
+	z-index: 1000;
+
+	.mapboxgl-popup-content {
+		padding: 0;
+
+		.popup-container {
+			max-width: 300px;
+			max-height: 400px;
+
+			.popup-image {
+				width: 100%;
+				height: 100%;
+				margin: 0 0 1rem 0;
+			}
+
+			.info-window-information {
+				padding: 0 1rem;
+
+				h2 {
+					margin: 0;
+					font-weight: 600;
+					color: #393d40;
+					font-family: trade-gothic-next-condensed, sans-serif;
+				}
+
+				p {
+					margin: 0;
+				}
+
+				.info-window-appellations {
+					font-weight: 100;
+					font-family: trade-gothic-next-condensed, sans-serif;
+
+					strong {
+						font-family: trade-gothic-next-condensed, sans-serif;
+					}
+				}
+			}
+		}
+	}
+}
+
+// .App {
+//     flex-direction: column-reverse;
+
+//     .scroll-places-row {
+//         z-index: 1;
+//         width: 100%;
+//         height: 40vh;
+//         display: flex;
+//         flex-direction: row;
+
+//         .section-container {
+//             display: flex;
+//             flex-direction: row;
+//         }
+//     }
+
+//     .scroll-map-container {
+//         width: 100%;
+//         height: 60vh;
+//     }
+// }
