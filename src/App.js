@@ -9,29 +9,23 @@ import WillametteValley from "./Containers/willamette-valley";
 import NorthernCalifornia from "./Containers/northern-california";
 
 class App extends React.Component {
-    render() {
-        return (
-            <div className="App">
-                <Switch>
-                    <Route exact path="/" component={main} />
-                    <Route
-                        path="/willamette-valley"
-                        component={WillametteValley}
-                    />
-                    <Route
-                        path="/northern-california"
-                        component={NorthernCalifornia}
-                    />
-                    <Route path="/central-coast" component={CentralCoast} />
-                    <Route path="/v2" component={MapV2}/>
-                </Switch>
-            </div>
-        );
-    }
+	render() {
+		return (
+			<div className="App">
+				<Switch>
+					<Route exact path="/" component={main} />
+					<Route path="/willamette-valley" component={WillametteValley} />
+					<Route path="/northern-california" component={NorthernCalifornia} />
+					<Route path="/central-coast" component={CentralCoast} />
+					<Route path="/v2" component={MapV2} />
+				</Switch>
+			</div>
+		);
+	}
 }
 
 const mapStateToProps = state => {
-    return state.Map;
+	return state.Map;
 };
 
 export default connect(mapStateToProps)(App);

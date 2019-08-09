@@ -13,28 +13,21 @@ import CustomMarker from "./Marker";
  * @param {Object} position Destructs position to get lat and lng
  * @param {Object} props Destructs default props
  */
-const isInBounds = (
-    title,
-    { latitude, longtitude },
-    cardRef,
-    scrollElem,
-    { lat, lng },
-    { cardClick, refs }
-) => {
-    const scrollPosition = scrollElem.scrollTop;
+const isInBounds = ({ latitude, longtitude }, cardRef, scrollElem, { lat, lng }, { cardClick }) => {
+	const scrollPosition = scrollElem.scrollTop;
 
-    const cardHeight = cardRef.getBoundingClientRect();
-    const cardTopPosition = scrollPosition - (cardHeight.top + 50);
-    const cardBottomPosition = cardTopPosition + cardHeight.height;
+	const cardHeight = cardRef.getBoundingClientRect();
+	const cardTopPosition = scrollPosition - (cardHeight.top + 50);
+	const cardBottomPosition = cardTopPosition + cardHeight.height;
 
-    if (
-        scrollPosition >= cardTopPosition &&
-        scrollPosition <= cardBottomPosition &&
-        Number(latitude).toPrecision(10) !== lat.toPrecision(10) &&
-        Number(longtitude).toPrecision(10) !== lng.toPrecision(10)
-    ) {
-        return cardClick(Number(lat.toPrecision(10)), Number(lng.toPrecision(10)));
-    }
+	if (
+		scrollPosition >= cardTopPosition &&
+		scrollPosition <= cardBottomPosition &&
+		Number(latitude).toPrecision(10) !== lat.toPrecision(10) &&
+		Number(longtitude).toPrecision(10) !== lng.toPrecision(10)
+	) {
+		return cardClick(Number(lat.toPrecision(10)), Number(lng.toPrecision(10)));
+	}
 };
 
 /**
@@ -43,11 +36,11 @@ const isInBounds = (
  * @param {string} title Card's title prop
  */
 const cardTitle = title => {
-    if (title.includes("Estate") || title.includes("Ranch")) {
-        return title;
-    } else {
-        return title.concat(" Vineyard");
-    }
+	if (title.includes("Estate") || title.includes("Ranch")) {
+		return title;
+	} else {
+		return title.concat(" Vineyard");
+	}
 };
 
 /**
@@ -66,93 +59,75 @@ const cardTitle = title => {
  * @author [Victor Ragojos](https://github.com/RagofJoes)
  */
 class Card extends React.PureComponent {
-    render() {
-        const {
-            title,
-            mapCenter,
-            caption,
-            location,
-            position,
-            cardClick,
-            cardImage,
-            scrollElem
-        } = this.props;
+	render() {
+		const { title, mapCenter, caption, location, position, cardClick, cardImage, scrollElem } = this.props;
 
-        // Check if cardRef and scrollElem has been assigned
-        if (this.cardRef && scrollElem) {
-            isInBounds(
-                title,
-                mapCenter,
-                this.cardRef,
-                scrollElem,
-                position,
-                this.props
-            );
-        }
+		// Check if cardRef and scrollElem has been assigned
+		if (this.cardRef && scrollElem) {
+			isInBounds(mapCenter, this.cardRef, scrollElem, position, this.props);
+		}
 
-        return (
-            <div
-                className={`card-container ${title}`}
-                ref={ref => {
-                    // Assign ref. and make sure assignment is only executed once
-                    if (ref !== null && ref !== this.cardRef) {
-                        this.cardRef = ref;
-                    }
-                }}
-            >
-                <div className="card-container-row justify-content-center row">
-                    <Col
-                        className="card-image-col"
-                        onClick={() => cardClick(position.lat, position.lng)}
-                    >
-                        <img src={cardImage} alt={`${title}`} />
-                    </Col>
-                    <Col className="card-title-col col-12">
-                        <h2 className="club-name">{cardTitle(title)}</h2>
-                    </Col>
-                    <Col className="card-location-col col-12">
-                        <h3>{location.toUpperCase()}</h3>
-                    </Col>
-                    <Col className="card-caption-col col-12">
-                        <p>{caption}</p>
-                    </Col>
-                    <Col className="card-button-col col-12">
-                        <a
-                            href={`https://www.google.com/maps/search/?api=1&query=${
-                                position.lat
-                            },${position.lng}`}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                            className="btn btn-primary"
-                        >
-                            Explore Vineyard
-                        </a>
-                    </Col>
-                </div>
-            </div>
-        );
-    }
+		return (
+			<div
+				className={`card-container ${title}`}
+				ref={ref => {
+					// Assign ref. and make sure assignment is only executed once
+					if (ref !== null && ref !== this.cardRef) {
+						this.cardRef = ref;
+					}
+				}}>
+				<div className="card-container-row justify-content-center row">
+					<Col
+						className="card-image-col"
+						onClick={() => {
+							cardClick(position.lat, position.lng);
+							this.cardRef.scrollIntoView();
+						}}>
+						<img src={cardImage} alt={`${title}`} />
+					</Col>
+					<Col className="card-title-col col-12">
+						<h2 className="club-name">{cardTitle(title)}</h2>
+					</Col>
+					<Col className="card-location-col col-12">
+						<h3>{location.toUpperCase()}</h3>
+					</Col>
+					<Col className="card-caption-col col-12">
+						<p>{caption}</p>
+					</Col>
+					<Col className="card-button-col col-12">
+						<a
+							href={`https://www.google.com/maps/search/?api=1&query=${position.lat},${position.lng}`}
+							rel="noopener noreferrer"
+							target="_blank"
+							className="btn btn-primary">
+							Explore Vineyard
+						</a>
+					</Col>
+				</div>
+			</div>
+		);
+	}
 }
 
 // Retrieve Redux state and assign to props
 const mapStateToProps = state => {
-    return state.Map;
+	return state.Map;
 };
 
 CustomMarker.propTypes = {
-    title: PropTypes.string,
-    caption: PropTypes.string,
-    location: PropTypes.string,
-    cardImage: PropTypes.string,
+	title: PropTypes.string,
+	caption: PropTypes.string,
+	location: PropTypes.string,
+	cardImage: PropTypes.string,
 
-    mapRef: PropTypes.node,
-    scrollElem: PropTypes.node,
+	mapRef: PropTypes.node,
+	scrollElem: PropTypes.node,
 
-    position: PropTypes.objectOf({
-        lat: PropTypes.number,
-        lng: PropTypes.number
-    }),
-    cardClick: PropTypes.func
+	position: PropTypes.objectOf({
+		lat: PropTypes.number,
+		lng: PropTypes.number
+	}),
+	cardClick: PropTypes.func
 };
 
 export default connect(mapStateToProps)(Card);
