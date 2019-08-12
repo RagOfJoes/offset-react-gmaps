@@ -80,6 +80,7 @@ class Card extends React.PureComponent {
 					<Col
 						className="card-image-col"
 						onClick={() => {
+							// Image click | Recenters map and scrolls to Card
 							cardClick(position.lat, position.lng);
 							this.cardRef.scrollIntoView();
 						}}>
