@@ -7,17 +7,26 @@
 		padding: 0;
 
 		.popup-container {
-			max-width: 300px;
-			max-height: 400px;
+			max-width: 350px;
+			max-height: 325px;
 
 			.popup-image {
 				width: 100%;
-				height: 100%;
-				margin: 0 0 1rem 0;
+                height: 100%;
+                margin: 0 0 .5rem 0;
+
+                img {
+                    width: auto;
+                    height: auto;
+                    display: block;
+                    max-width: 350px;
+                    max-height: 225px;
+                }
 			}
 
 			.info-window-information {
-				padding: 0 1rem;
+                padding: 0 1rem;
+                margin: 0 0 .5rem 0;
 
 				h2 {
 					margin: 0;
@@ -27,7 +36,8 @@
 				}
 
 				p {
-					margin: 0;
+                    margin: 0;
+                    padding: 0;
 				}
 
 				.info-window-appellations {
@@ -37,7 +47,11 @@
 					strong {
 						font-family: trade-gothic-next-condensed, sans-serif;
 					}
-				}
+                }
+                
+                .info-window-link {
+                    padding: 0 !important;
+                }
 			}
 		}
 	}
