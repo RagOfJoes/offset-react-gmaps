@@ -19,7 +19,7 @@ const InfoWindow = props => {
 				<p className="info-window-appellations">{description}</p>
 				<p className="info-window-link">
 					<a href={`https://staging-dawecude.kinsta.cloud/vineyards/${regionLink}`} target="_top">
-						Explore Map
+						Explore Vineyard
 					</a>{" "}
 				</p>
 			</div>
