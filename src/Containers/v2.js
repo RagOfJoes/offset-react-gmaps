@@ -25,7 +25,7 @@ const handleMapPan = (startLan, startLng, endLan, endLng, handlePopup, handleVie
 		latitude: endLan,
 		longitude: endLng,
 		transitionDuration: 1500,
-		bearing: Math.round(nextBearing),
+		// bearing: Math.round(nextBearing),
 		transitionInterpolator: new FlyToInterpolator(),
 		transitionInterruption: TRANSITION_EVENTS.UPDATE
 	}));
@@ -37,9 +37,9 @@ const V2 = React.memo(() => {
 	const [isMoving, changeMoving] = useState(false);
 	const [isPopupOpen, togglePopup] = useState(true);
 	const [viewport, changeViewport] = useState({
-		zoom: 12,
+		zoom: 9,
 		pitch: 65,
-		bearing: 180,
+		bearing: 340,
 		latitude: 45.2825284,
 		longitude: -123.0408265,
 		transitionInterruption: TRANSITION_EVENTS.UPDATE
