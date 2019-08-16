@@ -1,6 +1,6 @@
 import "./App.scss";
 import React from "react";
-import MapV2 from "./Containers/v2";
+import maps from "./Containers/maps";
 import main from "./Containers/main";
 import { Route, Switch } from "react-router-dom";
 
@@ -10,7 +10,7 @@ class App extends React.Component {
 			<div className="App">
 				<Switch>
 					<Route exact path="/" component={main} />
-					<Route path="/maps" component={MapV2} />
+					<Route exact path="/maps" component={maps} />
 				</Switch>
 			</div>
 		);
