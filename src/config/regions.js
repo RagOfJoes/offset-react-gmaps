@@ -7,7 +7,6 @@
  *
  * @author [Victor Ragojos](https://github.com/RagOfJoes)
  */
-
 export const sections = [
     {
         sectionTitle: "Willamette Valley",

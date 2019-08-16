@@ -1,3 +1,9 @@
+/**
+ * Default Map Options
+ * 
+ * @author [Victor Ragojos](https://github.com/RagOfJoes)
+ */
+
 export const mapOptions = {
 	zoom: 9,
 	pitch: 65,
@@ -8,9 +14,9 @@ export const mapOptions = {
 };
 
 export const mainMapOptions = {
-	zoom: 7,
+	zoom: 5.25,
 	pitch: 55,
 	bearing: 340,
-	latitude: 38.496, 
-	longitude: -120.939,
+	latitude: 38.042, 
+	longitude: -122.081
 }

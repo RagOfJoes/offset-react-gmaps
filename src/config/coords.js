@@ -9,7 +9,6 @@
  *
  * @author [Victor Ragojos](https://github.com/RagOfJoes)
  */
-
 export const coordinates = {
 	"Last Stop": {
 		lat: 38.470977,

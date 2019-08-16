@@ -7,7 +7,6 @@
  *
  * @author [Victor Ragojos](https://github.com/RagOfJoes)
  */
-
 export const coordinates = {
     "Willamette Valley": {
         lat: 45.2825284,
