@@ -1,5 +1,48 @@
 @import url("https://staging-dawecude.kinsta.cloud/wp-content/themes/twomey_theme/style.css?ver=5.2.3");
 
+.labelMarkerContainer {
+	width: 181px;
+    height: 40px;
+    display: flex;
+	position: absolute;
+    border-radius: 4px;
+    align-items: center;
+    background: #a69c80;
+    justify-content: center;
+    border: 0.25px solid #999999;    
+
+    p {
+        margin: 0;
+        color: #FFF;
+        font-size: .65rem;
+        padding: 0 !important;
+        text-transform: uppercase;
+        font-family: trade-gothic-next-condensed, sans-serif;
+    }
+
+	&:after {
+        left: 50%;
+        content: "";
+        bottom: -15px;
+		position: absolute;        
+
+        width: 0; 
+        height: 0; 
+        transform: translateX(-50%);
+        border-top: 15px solid #a69c80;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;        
+	}
+}
+
+.card-container-row {
+	flex-direction: column;
+
+	.card-image-col {
+		cursor: pointer;
+	}
+}
+
 .mapboxgl-popup {
 	z-index: 1000;
 
@@ -7,28 +50,27 @@
 		padding: 0;
 
 		.popup-container {
-			max-width: 350px;
-			max-height: 325px;
+			max-width: 300px;
 
 			.popup-image {
 				width: 100%;
-                height: 100%;
-                margin: 0 0 .5rem 0;
+				height: 100%;
+				margin: 0 0 0.5rem 0;
 
-                img {
-                    width: auto;
-                    height: auto;
-                    display: block;
-                    max-width: 350px;
-                    max-height: 225px;
-                }
+				img {
+					width: auto;
+					height: auto;
+					display: block;
+					max-width: 300px;
+					max-height: 250px;
+				}
 			}
 
 			.info-window-information {
-                padding: 0 1rem;
-                margin: 0 0 .5rem 0;
+				padding: 0 1rem;
+				margin: 0 0 0.5rem 0;
 
-				h2 {
+				.info-window-region {
 					margin: 0;
 					font-weight: 600;
 					color: #393d40;
@@ -36,8 +78,8 @@
 				}
 
 				p {
-                    margin: 0;
-                    padding: 0;
+					margin: 0;
+					padding: 0 !important;
 				}
 
 				.info-window-appellations {
@@ -47,34 +89,227 @@
 					strong {
 						font-family: trade-gothic-next-condensed, sans-serif;
 					}
-                }
-                
-                .info-window-link {
-                    padding: 0 !important;
-                }
+				}
 			}
 		}
 	}
 }
 
-// .App {
-//     flex-direction: column-reverse;
+@media (max-width: 767.8px) {
+	.mapboxgl-popup {
+		z-index: 1000;
 
-//     .scroll-places-row {
-//         z-index: 1;
-//         width: 100%;
-//         height: 40vh;
-//         display: flex;
-//         flex-direction: row;
+		.mapboxgl-popup-content {
+			padding: 0;
 
-//         .section-container {
-//             display: flex;
-//             flex-direction: row;
-//         }
-//     }
+			.popup-container {
+				max-width: 325px;
+				max-height: 170px;
 
-//     .scroll-map-container {
-//         width: 100%;
-//         height: 60vh;
-//     }
-// }
+				.popup-image {
+					width: 100%;
+					height: 100%;
+					display: none;
+					margin: 0 0 0.5rem 0;
+
+					img {
+						width: auto;
+						height: auto;
+						display: block;
+						max-width: 325px;
+						max-height: 170px;
+					}
+				}
+
+				.info-window-information {
+					padding: 0 1rem;
+					display: flex;
+					margin: 0 !important;
+					flex-direction: column;
+					justify-content: center;
+
+					h2 {
+						margin: 0;
+						font-weight: 600;
+						color: #393d40;
+						font-family: trade-gothic-next-condensed, sans-serif;
+					}
+
+					p {
+						margin: 0;
+						padding: 0;
+					}
+
+					.info-window-appellations {
+						font-weight: 100;
+						font-family: trade-gothic-next-condensed, sans-serif;
+
+						strong {
+							font-family: trade-gothic-next-condensed, sans-serif;
+						}
+					}
+
+					.info-window-link {
+						padding: 0 !important;
+					}
+				}
+			}
+		}
+	}
+
+	.card-container {
+		display: flex;
+		margin-right: 1rem;
+		flex-direction: row;
+		padding: 0 !important;
+		margin-bottom: 0 !important;
+		border-bottom: 0px !important;
+		.card-container-row {
+			padding: 0;
+			width: 48vh;
+			flex-wrap: nowrap;
+			align-items: center;
+			// flex-direction: row;
+			flex-direction: column;
+
+			h2 {
+				font-size: 1rem;
+				font-weight: 600;
+				font-family: trade-gothic-next-condensed, sans-serif;
+			}
+
+			h3 {
+				font-weight: 100;
+			}
+
+			a {
+				display: none !important;
+			}
+
+			.card-image-col {
+				img {
+					min-height: 175px;
+					margin-bottom: 0.1rem;
+				}
+			}
+
+			.card-caption-col {
+				display: none;
+			}
+		}
+	}
+
+	.App {
+		flex-direction: column-reverse;
+
+		.scroll-places-row {
+			z-index: 1;
+			width: 100vw;
+			height: 45vh;
+			display: flex;
+			padding: 0 1rem;
+			overflow-x: auto;
+			flex-wrap: nowrap;
+			overflow-y: hidden;
+			flex-direction: row;
+			align-items: center;
+
+			.section-container {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+
+				.section-row {
+					margin: 0;
+					flex-wrap: nowrap;
+					flex-direction: row;
+
+					h1 {
+						font-weight: 600;
+						font-size: 1rem;
+						font-family: trade-gothic-next-condensed, sans-serif;
+					}
+
+					p {
+						display: none;
+					}
+				}
+
+				.section-card-row {
+					margin: 0;
+					flex-wrap: nowrap;
+					flex-direction: row;
+					justify-content: space-between;
+				}
+			}
+		}
+
+		.scroll-map-container {
+			width: 100%;
+			height: 55vh;
+			overflow: hidden;
+		}
+	}
+
+	.mapboxgl-popup {
+		z-index: 1000;
+
+		.mapboxgl-popup-content {
+			padding: 0;
+
+			.popup-container {
+				max-width: 200px;
+				max-height: 175px;
+
+				.popup-image {
+					width: 100%;
+					height: 100%;
+					margin: 0 0 0.5rem 0;
+
+					img {
+						width: auto;
+						height: auto;
+						display: block;
+						max-width: 200px;
+						max-height: 175px;
+					}
+				}
+
+				.info-window-information {
+					padding: 0 1rem;
+					margin: 0 0 0.5rem 0;
+
+					h2 {
+						margin: 0;
+						font-weight: 600;
+						color: #393d40;
+						font-size: 0.75rem;
+						font-family: trade-gothic-next-condensed, sans-serif;
+					}
+
+					p {
+						margin: 0;
+						padding: 0;
+						font-size: 0.6rem;
+					}
+
+					.info-window-appellations {
+						font-weight: 100;
+						padding: 0 !important;
+						font-family: trade-gothic-next-condensed, sans-serif;
+
+						strong {
+							font-family: trade-gothic-next-condensed, sans-serif;
+						}
+					}
+
+					.info-window-link {
+						display: none;
+						padding: 0 !important;
+					}
+				}
+			}
+		}
+	}
+}
