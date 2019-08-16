@@ -4,51 +4,46 @@ import { Popup } from "react-map-gl";
 import Section from "../views/Section";
 import Marker from "../views/MarkerV2";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { sections } from "../config/regions";
 import InfoWindow from "../views/InfoWindowV2";
-import { bearing } from "../config/calcBearing";
-import { isScrolling } from "../Redux/Actions/Map";
+import useScroll from "../config/isScrolling";
+import { mapOptions } from "../config/mapOptions";
 import { vineyardNames, coordinates } from "../config/coords";
 import { FlyToInterpolator, TRANSITION_EVENTS } from "react-map-gl";
+import PointMarker from "../views/PointMarker";
 
-const handleMapPan = (startLan, startLng, endLan, endLng, handlePopup, handleViewport) => {
-	let nextBearing;
-	if (endLng > startLng) {
-		nextBearing = bearing(startLan, startLng, endLan, endLng);
-	} else {
-		nextBearing = bearing(endLan, endLng, startLan, startLng);
-	}
+const handleMapPan = (endLan, endLng, handlePopup, handleViewport) => {
 	handlePopup(true);
 	handleViewport(prevState => ({
 		...prevState,
 		latitude: endLan,
 		longitude: endLng,
-		transitionDuration: 1500,
-		// bearing: Math.round(nextBearing),
+		transitionDuration: 1300,
 		transitionInterpolator: new FlyToInterpolator(),
 		transitionInterruption: TRANSITION_EVENTS.UPDATE
 	}));
 };
 
 const V2 = React.memo(() => {
-	const dispatch = useDispatch();
+	const [isMobile, setMobile] = useState(false);
 	const [isLoaded, setMapLoaded] = useState(false);
 	const [isMoving, changeMoving] = useState(false);
 	const [isPopupOpen, togglePopup] = useState(true);
-	const [viewport, changeViewport] = useState({
-		zoom: 9,
-		pitch: 65,
-		bearing: 340,
-		latitude: 45.2825284,
-		longitude: -123.0408265,
-		transitionInterruption: TRANSITION_EVENTS.UPDATE
-	});
+	const [viewport, changeViewport] = useState(mapOptions);
 	const { latitude, longitude } = viewport;
-	const scrollElem = document.getElementsByClassName("scroll-places-row")[0];
+
+	const scrollElem = React.useRef(null);
+	useScroll(scrollElem);
+
+	if (window.innerWidth <= 767.8 && !isMobile) {
+		setMobile(true);
+	} else if (window.innerWidth >= 767.8 && isMobile) {
+		setMobile(false);
+	}
+
 	return (
-		<div className="App">
-			<div className="scroll-places-row" onScroll={() => dispatch(isScrolling(true))}>
+		<>
+			<div className="scroll-places-row" ref={scrollElem}>
 				{sections.map(section => {
 					const { sectionTitle, appellations } = section;
 					return (
@@ -62,19 +57,14 @@ const V2 = React.memo(() => {
 										caption={caption}
 										cardImage={image}
 										location={location}
+										isMobile={isMobile}
+										isMapMoving={isMoving}
 										position={{ lat, lng }}
-										scrollElem={scrollElem}
+										scrollElem={scrollElem.current}
 										mapCenter={{ latitude, longitude }}
 										cardClick={(lat, lng) => {
 											if (isLoaded && !isMoving) {
-												handleMapPan(
-													latitude,
-													longitude,
-													lat,
-													lng,
-													togglePopup,
-													changeViewport
-												);
+												handleMapPan(lat, lng, togglePopup, changeViewport);
 											}
 										}}
 									/>
@@ -86,48 +76,50 @@ const V2 = React.memo(() => {
 			</div>
 			<div className="scroll-map-container">
 				<Map
+					width="100%"
 					viewport={viewport}
+					height={isMobile ? "55vh" : "100vh"}
 					mapLoaded={() => setMapLoaded(true)}
 					changeView={viewport => changeViewport(viewport)}
 					onTransition={trans => {
 						changeMoving(trans);
 					}}>
 					{vineyardNames.map(vineyard => {
-						const { lat, lng, location } = coordinates[vineyard];
+						const { lat, lng, image, location } = coordinates[vineyard];
 						const vineyardCard = document.getElementsByClassName(`${vineyard}`)[0];
-
-						if (!vineyard.includes("Estate") && !vineyard.includes("Ranch")) {
-							vineyard = vineyard.concat(" Vineyard");
-						}
 
 						return (
 							<React.Fragment key={vineyard}>
-								<Marker
-									lat={lat}
-									lng={lng}
-									isFocused={
-										Number(latitude).toPrecision(10) === lat.toPrecision(10) &&
-										Number(longitude).toPrecision(10) === lng.toPrecision(10)
-									}
-									moveToMarker={(lat, lng) => {
-										if (isLoaded && !isMoving) {
-											handleMapPan(latitude, longitude, lat, lng, togglePopup, changeViewport);
+								<Marker lat={lat} lng={lng} offsetTop={-30} offsetLeft={-12}>
+									<PointMarker
+										fill={
+											Number(latitude).toPrecision(5) === lat.toPrecision(5) &&
+											Number(longitude).toPrecision(5) === lng.toPrecision(5)
+												? "#618549"
+												: "#A69C80"
 										}
-										vineyardCard.scrollIntoView();
-									}}
-								/>
-								{Number(latitude).toPrecision(10) === lat.toPrecision(10) &&
-								Number(longitude).toPrecision(10) === lng.toPrecision(10) &&
-								isPopupOpen ? (
+										onClick={() => {
+											if (isLoaded && !isMoving) {
+												handleMapPan(lat, lng, togglePopup, changeViewport);
+											}
+
+											vineyardCard.scrollIntoView({ inline: "center", block: "center" });
+										}}
+									/>
+								</Marker>
+								{Number(latitude).toPrecision(5) === lat.toPrecision(5) &&
+								Number(longitude).toPrecision(5) === lng.toPrecision(5) &&
+								isPopupOpen &&
+								!isMobile ? (
 									<Popup
-										offsetTop={10}
 										closeOnClick
+										offsetTop={10}
 										latitude={lat}
 										longitude={lng}
 										offsetLeft={10}
 										dynamicPosition={false}
 										onClose={() => togglePopup(false)}>
-										<InfoWindow region={vineyard} description={location} />
+										<InfoWindow image={image} region={vineyard} description={location} />
 									</Popup>
 								) : null}
 							</React.Fragment>
@@ -135,7 +127,7 @@ const V2 = React.memo(() => {
 					})}
 				</Map>
 			</div>
-		</div>
+		</>
 	);
 });
 
