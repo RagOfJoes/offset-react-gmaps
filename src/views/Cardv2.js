@@ -1,8 +1,11 @@
 import React from "react";
-import { Col } from "reactstrap";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import CustomMarker from "./Marker";
+import { Row, Col } from "reactstrap";
+
+const toPrecise = num => {
+	return Number(num).toPrecision(5);
+};
 
 /**
  * Checks if Card is within the vicinity of Scoll bar, if so perform scoll animation
@@ -13,33 +16,42 @@ import CustomMarker from "./Marker";
  * @param {Object} position Destructs position to get lat and lng
  * @param {Object} props Destructs default props
  */
-const isInBounds = ({ latitude, longtitude }, cardRef, scrollElem, { lat, lng }, { cardClick }) => {
-	const scrollPosition = scrollElem.scrollTop;
+const isInBoundsHorizontal = ({ latitude, longtitude }, cardRef, scrollElem, { lat, lng }, { cardClick }) => {
+	const scrollPosition = scrollElem.scrollLeft + 10;
 
-	const cardHeight = cardRef.getBoundingClientRect();
-	const cardTopPosition = scrollPosition - (cardHeight.top + 50);
-	const cardBottomPosition = cardTopPosition + cardHeight.height;
+	const cardWidth = cardRef.getBoundingClientRect();
+	const cardLeftPosition = scrollPosition - cardWidth.left;
+	const cardRightPosition = cardLeftPosition + cardWidth.width;
 
-	if (
-		scrollPosition >= cardTopPosition &&
-		scrollPosition <= cardBottomPosition &&
-		Number(latitude).toPrecision(10) !== lat.toPrecision(10) &&
-		Number(longtitude).toPrecision(10) !== lng.toPrecision(10)
-	) {
-		return cardClick(Number(lat.toPrecision(10)), Number(lng.toPrecision(10)));
+	if (scrollPosition >= cardLeftPosition && scrollPosition <= cardRightPosition) {
+		if (toPrecise(latitude) !== toPrecise(lat) && toPrecise(longtitude) !== toPrecise(lng)) {
+			cardClick(Number(lat.toPrecision(5)), Number(lng.toPrecision(5)));
+		}
+		return cardRef.scrollIntoView({ inline: "center" });
 	}
 };
 
-/**
- * Adds to the title when necessary
- *
- * @param {string} title Card's title prop
- */
-const cardTitle = title => {
-	if (title.includes("Estate") || title.includes("Ranch")) {
-		return title;
-	} else {
-		return title.concat(" Vineyard");
+const isInBoundsVertical = (
+	{ latitude, longtitude },
+	cardRef,
+	scrollElem,
+	{ lat, lng },
+	{ cardClick, isMapMoving }
+) => {
+	const scrollPosition = scrollElem.scrollTop;
+
+	const cardHeight = cardRef.getBoundingClientRect();
+	const cardTopPosition = scrollPosition - cardHeight.top;
+	const cardBottomPosition = cardTopPosition + cardHeight.height;
+
+	if (scrollPosition >= cardTopPosition && scrollPosition <= cardBottomPosition) {
+		if (toPrecise(latitude) !== toPrecise(lat) && toPrecise(longtitude) !== toPrecise(lng)) {
+			return cardClick(Number(lat.toPrecision(5)), Number(lng.toPrecision(5)));
+		}
+
+		if (!isMapMoving) {
+			return cardRef.scrollIntoView({ block: "center" });
+		}
 	}
 };
 
@@ -58,62 +70,59 @@ const cardTitle = title => {
  * @version 1.0.0
  * @author [Victor Ragojos](https://github.com/RagofJoes)
  */
-class Card extends React.PureComponent {
-	render() {
-		const { title, mapCenter, caption, location, position, cardClick, cardImage, scrollElem } = this.props;
+const Card = React.memo(props => {
+	const { title, caption, isMobile, location, position, cardClick, cardImage, mapCenter, scrollElem } = props;
 
-		// Check if cardRef and scrollElem has been assigned
-		if (this.cardRef && scrollElem) {
-			isInBounds(mapCenter, this.cardRef, scrollElem, position, this.props);
-		}
+	const cardRef = React.useRef(null);
 
-		return (
-			<div
-				className={`card-container ${title}`}
-				ref={ref => {
-					// Assign ref. and make sure assignment is only executed once
-					if (ref !== null && ref !== this.cardRef) {
-						this.cardRef = ref;
-					}
-				}}>
-				<div className="card-container-row justify-content-center row">
-					<Col
-						className="card-image-col"
-						onClick={() => {
-							// Image click | Recenters map and scrolls to Card
-							cardClick(position.lat, position.lng);
-							this.cardRef.scrollIntoView();
-						}}>
-						<img src={cardImage} alt={`${title}`} />
-					</Col>
-					<Col className="card-title-col col-12">
-						<h2 className="club-name">{cardTitle(title)}</h2>
-					</Col>
-					<Col className="card-location-col col-12">
-						<h3>{location.toUpperCase()}</h3>
-					</Col>
-					<Col className="card-caption-col col-12">
-						<p>{caption}</p>
-					</Col>
-					<Col className="card-button-col col-12">
-						<a
-							href={`https://www.google.com/maps/search/?api=1&query=${position.lat},${position.lng}`}
-							rel="noopener noreferrer"
-							target="_blank"
-							className="btn btn-primary">
-							Explore Vineyard
-						</a>
-					</Col>
-				</div>
-			</div>
-		);
+	// Check if cardRef and scrollElem has been assigned
+	if (!isMobile && cardRef !== null && scrollElem !== null) {
+		isInBoundsVertical(mapCenter, cardRef.current, scrollElem, position, props);
+	} else if (isMobile && cardRef !== null && scrollElem !== null) {
+		isInBoundsHorizontal(mapCenter, cardRef.current, scrollElem, position, props);
 	}
-}
 
-// Retrieve Redux state and assign to props
-const mapStateToProps = state => {
-	return state.Map;
-};
+	return (
+		<div className={`card-container ${title}`} ref={cardRef}>
+			<div className="card-container-row justify-content-center row">
+				<Col
+					className="card-image-col"
+					onClick={() => {
+						// Image click | Recenters map and scrolls to Card
+						const { lat, lng } = position;
+						cardClick(Number(lat.toPrecision(5)), Number(lng.toPrecision(5)));
+						cardRef.current.scrollIntoView({ inline: "center", block: "center" });
+					}}
+                    // on
+                    >
+					<img src={cardImage} alt={`${title}`} />
+				</Col>
+				<Col>
+					<Row>
+						<Col className="card-title-col col-12">
+							<h2 className="club-name">{title}</h2>
+						</Col>
+						<Col className="card-location-col col-12">
+							<h3>{location.toUpperCase()}</h3>
+						</Col>
+						<Col className="card-caption-col col-12">
+							<p>{caption}</p>
+						</Col>
+						<Col className="card-button-col col-12">
+							<a
+								href={`https://www.google.com/maps/search/?api=1&query=${position.lat},${position.lng}`}
+								rel="noopener noreferrer"
+								target="_blank"
+								className="btn btn-primary">
+								Explore Vineyard
+							</a>
+						</Col>
+					</Row>
+				</Col>
+			</div>
+		</div>
+	);
+});
 
 CustomMarker.propTypes = {
 	title: PropTypes.string,
@@ -131,4 +140,4 @@ CustomMarker.propTypes = {
 	cardClick: PropTypes.func
 };
 
-export default connect(mapStateToProps)(Card);
+export default Card;
