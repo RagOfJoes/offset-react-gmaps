@@ -1,21 +1,24 @@
+import Map from "../views/Map";
 import React, { useState } from "react";
-import Map from "../views/MapV2";
-import Marker from "../views/MarkerV2";
+import Marker from "../views/Marker/Marker";
+import { NavigationControl } from "react-map-gl";
 import { mainMapOptions } from "../config/mapOptions";
+import LabelMarker from "../views/Marker/LabelMarker";
 import { regionNames, coordinates } from "../config/regionCoords";
-import LabelMarker from "../views/LabelMarker";
+
 const App = React.memo(() => {
-	const [viewport, changeViewport] = useState(mainMapOptions);
 	const [isMoving, changeMoving] = useState(false);
 	const [isMapLoaded, mapLoaded] = useState(false);
+	const [viewport, changeViewport] = useState(mainMapOptions);
 	return (
 		<Map
 			width="100vw"
 			height="100vh"
 			viewport={viewport}
-			mapLoaded={() => (!isMapLoaded ? mapLoaded(true) : null)}
-			onTransition={moving => changeMoving(moving)}
-			changeView={viewport => changeViewport(viewport)}>
+			mapStyle="mapbox://styles/victorfigure/cjz0v85ya62js1cp78ox6765k?optimize=true"
+			onTransition={() => changeMoving(!isMoving)}
+			changeView={viewport => changeViewport(viewport)}
+			mapLoaded={() => (!isMapLoaded ? mapLoaded(true) : null)}>
 			{regionNames.map(region => {
 				const { lat, lng } = coordinates[region];
 				return (
@@ -24,6 +27,9 @@ const App = React.memo(() => {
 					</Marker>
 				);
 			})}
+			<div style={{position: "absolute", bottom: "5%", left: "5%", zIndex: 100}}>
+				<NavigationControl showCompass={false} />
+			</div>
 		</Map>
 	);
 });
