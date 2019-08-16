@@ -1,65 +1,31 @@
 import React, { useState } from "react";
-import Map from "../views/Map";
-import Marker from "../views/Marker";
-import InfoWindow from "../views/InfoWindow";
-import { mapStyle } from "../config/mapStyle";
+import Map from "../views/MapV2";
+import Marker from "../views/MarkerV2";
+import { mainMapOptions } from "../config/mapOptions";
 import { regionNames, coordinates } from "../config/regionCoords";
+import LabelMarker from "../views/LabelMarker";
 const App = React.memo(() => {
-    const [hasInfoWindowOpen, toggleInfoWindows] = useState(false);
-
-    const toggleInfoWindow = () => {
-        toggleInfoWindows(!hasInfoWindowOpen);
-    };
-
-    return (
-        <Map
-            defaultZoom={6}
-            apiKey={process.env.REACT_APP_GOOGLE_MAP_API_KEY}
-            defaultCenter={{ lat: 40.4710635, lng: -125.5791852 }}
-            // Map Options Props
-            mapOptions={{
-                // Zoom control options
-                zoomControl: true, // shows Zoom buttons in Google Maps
-
-                // Gesture options
-                gestureHandling: "greedy",
-
-                // UI Control
-                disableDefaultUI: true,
-
-                // Custom Map Style
-                styles: mapStyle
-            }}
-        >
-            {regionNames.map(region => {
-                const { lat, lng, appellations } = coordinates[region];
-
-                return (
-                    <Marker
-                        // Required Props
-                        lat={lat}
-                        lng={lng}
-                        key={region}
-                        images={{
-                            on: require(`../assets/${region}.svg`),
-                            off: require(`../assets/${region}.svg`)
-                        }}
-                        // Clickable/Info Window Props
-                        isClickable
-                        hasInfoWindow
-                        hasInfoWindowOpen={hasInfoWindowOpen}
-                        toggleInfoWindow={toggle => toggleInfoWindow(toggle)}
-                        infoWindowComponent={
-                            <InfoWindow
-                                region={region}
-                                appellations={appellations}
-                            />
-                        }
-                    />
-                );
-            })}
-        </Map>
-    );
+	const [viewport, changeViewport] = useState(mainMapOptions);
+	const [isMoving, changeMoving] = useState(false);
+	const [isMapLoaded, mapLoaded] = useState(false);
+	return (
+		<Map
+			width="100vw"
+			height="100vh"
+			viewport={viewport}
+			mapLoaded={() => (!isMapLoaded ? mapLoaded(true) : null)}
+			onTransition={moving => changeMoving(moving)}
+			changeView={viewport => changeViewport(viewport)}>
+			{regionNames.map(region => {
+				const { lat, lng } = coordinates[region];
+				return (
+					<Marker lat={lat} lng={lng} key={region} offsetTop={-40} offsetLeft={-100}>
+						<LabelMarker title={region} />
+					</Marker>
+				);
+			})}
+		</Map>
+	);
 });
 
 export default App;
