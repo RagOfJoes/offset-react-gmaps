@@ -16,26 +16,26 @@ export const sections = [
         elit. Sapiente modi quis porro recusandae ab ea omnis
         quisquam nemo in quidem. Lorem ipsum dolor sit, amet
         consectetur adipisicing elit.`,
-        vineyardNames: ["Prince Hill"]
+        vineyardNames: ["Prince Hill Vineyard"]
     },
     {
         sectionTitle: "North Coast",
         appellations: "Anderson Valley, Russian River Valley, Dry Creek Valley, Napa Valley, Oakville, Calistoga",
         vineyardNames: [
-            "Monument Tree",
-            "Philo Estate",
-            "Healdsburg Estate",
-            "West Pin",
+            "Monument Tree Vineyard",
+            "Philo Estate Vineyard",
+            "Healdsburg Estate Vineyard",
+            "Westpin Vineyard",
             "Last Stop",
-            "Merino",
-            "Calistoga Estate",
-            "Oakville Estate",
-            "Soda Canyon Ranch"
+            "Merino Vineyard",
+            "Calistoga Estate Vineyard",
+            "Oakville Estate Vineyard",
+            "Soda Canyon Ranch Vineyard"
         ]
     },
     {
         sectionTitle: "Central Coast",
         appellations: "Santa Maria Valley, Santa Lucia Highlands",
-        vineyardNames: ["Garys'", "Soberanes", "Bien Nacido"]
+        vineyardNames: ["Garys' Vineyard", "Soberanes Vineyard", "Bien Nacido Vineyard"]
     }
 ];
