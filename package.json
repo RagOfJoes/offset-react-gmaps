@@ -1,6 +1,6 @@
 {
-  "name": "react-offset-api",
-  "version": "0.1.0",
+  "name": "twomey-maps",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
