@@ -24,6 +24,7 @@ const Card = React.memo(props => {
 	const cardRef = React.useRef(null);
 
 	// Check if cardRef and scrollElem has been assigned
+	// console.log(props.isMapMoving)
 	if (!isMobile && cardRef !== null && scrollElem !== null) {
 		isInBoundsVertical(mapCenter, cardRef.current, scrollElem, position, props);
 	} else if (isMobile && cardRef !== null && scrollElem !== null) {
@@ -49,7 +50,7 @@ const Card = React.memo(props => {
 							<h2 className="club-name">{title}</h2>
 						</Col>
 						<Col className="card-location-col col-12">
-							<h3>{location.toUpperCase()}</h3>
+							<h3>{location}</h3>
 						</Col>
 						<Col className="card-caption-col col-12">
 							<p>{caption}</p>
