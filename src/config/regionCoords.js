@@ -8,25 +8,21 @@
  * @author [Victor Ragojos](https://github.com/RagOfJoes)
  */
 export const coordinates = {
-    "Willamette Valley": {
-        lat: 45.2825284,
-        lng: -123.0408265,
-        appellations: "Willamette Valley and Dundee Hills"
-    },
-    "Northern California": {
-        lat: 38.4411547,
-        lng: -122.3828042,
-        appellations: "Anderson Valley, Russian River, and Napa Valley"
-    },
-    "Central Coast": {
-        lat: 36.1343869,
-        lng: -121.4507608,
-        appellations: "Santa Maria Valley and Santa Lucia Highlands"
-    }
+	"Willamette Valley": {
+		lat: 45.2825284,
+		lng: -123.0408265,
+		appellations: "Willamette Valley and Dundee Hills",
+	},
+	"North Coast": {
+		lat: 38.4411547,
+		lng: -122.3828042,
+		appellations: "Anderson Valley, Russian River, and Napa Valley",
+	},
+	"Central Coast": {
+		lat: 36.1343869,
+		lng: -121.4507608,
+		appellations: "Santa Maria Valley and Santa Lucia Highlands",
+	}
 };
 
-export const regionNames = [
-    "Willamette Valley",
-    "Northern California",
-    "Central Coast"
-];
+export const regionNames = ["Willamette Valley", "North Coast", "Central Coast"];
