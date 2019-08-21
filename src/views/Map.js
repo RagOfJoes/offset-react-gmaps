@@ -11,6 +11,7 @@ import MapGL from "react-map-gl";
  */
 const MapV2 = React.memo(props => {
 	const { width, height, mapStyle, viewport, changeView, mapLoaded, onTransition } = props;
+	
 	return (
 		<MapGL
 			// Optimization props
@@ -25,17 +26,13 @@ const MapV2 = React.memo(props => {
 			height={height}
 			// Map functions to enable animations
 			onLoad={() => mapLoaded(true)}
-			onViewportChange={viewport => {
-				changeView(viewport);
-			}}
-			onInteractionStateChange={interactionState => {
-				const { isZooming, inTransition } = interactionState;
-				if (isZooming) {
-					onTransition(isZooming);
-				} else {
-					onTransition(inTransition);
-				}
-			}}
+			onViewportChange={viewport => changeView(viewport)}
+			// Enables Users to look around the map
+			onMouseUp={() => onTransition(false)}
+			onMouseDown={() => onTransition(true)}
+			onTouchEnd={() => onTransition(false)}
+			onTouchStart={() => onTransition(true)}
+			// Tracks Map Transition
 			onTransitionEnd={() => onTransition(false)}
 			onTransitionStart={() => onTransition(true)}
 			// Map Style and API token *required*
