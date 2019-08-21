@@ -1,7 +1,7 @@
 /**
  * Converts number to a value that can be compared precisely
- * 
- * @param {Number} num 
+ *
+ * @param {Number} num
  */
 export const toPrecise = num => {
 	return Number(Number(num).toPrecision(5));
@@ -49,13 +49,7 @@ export const isInBoundsHorizontal = (
  * @param {Object} position Destructs position to get lat and lng
  * @param {Object} props Destructs default props for App state
  */
-export const isInBoundsVertical = (
-	{ latitude, longtitude },
-	cardRef,
-	scrollElem,
-	{ lat, lng },
-	{ cardClick, isMapMoving }
-) => {
+export const isInBoundsVertical = ({ latitude, longtitude }, cardRef, scrollElem, { lat, lng }, { cardClick, isMapMoving }) => {
 	const scrollPosition = scrollElem.scrollTop;
 
 	const cardHeight = cardRef.getBoundingClientRect();
@@ -64,11 +58,11 @@ export const isInBoundsVertical = (
 
 	if (scrollPosition >= cardTopPosition && scrollPosition <= cardBottomPosition) {
 		if (toPrecise(latitude) !== toPrecise(lat) && toPrecise(longtitude) !== toPrecise(lng)) {
-			return cardClick(toPrecise(lat), toPrecise(lng));
+			return cardClick(lat, lng);
 		}
 
 		if (!isMapMoving) {
-			return cardRef.scrollIntoView({ block: "center" });
+			return cardRef.scrollIntoView({ inline: "center", block: "center" });
 		}
 	}
 };
