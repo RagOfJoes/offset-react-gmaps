@@ -77,9 +77,6 @@ const App = React.memo(() => {
 	const [viewport, changeViewport] = useState(mainMapOptions);
 
 	// Track scroll element
-	const scrollElem = React.useRef(null);
-	useScroll(scrollElem);
-
 	return (
 		<div className="main-map-container">
 			<Map
