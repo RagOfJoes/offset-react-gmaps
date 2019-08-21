@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from "reactstrap";
-import { toPrecise, isInBoundsVertical, isInBoundsHorizontal } from "./config";
+import { isInBoundsVertical, isInBoundsHorizontal } from "./config";
 
 /**
  * Card View Component
@@ -19,7 +19,19 @@ import { toPrecise, isInBoundsVertical, isInBoundsHorizontal } from "./config";
  * @author [Victor Ragojos](https://github.com/RagofJoes)
  */
 const Card = React.memo(props => {
-	const { title, caption, isMobile, location, position, cardClick, cardImage, mapCenter, scrollElem } = props;
+	const {
+		title,
+		caption,
+		isMobile,
+		isMapMoving,
+		location,
+		position,
+		cardClick,
+		cardLink,
+		cardImage,
+		mapCenter,
+		scrollElem
+	} = props;
 
 	const cardRef = React.useRef(null);
 
@@ -39,7 +51,10 @@ const Card = React.memo(props => {
 					onClick={() => {
 						// Image click | Recenters map and scrolls to Card
 						const { lat, lng } = position;
-						cardClick(toPrecise(lat), toPrecise(lng));
+
+						if (!isMapMoving) {
+							cardClick(lat, lng);
+						}
 						cardRef.current.scrollIntoView({ inline: "center", block: "center" });
 					}}>
 					<img src={cardImage} alt={`${title}`} />
@@ -56,11 +71,7 @@ const Card = React.memo(props => {
 							<p>{caption}</p>
 						</Col>
 						<Col className="card-button-col col-12">
-							<a
-								href={`https://www.google.com/maps/search/?api=1&query=${position.lat},${position.lng}`}
-								rel="noopener noreferrer"
-								target="_blank"
-								className="btn btn-primary">
+							<a target="_top" href={`/${cardLink}`} className="btn btn-primary">
 								Explore Vineyard
 							</a>
 						</Col>
