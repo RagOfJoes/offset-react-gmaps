@@ -2,30 +2,27 @@ import Map from "../views/Map";
 import Card from "../views/Card/Card";
 import { Popup } from "react-map-gl";
 import Section from "../views/Section";
-import Marker from "../views/Marker/Marker";
 import React, { useState } from "react";
+import Marker from "../views/Marker/Marker";
 import { sections } from "../config/regions";
-import useScroll from "../config/isScrolling";
 import InfoWindow from "../views/InfoWindow";
-import PointMarker from "../views/Marker/PointMarker";
+import useScroll from "../config/isScrolling";
 import { mapOptions } from "../config/mapOptions";
+import PointMarker from "../views/Marker/PointMarker";
+import { toPrecise } from "../views/Card/config";
 import { vineyardNames, coordinates } from "../config/coords";
 import { FlyToInterpolator, TRANSITION_EVENTS } from "react-map-gl";
 
 const checkCoord = (startLat, startLng, endLat, endLng) => {
-	return (
-		Number(startLat).toPrecision(5) === endLat.toPrecision(5) &&
-		Number(startLng).toPrecision(5) === endLng.toPrecision(5)
-	);
+	return toPrecise(startLat) === toPrecise(endLat) && toPrecise(startLng) === toPrecise(endLng);
 };
 
-const handleMapPan = (endLan, endLng, handlePopup, handleViewport) => {
-	handlePopup(true);
+const handleMapPan = (endLan, endLng, handleViewport) => {
 	handleViewport(prevState => ({
 		...prevState,
 		latitude: endLan,
 		longitude: endLng,
-		transitionDuration: 1200,
+		transitionDuration: 1000,
 		transitionInterpolator: new FlyToInterpolator(),
 		transitionInterruption: TRANSITION_EVENTS.UPDATE
 	}));
@@ -35,9 +32,9 @@ const renderMarker = (
 	vineyardName,
 	vineyard,
 	vineyardCard,
+	vineyardLink,
 	isLoaded,
 	isMobile,
-	isMoving,
 	isPopupOpen,
 	togglePopup,
 	changeViewport,
@@ -52,11 +49,15 @@ const renderMarker = (
 				<PointMarker
 					fill={fill}
 					onClick={() => {
-						if (isLoaded && !isMoving) {
-							handleMapPan(lat, lng, togglePopup, changeViewport);
-						}
+						if (isLoaded) {
+							handleMapPan(lat, lng, changeViewport);
 
-						vineyardCard.scrollIntoView({ inline: "center", block: "center" });
+							if (!isPopupOpen && checkCoord(latitude, longitude, lat, lng)) {
+								togglePopup(true);
+							}
+
+							vineyardCard.scrollIntoView({ inline: "center", block: "center" });
+						}
 					}}
 				/>
 			</Marker>
@@ -69,28 +70,37 @@ const renderMarker = (
 					offsetLeft={10}
 					dynamicPosition={false}
 					onClose={() => togglePopup(false)}>
-					<InfoWindow image={image} region={vineyardName} description={location} />
+					<InfoWindow image={image} region={vineyardName} link={vineyardLink} description={location} />
 				</Popup>
 			) : null}
 		</React.Fragment>
 	);
 };
 
+const useNodeRef = () => {
+	const [node, setNode] = useState(null);
+
+	const ref = React.useCallback(node => {
+		setNode(node);
+	}, []);
+	return [node, ref];
+};
+
 const App = React.memo(() => {
-	const [isMobile, setMobile] = useState(false);
+	const [node, setNode] = useNodeRef(null);
+	const [isMobile, setMobile] = useState(true);
 	const [isLoaded, setMapLoaded] = useState(false);
 	const [isMoving, changeMoving] = useState(false);
 	const [isPopupOpen, togglePopup] = useState(true);
 	const [viewport, changeViewport] = useState(mapOptions);
 
-    // Viewport
+	// Viewport
 	const { latitude, longitude } = viewport;
 
-    // Track scroll element
-	const scrollElem = React.useRef(null);
-	useScroll(scrollElem);
+	// Track scroll element
+	useScroll(node);
 
-    // Track window width to determine whether or not to use mobile
+	// Track window width to determine whether or not to use mobile
 	if (window.innerWidth <= 767.8 && !isMobile) {
 		setMobile(true);
 	} else if (window.innerWidth >= 767.8 && isMobile) {
@@ -99,13 +109,20 @@ const App = React.memo(() => {
 
 	return (
 		<>
-			<div className="scroll-places-row" ref={scrollElem}>
+			<div className="scroll-places-row" ref={setNode}>
 				{sections.map(section => {
-					const { sectionTitle, appellations } = section;
+					const { sectionTitle, appellations, description } = section;
 					return (
-						<Section key={sectionTitle} title={sectionTitle} appellations={appellations}>
+						<Section
+							key={sectionTitle}
+							title={sectionTitle}
+							description={description}
+							appellations={appellations}>
 							{section.vineyardNames.map(vineyard => {
 								const { lat, lng, image, caption, location } = coordinates[vineyard]; // Get vineyard's info
+
+								// Creates Card Link
+								const cardLink = `${vineyard.replace(/\s+/g, "-").toLowerCase()}`;
 								return (
 									<Card
 										key={vineyard}
@@ -114,13 +131,14 @@ const App = React.memo(() => {
 										cardImage={image}
 										location={location}
 										isMobile={isMobile}
+										cardLink={cardLink}
 										isMapMoving={isMoving}
 										position={{ lat, lng }}
-										scrollElem={scrollElem.current}
+										scrollElem={node}
 										mapCenter={{ latitude, longitude }}
 										cardClick={(lat, lng) => {
 											if (isLoaded && !isMoving) {
-												handleMapPan(lat, lng, togglePopup, changeViewport);
+												handleMapPan(lat, lng, changeViewport);
 											}
 										}}
 									/>
@@ -134,23 +152,31 @@ const App = React.memo(() => {
 				<Map
 					width="100%"
 					viewport={viewport}
-					height={isMobile ? "55vh" : "100vh"}
-                    mapStyle="mapbox://styles/victorfigure/cjz0v85ya62js1cp78ox6765k?optimize=true"
-					changeView={viewport => changeViewport(viewport)}
-					mapLoaded={() => (isLoaded ? null : setMapLoaded(true))}
+					height={isMobile ? "65vh" : "100vh"}
+					mapStyle="mapbox://styles/victorfigure/cjz0v85ya62js1cp78ox6765k?optimize=true"
+					changeView={newView => changeViewport(newView)}
+					mapLoaded={() => {
+						if (!isLoaded) {
+							setMapLoaded(true);
+							changeMoving(false);
+						}
+					}}
 					onTransition={trans => {
-						changeMoving(trans);
+						if (trans !== isMoving) {
+							changeMoving(trans);
+						}
 					}}>
 					{vineyardNames.map(vineyard => {
+						const cardLink = `${vineyard.replace(/\s+/g, "-").toLowerCase()}`;
 						const vineyardCard = document.getElementsByClassName(`${vineyard}`)[0];
 
 						return renderMarker(
 							vineyard,
 							coordinates[vineyard],
 							vineyardCard,
+							cardLink,
 							isLoaded,
 							isMobile,
-							isMoving,
 							isPopupOpen,
 							togglePopup,
 							changeViewport,

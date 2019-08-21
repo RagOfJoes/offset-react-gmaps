@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 
-const useScroll = ref => {
+const useScroll = node => {
 	const [scrolling, setScroll] = useState(false);
-
 	useEffect(() => {
-		const node = ref.current;
 		if (node) {
 			let scrollingTimeout;
 
@@ -17,17 +15,17 @@ const useScroll = ref => {
 				clearTimeout(scrollingTimeout);
 				scrollingTimeout = setTimeout(() => handleScrollEnd(), 35);
 			};
-
-			ref.current.addEventListener("scroll", handleScroll, false);
+			node.addEventListener("scroll", handleScroll, false);
 			return () => {
 				if (node) {
+					clearTimeout(scrollingTimeout);
 					node.removeEventListener("scroll", handleScroll, false);
 				}
 			};
+		} else {
+			return () => {};
 		}
-		return () => {};
-	}, [ref]);
-
+	}, [node]);
 	return scrolling;
 };
 
