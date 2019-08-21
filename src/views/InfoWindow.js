@@ -9,13 +9,9 @@ import React from "react";
  * @author [Victor Ragojos](https://github.com/RagOfJoes)
  */
 const InfoWindow = props => {
-	const { image, region, description } = props;
+	const { image, region, description, link } = props;
 
 	// Will essentially replace all spaces with - to make URL for SEO friendly
-	const regionLink = region
-		.split(" ")
-		.join("-")
-		.toLowerCase();
 
 	return (
 		<div className="popup-container">
@@ -26,7 +22,7 @@ const InfoWindow = props => {
 				<p className="info-window-region">{region}</p>
 				<p className="info-window-appellations">{description}</p>
 				<p className="info-window-link">
-					<a href={`https://staging-dawecude.kinsta.cloud/vineyards/${regionLink}`} target="_top">
+					<a href={`/${link}`} target="_top">
 						Explore Vineyard
 					</a>{" "}
 				</p>
