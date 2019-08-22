@@ -22,6 +22,7 @@ const Card = React.memo(props => {
 	const {
 		title,
 		caption,
+		isList,
 		isMobile,
 		isMapMoving,
 		location,
@@ -37,9 +38,9 @@ const Card = React.memo(props => {
 
 	// Check if cardRef and scrollElem has been assigned
 	// console.log(props.isMapMoving)
-	if (!isMobile && cardRef !== null && scrollElem !== null) {
+	if (!isMobile && cardRef !== null && scrollElem !== null && !isList) {
 		isInBoundsVertical(mapCenter, cardRef.current, scrollElem, position, props);
-	} else if (isMobile && cardRef !== null && scrollElem !== null) {
+	} else if (isMobile && cardRef !== null && scrollElem !== null && !isList) {
 		isInBoundsHorizontal(mapCenter, cardRef.current, scrollElem, position, props);
 	}
 
@@ -71,7 +72,7 @@ const Card = React.memo(props => {
 							<p>{caption}</p>
 						</Col>
 						<Col className="card-button-col col-12">
-							<a target="_top" href={`/${cardLink}`} className="btn btn-primary">
+							<a target="_parent" href={`/${cardLink}`} className="btn btn-primary">
 								Explore Vineyard
 							</a>
 						</Col>
