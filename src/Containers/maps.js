@@ -1,192 +1,116 @@
-import Map from "../views/Map";
-import Card from "../views/Card/Card";
-import { Popup } from "react-map-gl";
-import Section from "../views/Section";
-import React, { useState } from "react";
-import Marker from "../views/Marker/Marker";
-import { sections } from "../config/regions";
-import InfoWindow from "../views/InfoWindow";
-import useScroll from "../config/isScrolling";
-import { mapOptions } from "../config/mapOptions";
-import PointMarker from "../views/Marker/PointMarker";
-import { toPrecise } from "../views/Card/config";
-import { vineyardNames, coordinates } from "../config/coords";
-import { FlyToInterpolator, TRANSITION_EVENTS } from "react-map-gl";
+import Map from '../views/Map';
+import Tabs from './Components/Tabs';
+import Section from '../views/Section';
+import React, { useState } from 'react';
+import { coordinates } from '../config/coords';
+import useScroll from '../config/scrollingHook';
+import { mapOptions } from '../config/mapOptions';
+import { checkCoord } from './config/checkCoords';
+import RenderCards from './Components/RenderCards';
+import useWindowSize from '../config/windowSIzeHook';
+import { handleMapPan } from './config/handleMapPan';
+import { useNodeRef } from './config/refWithCallback';
+import RenderMarkers from './Components/RenderMarkers';
 
-const checkCoord = (startLat, startLng, endLat, endLng) => {
-	return toPrecise(startLat) === toPrecise(endLat) && toPrecise(startLng) === toPrecise(endLng);
-};
-
-const handleMapPan = (endLan, endLng, handleViewport) => {
-	handleViewport(prevState => ({
-		...prevState,
-		latitude: endLan,
-		longitude: endLng,
-		transitionDuration: 1000,
-		transitionInterpolator: new FlyToInterpolator(),
-		transitionInterruption: TRANSITION_EVENTS.UPDATE
-	}));
-};
-
-const renderMarker = (
-	vineyardName,
-	vineyard,
-	vineyardCard,
-	vineyardLink,
-	isLoaded,
-	isMobile,
-	isPopupOpen,
-	togglePopup,
-	changeViewport,
-	{ latitude, longitude }
-) => {
-	const { lat, lng, image, location } = vineyard;
-
-	const fill = checkCoord(latitude, longitude, lat, lng) ? "#618549" : "#A69C80";
-	return (
-		<React.Fragment key={vineyardName}>
-			<Marker lat={lat} lng={lng} offsetTop={-30} offsetLeft={-12}>
-				<PointMarker
-					fill={fill}
-					onClick={() => {
-						if (isLoaded) {
-							handleMapPan(lat, lng, changeViewport);
-
-							if (!isPopupOpen && checkCoord(latitude, longitude, lat, lng)) {
-								togglePopup(true);
-							}
-
-							vineyardCard.scrollIntoView({ inline: "center", block: "center" });
-						}
-					}}
-				/>
-			</Marker>
-			{checkCoord(latitude, longitude, lat, lng) && isPopupOpen && !isMobile ? (
-				<Popup
-					closeOnClick
-					offsetTop={10}
-					latitude={lat}
-					longitude={lng}
-					offsetLeft={10}
-					dynamicPosition={false}
-					onClose={() => togglePopup(false)}>
-					<InfoWindow image={image} region={vineyardName} link={vineyardLink} description={location} />
-				</Popup>
-			) : null}
-		</React.Fragment>
-	);
-};
-
-const useNodeRef = () => {
-	const [node, setNode] = useState(null);
-
-	const ref = React.useCallback(node => {
-		setNode(node);
-	}, []);
-	return [node, ref];
-};
-
-const App = React.memo(() => {
+const App = props => {
+	// States
+	const [tab, toggleTab] = useState(1);
 	const [node, setNode] = useNodeRef(null);
-	const [isMobile, setMobile] = useState(true);
+	const [isMobile, setMobile] = useState(false);
 	const [isLoaded, setMapLoaded] = useState(false);
 	const [isMoving, changeMoving] = useState(false);
 	const [isPopupOpen, togglePopup] = useState(true);
 	const [viewport, changeViewport] = useState(mapOptions);
 
-	// Viewport
-	const { latitude, longitude } = viewport;
+	// Props
+	const { region } = props;
 
 	// Track scroll element
 	useScroll(node);
 
-	// Track window width to determine whether or not to use mobile
-	if (window.innerWidth <= 767.8 && !isMobile) {
+	// Listen to window resize
+	const windowSize = useWindowSize();
+	if (windowSize.width < 767.8 && !isMobile) {
+		toggleTab(1);
 		setMobile(true);
-	} else if (window.innerWidth >= 767.8 && isMobile) {
+	} else if (windowSize.width >= 767.8 && isMobile) {
+		toggleTab(1);
 		setMobile(false);
 	}
 
-	return (
-		<>
-			<div className="scroll-places-row" ref={setNode}>
-				{sections.map(section => {
-					const { sectionTitle, appellations, description } = section;
-					return (
-						<Section
-							key={sectionTitle}
-							title={sectionTitle}
-							description={description}
-							appellations={appellations}>
-							{section.vineyardNames.map(vineyard => {
-								const { lat, lng, image, caption, location } = coordinates[vineyard]; // Get vineyard's info
+	if (region) {
+		const { sectionTitle, appellations, description, vineyards } = region;
 
-								// Creates Card Link
-								const cardLink = `${vineyard.replace(/\s+/g, "-").toLowerCase()}`;
-								return (
-									<Card
-										key={vineyard}
-										title={vineyard}
-										caption={caption}
-										cardImage={image}
-										location={location}
-										isMobile={isMobile}
-										cardLink={cardLink}
-										isMapMoving={isMoving}
-										position={{ lat, lng }}
-										scrollElem={node}
-										mapCenter={{ latitude, longitude }}
-										cardClick={(lat, lng) => {
-											if (isLoaded && !isMoving) {
-												handleMapPan(lat, lng, changeViewport);
-											}
-										}}
-									/>
-								);
-							})}
-						</Section>
-					);
-				})}
-			</div>
-			<div className="scroll-map-container">
-				<Map
-					width="100%"
-					viewport={viewport}
-					height={isMobile ? "65vh" : "100vh"}
-					mapStyle="mapbox://styles/victorfigure/cjz0v85ya62js1cp78ox6765k?optimize=true"
-					changeView={newView => changeViewport(newView)}
-					mapLoaded={() => {
-						if (!isLoaded) {
-							setMapLoaded(true);
-							changeMoving(false);
-						}
-					}}
-					onTransition={trans => {
-						if (trans !== isMoving) {
-							changeMoving(trans);
-						}
-					}}>
-					{vineyardNames.map(vineyard => {
-						const cardLink = `${vineyard.replace(/\s+/g, "-").toLowerCase()}`;
-						const vineyardCard = document.getElementsByClassName(`${vineyard}`)[0];
+		// Viewport
+		const { latitude, longitude } = viewport;
 
-						return renderMarker(
-							vineyard,
-							coordinates[vineyard],
-							vineyardCard,
-							cardLink,
-							isLoaded,
-							isMobile,
-							isPopupOpen,
-							togglePopup,
-							changeViewport,
-							viewport
-						);
-					})}
-				</Map>
+		return (
+			<>
+				<div className={isMobile && tab === 2 ? `scroll-places-list` : `scroll-places-row`} ref={setNode}>
+					<Section key={sectionTitle} title={sectionTitle} description={description} appellations={appellations}>
+						<RenderCards
+							section={region}
+							scrollElem={node}
+							isList={tab === 2}
+							isMobile={isMobile}
+							isMoving={isMoving}
+							viewport={viewport}
+							onClick={(endLat, endLng) => {
+								if (isLoaded && !isMoving) {
+									handleMapPan(endLat, endLng, changeViewport);
+								}
+							}}
+						/>
+					</Section>
+				</div>
+				<div className="scroll-map-container" style={isMobile ? (tab === 1 ? null : { display: 'none' }) : null}>
+					<Map
+						width="100%"
+						viewport={viewport}
+						height={isMobile ? '65vh' : '100vh'}
+						mapStyle="mapbox://styles/victorfigure/cjz0v85ya62js1cp78ox6765k?optimize=true"
+						changeView={newView => changeViewport(newView)}
+						mapLoaded={() => {
+							if (!isLoaded) {
+								setMapLoaded(true);
+								changeMoving(false);
+							}
+						}}
+						onTransition={trans => {
+							if (trans !== isMoving) {
+								changeMoving(trans);
+							}
+						}}>
+						<RenderMarkers
+							isMobile={isMobile}
+							viewport={viewport}
+							vineyards={vineyards}
+							isPopupOpen={isPopupOpen}
+							togglePopup={togglePopup}
+							coordinates={coordinates}
+							onClick={(endLat, endLng, card) => {
+								if (isLoaded) {
+									handleMapPan(endLat, endLng, changeViewport);
+									if (!isPopupOpen && checkCoord(latitude, longitude, endLat, endLng)) {
+										togglePopup(true);
+									}
+
+									card.scrollIntoView({ block: 'center', inline: 'center' });
+								}
+							}}
+						/>
+					</Map>
+				</div>
+				<Tabs tab={tab} toggleTab={toggleTab} />
+			</>
+		);
+	} else {
+		return (
+			<div className="invalidRegion" data-reason="INVALID REGION!">
+				<h2>INVALID REGION!</h2>
 			</div>
-		</>
-	);
-});
+		);
+	}
+};
 
 export default App;
