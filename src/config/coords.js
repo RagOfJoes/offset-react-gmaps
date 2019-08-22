@@ -10,114 +10,111 @@
  * @author [Victor Ragojos](https://github.com/RagOfJoes)
  */
 export const coordinates = {
-	"Last Stop": {
+	'Last Stop': {
 		lat: 38.470977,
 		lng: -122.89356,
-		location: "Russian River Valley, California",
-		image: require("../assets/Last Stop.jpg"),
+		location: 'Russian River Valley, California',
+		image: require('../assets/Last Stop.jpg'),
 		caption: `Our estate vineyard named after the final destination of an old rail train`
 	},
-	"Westpin Vineyard": {
+	'Westpin Vineyard': {
 		lat: 38.5211001,
 		lng: -122.8662024,
-		location: "Russian River Valley, California",
-		image: require("../assets/Westpin Vineyard.jpg"),
+		location: 'Russian River Valley, California',
+		image: require('../assets/Westpin Vineyard.jpg'),
 		caption: `Our first Pinot Noir site—made for growing elegant Pinot Noir`
 	},
 	"Garys' Vineyard": {
 		lat: 36.4422663,
 		lng: -121.4402578,
-		location: "Santa Lucia Highlands, California",
-		image: require("../assets/Garys.jpg"),
+		location: 'Santa Lucia Highlands, California',
+		image: require('../assets/Garys.jpg'),
 		caption: `Acclaimed as “one of the most famous vineyards” in the state`
 	},
-	"Soberanes Vineyard": {
+	'Soberanes Vineyard': {
 		lat: 36.4407934,
 		lng: -121.4391096,
-		location: "Santa Lucia Highlands, California",
-		image: require("../assets/Soberanes.jpg"),
+		location: 'Santa Lucia Highlands, California',
+		image: require('../assets/Soberanes.jpg'),
 		caption: `The source of deep, expressive Pinot Noir with coastal influences `
 	},
-	"Bien Nacido Vineyard": {
+	'Bien Nacido Vineyard': {
 		lat: 34.8946711,
 		lng: -120.298725,
-		location: "Santa Maria Valley, California",
-		image: require("../assets/Bien Nacido Vineyard.jpg"),
+		location: 'Santa Maria Valley, California',
+		image: require('../assets/Bien Nacido Vineyard.jpg'),
 		caption: `Cool-climate vineyard organically farmed for expressive Pinot Noir`
 	},
-	"Prince Hill Vineyard": {
+	'Prince Hill Vineyard': {
 		lat: 45.2825284,
 		lng: -123.0408265,
-		location: "Dundee Hills, Oregon",
-		image: require("../assets/Prince Hill.jpg"),
+		location: 'Dundee Hills, Oregon',
+		image: require('../assets/Prince Hill.jpg'),
 		caption: `Our home (in Dundee, Oregon) away from home named after music royalty`
 	},
-	"Healdsburg Estate Vineyard": {
+	'Healdsburg Estate Vineyard': {
 		lat: 38.5781274,
 		lng: -122.8758549,
-		location: "Russian River Valley, California",
-		image: require("../assets/Healdsburg Estate.jpg"),
+		location: 'Russian River Valley, California',
+		image: require('../assets/Healdsburg Estate.jpg'),
 		caption: `Less fog and more sunshine make for delicious Sauvignon Blanc—and a beautiful view from our winery on Westside Road`
 	},
-	"Merino Vineyard": {
+	'Merino Vineyard': {
 		lat: 38.4365445,
 		lng: -122.7832404,
-		location: "Russian River Valley, California",
-		image: require("../assets/Merino Vineyard.jpg"),
+		location: 'Russian River Valley, California',
+		image: require('../assets/Merino Vineyard.jpg'),
 		caption: `Where Sauvignon Blanc matures without being rushed`
 	},
-	"Oakville Estate Vineyard": {
+	'Oakville Estate Vineyard': {
 		lat: 38.4411547,
 		lng: -122.3828042,
-		location: "Napa Valley, California",
-		image: require("../assets/Oakville Estate.jpg"),
-		caption: `Lorem ipsum dolor sit, amet consectetur adipisicing
-        elit. Sapiente modi quis porro recusandae ab ea omnis
-        quisquam nemo in quidem. Lorem ipsum dolor sit, amet
-        consectetur adipisicing elit.`
+		location: 'Napa Valley, California',
+		image: require('../assets/Oakville Estate.jpg'),
+		caption: `Fun fact: Rows surrounding Silver Oak in Oakville are planted for (our) Sauvignon Blanc`
 	},
-	"Soda Canyon Ranch Vineyard": {
+	'Soda Canyon Ranch Vineyard': {
 		lat: 38.357897,
 		lng: -122.278065,
-		location: "Napa Valley, California",
-		image: require("../assets/Soda Canyon.jpg"),
+		location: 'Napa Valley, California',
+		image: require('../assets/Soda Canyon.jpg'),
 		caption: `The estate that started it all—for both Twomey and Silver Oak`
 	},
-	"Calistoga Estate Vineyard": {
+	'Calistoga Estate Vineyard': {
 		lat: 38.5658304,
 		lng: -122.5561176,
-		location: "Napa Valley, California",
-		image: require("../assets/Calistoga Estate.jpg"),
+		location: 'Napa Valley, California',
+		image: require('../assets/Calistoga Estate.jpg'),
 		caption: `Planted to Sauvignon Blanc clones and surrounds our tasting room on Dunaweal Lane`
 	},
-	"Monument Tree Vineyard": {
+	'Monument Tree Vineyard': {
 		lat: 39.1149364,
 		lng: -123.5132721,
-		location: "Anderson Valley, California",
-		image: require("../assets/Monument Tree Vineyard.jpg"),
+		location: 'Anderson Valley, California',
+		image: require('../assets/Monument Tree Vineyard.jpg'),
 		caption: `Once you see the tree, you won’t forget the name`
 	},
-	"Philo Estate Vineyard": {
+	'Philo Estate Vineyard': {
 		lat: 39.1097857,
 		lng: -123.4917431,
-		location: "Anderson Valley, California",
-		image: require("../assets/Philo Estate.jpg"),
+		location: 'Anderson Valley, California',
+		image: require('../assets/Philo Estate.jpg'),
 		caption: `Located in western Mendocino County and home to a tasting room—to open soon!`
 	}
 };
 
 export const vineyardNames = [
-	"Prince Hill Vineyard",
-	"Monument Tree Vineyard",
-	"Philo Estate Vineyard",
-	"Healdsburg Estate Vineyard",
-	"Westpin Vineyard",
-	"Last Stop",
-	"Merino Vineyard",
-	"Calistoga Estate Vineyard",
-	"Oakville Estate Vineyard",
-	"Soda Canyon Ranch Vineyard",
+	'Prince Hill Vineyard',
+	'Monument Tree Vineyard',
+	'Philo Estate Vineyard',
+	'Healdsburg Estate Vineyard',
+	'Westpin Vineyard',
+	'Last Stop',
+	'Merino Vineyard',
+	'Calistoga Estate Vineyard',
+	'Oakville Estate Vineyard',
+	'Soda Canyon Ranch Vineyard',
 	"Garys' Vineyard",
-	"Soberanes Vineyard",
-	"Bien Nacido Vineyard"
+	'Soberanes Vineyard',
+	'Bien Nacido Vineyard'
 ];
