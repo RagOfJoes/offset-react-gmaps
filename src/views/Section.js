@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 /**
  * Section View Component
@@ -10,7 +10,7 @@ import React from "react";
  * @version 1.0.0
  * @author [VictorRagojos](https://github.com/ragofjoes)
  */
-const Section = props => {
+const Section = React.memo(props => {
 	const { title, appellations, description } = props;
 	return (
 		<div className="section-container">
@@ -26,6 +26,6 @@ const Section = props => {
 			<div className="section-card-row row">{props.children}</div>
 		</div>
 	);
-};
+});
 
 export default Section;

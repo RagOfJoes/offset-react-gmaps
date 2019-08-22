@@ -1,5 +1,5 @@
-import React from "react";
-import MapGL from "react-map-gl";
+import React from 'react';
+import MapGL from 'react-map-gl';
 
 /**
  * Map View using react-map-gl Component by @author [uber](https://github.com/uber/react-map-gl)
@@ -11,7 +11,7 @@ import MapGL from "react-map-gl";
  */
 const MapV2 = React.memo(props => {
 	const { width, height, mapStyle, viewport, changeView, mapLoaded, onTransition } = props;
-	
+
 	return (
 		<MapGL
 			// Optimization props
