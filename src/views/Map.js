@@ -22,12 +22,12 @@ const MapV2 = React.memo(props => {
 			{...viewport}
 			// Style *required*
 			width={width}
-			// height="100vh"
 			height={height}
 			// Map functions to enable animations
 			onLoad={() => mapLoaded(true)}
 			onViewportChange={viewport => changeView(viewport)}
 			// Enables Users to look around the map
+			touchZoom={true}
 			onMouseUp={() => onTransition(false)}
 			onMouseDown={() => onTransition(true)}
 			onTouchEnd={() => onTransition(false)}
