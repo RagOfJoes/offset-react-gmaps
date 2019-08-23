@@ -58,7 +58,9 @@ const App = props => {
 						/>
 					</Section>
 				</div>
-				<div className="scroll-map-container" style={isMobile ? (tab === 1 ? null : { display: 'none' }) : null}>
+				<div
+					className="scroll-map-container"
+					style={isMobile ? (tab === 1 ? null : { width: '0px', height: '0px', display: 'none' }) : null}>
 					<Map
 						width="100%"
 						viewport={viewport}
