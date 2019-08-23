@@ -1,18 +1,16 @@
 import Map from '../views/Map';
 import React, { useState } from 'react';
+import { NavigationControl } from 'react-map-gl';
+import { handleMapPan } from './config/handleMapPan';
 import { mainMapOptions } from '../config/mapOptions';
 import RenderMarkers from './Components/RenderMarkers2';
 import { vineyardNames, coordinates } from '../config/coords';
-import { handleMapPan } from './config/handleMapPan';
-import { checkCoord } from './config/checkCoords';
 
 const App = React.memo(() => {
 	const [isLoaded, setMapLoaded] = useState(false);
 	const [isMoving, changeMoving] = useState(false);
 	const [isPopupOpen, togglePopup] = useState(false);
 	const [viewport, changeViewport] = useState(mainMapOptions);
-
-	const { latitude, longitude } = viewport;
 
 	return (
 		<div className="main-map-container">
@@ -33,6 +31,9 @@ const App = React.memo(() => {
 						changeMoving(trans);
 					}
 				}}>
+				<div className="navControl">
+					<NavigationControl showZoom showCompass={false} />
+				</div>
 				<RenderMarkers
 					viewport={viewport}
 					isPopupOpen={isPopupOpen}
@@ -43,7 +44,7 @@ const App = React.memo(() => {
 						if (isLoaded) {
 							handleMapPan(endLat, endLng, changeViewport);
 
-							if (!isPopupOpen && checkCoord(latitude, longitude, endLat, endLng)) {
+							if (!isPopupOpen) {
 								togglePopup(true);
 							}
 						}
