@@ -6,13 +6,13 @@ import { Marker } from "react-map-gl";
  * 
  * @param {object} props Required Component Properties
  */
-const CustomMarker = props => {
+const CustomMarker = React.memo(props => {
 	const { lat, lng, offsetTop, offsetLeft } = props;
 	return (
 		<Marker anchor="bottom" latitude={lat} longitude={lng} offsetTop={offsetTop} offsetLeft={offsetLeft}>
 			{props.children}
 		</Marker>
 	);
-};
+});
 
 export default CustomMarker;

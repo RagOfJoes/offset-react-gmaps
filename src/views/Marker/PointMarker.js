@@ -1,6 +1,6 @@
 import React from "react";
 
-const PointMarker = props => {
+const PointMarker = React.memo(props => {
 	const { onClick, fill } = props;
 	return (
 		<svg
@@ -42,6 +42,6 @@ const PointMarker = props => {
 			</defs>
 		</svg>
 	);
-};
+});
 
 export default PointMarker;
