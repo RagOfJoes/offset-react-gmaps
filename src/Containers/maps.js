@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { coordinates } from '../config/coords';
 import useScroll from '../config/scrollingHook';
 import { mapOptions } from '../config/mapOptions';
-import { checkCoord } from './config/checkCoords';
 import RenderCards from './Components/RenderCards';
 import useWindowSize from '../config/windowSIzeHook';
 import { handleMapPan } from './config/handleMapPan';
@@ -40,10 +39,6 @@ const App = props => {
 
 	if (region) {
 		const { sectionTitle, appellations, description, vineyards } = region;
-
-		// Viewport
-		const { latitude, longitude } = viewport;
-
 		return (
 			<>
 				<div className={isMobile && tab === 2 ? `scroll-places-list` : `scroll-places-row`} ref={setNode}>
@@ -91,7 +86,7 @@ const App = props => {
 							onClick={(endLat, endLng, card) => {
 								if (isLoaded) {
 									handleMapPan(endLat, endLng, changeViewport);
-									if (!isPopupOpen && checkCoord(latitude, longitude, endLat, endLng)) {
+									if (!isPopupOpen) {
 										togglePopup(true);
 									}
 
@@ -101,7 +96,7 @@ const App = props => {
 						/>
 					</Map>
 				</div>
-				<Tabs tab={tab} toggleTab={toggleTab} />
+				<Tabs region={sectionTitle} tab={tab} toggleTab={toggleTab} />
 			</>
 		);
 	} else {
