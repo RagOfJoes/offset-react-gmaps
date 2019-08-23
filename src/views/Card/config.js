@@ -16,14 +16,8 @@ export const toPrecise = num => {
  * @param {Object} position Destructs position to get lat and lng
  * @param {Object} props Destructs default props for App state
  */
-export const isInBoundsHorizontal = (
-	{ latitude, longtitude },
-	cardRef,
-	scrollElem,
-	{ lat, lng },
-	{ cardClick, isMapMoving }
-) => {
-	const scrollPosition = scrollElem.scrollLeft + 10;
+export const isInBoundsHorizontal = ({ latitude, longtitude }, cardRef, scrollElem, { lat, lng }, { cardClick, isMapMoving }) => {
+	const scrollPosition = scrollElem.scrollLeft;
 
 	const cardWidth = cardRef.getBoundingClientRect();
 	const cardLeftPosition = scrollPosition - cardWidth.left;
@@ -31,11 +25,11 @@ export const isInBoundsHorizontal = (
 
 	if (scrollPosition >= cardLeftPosition && scrollPosition <= cardRightPosition) {
 		if (toPrecise(latitude) !== toPrecise(lat) && toPrecise(longtitude) !== toPrecise(lng)) {
-			return cardClick(toPrecise(lat), toPrecise(lng));
+			return cardClick(lat, lng);
 		}
 
 		if (!isMapMoving) {
-			return cardRef.scrollIntoView({ inline: "center" });
+			return cardRef.scrollIntoView({ inline: 'center' });
 		}
 	}
 };
@@ -62,7 +56,7 @@ export const isInBoundsVertical = ({ latitude, longtitude }, cardRef, scrollElem
 		}
 
 		if (!isMapMoving) {
-			return cardRef.scrollIntoView({ inline: "center", block: "center" });
+			return cardRef.scrollIntoView({ block: 'center' });
 		}
 	}
 };
