@@ -10,8 +10,9 @@ const useScroll = node => {
 				setScroll(false);
 			};
 
-			const handleScroll = () => {
+			const handleScroll = (e) => {
 				setScroll(true);
+				e.stopPropagation();
 				clearTimeout(scrollingTimeout);
 				scrollingTimeout = setTimeout(() => handleScrollEnd(), 35);
 			};

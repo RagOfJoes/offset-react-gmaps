@@ -20,7 +20,13 @@ const RenderMarkers = React.memo(props => {
 		return (
 			<React.Fragment key={vineyard}>
 				<Marker lat={lat} lng={lng} offsetTop={-40} offsetLeft={-12}>
-					<PointMarker fill={fill} onClick={() => onClick(lat, lng, vineyardCard)} />
+					<PointMarker
+						fill={fill}
+						onClick={e => {
+							e.stopPropagation();
+							onClick(lat, lng, vineyardCard);
+						}}
+					/>
 				</Marker>
 				{shouldPopup ? (
 					<Popup
