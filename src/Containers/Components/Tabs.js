@@ -4,8 +4,8 @@ const Tabs = props => {
 	const { tab, toggleTab, region } = props;
 	return (
 		<div className="scroll-tabs">
-			<div className="tabTitle">
-				<h1>{region}</h1>
+			<div className="tabTitle" >
+				<h1 style={tab === 1 ? null : { width: 0}}>{region}</h1>
 			</div>
 			<div className="tabsContainer">
 				<div
