@@ -136,13 +136,21 @@
 		background-color: #fff;
 		box-shadow: 0px -3px 10px #393d40;
 
-		h1 {
-			top: 0px;
-			font-size: 0.7rem;
-			font-weight: 600;
-			letter-spacing: 0px;
-			text-transform: uppercase;
-			font-family: trade-gothic-next-condensed, sans-serif;
+		.tabTitle {
+			display: flex;
+			overflow: hidden;
+			align-items: center;
+
+			h1 {
+				top: 0px;
+				font-weight: 600;
+				font-size: 0.7rem;
+				margin-bottom: 0px;
+				letter-spacing: 0px;
+				text-transform: uppercase;
+				transition: 1s linear all;
+				font-family: trade-gothic-next-condensed, sans-serif;
+			}
 		}
 
 		.tabsContainer {
@@ -151,9 +159,10 @@
 			flex-direction: row;
 			h3 {
 				margin: 0;
+				line-height: 100%;
 				cursor: pointer;
 				font-weight: 100;
-				font-size: 0.6rem;
+				font-size: 0.75rem;
 				letter-spacing: 0px;
 				text-transform: capitalize;
 			}
@@ -165,7 +174,8 @@
 				justify-content: center;
 
 				.mapTab {
-					padding: 0px 0.3rem;
+					padding: 0px;
+					padding-right: 0.3rem;
 					border-right: 0.125px solid #9a9494;
 				}
 			}
@@ -177,7 +187,8 @@
 				justify-content: center;
 
 				.listTab {
-					padding: 0px 0.3rem;
+					padding: 0px;
+					padding-left: 0.3rem;
 				}
 			}
 		}
@@ -313,14 +324,14 @@
 
 					h1 {
 						top: 0px;
-						font-size: 1rem;
+						font-size: 1.625rem;
 						letter-spacing: 0.02em;
 						text-transform: capitalize;
 					}
 
 					p {
 						display: block;
-						font-size: 0.5rem;
+						font-size: 0.9375rem;
 					}
 
 					.appellations {
@@ -354,18 +365,18 @@
 
 							h2 {
 								font-weight: 600;
-								font-size: 0.8rem;
 								margin-top: 0.2rem;
 								letter-spacing: 0px;
+								font-size: 0.9375rem;
 								margin-bottom: 0.1rem;
 								text-transform: uppercase;
 								font-family: trade-gothic-next-condensed, sans-serif;
 							}
 
 							h3 {
-								font-size: 0.7rem;
 								font-weight: 100;
 								letter-spacing: 0px;
+								font-size: 0.9375rem;
 								text-transform: capitalize;
 							}
 
@@ -379,7 +390,7 @@
 									width: 100%;
 									height: auto;
 									display: block;
-									margin-bottom: 0.1rem;
+									margin-bottom: 1em;
 									max-width: max-content;
 									max-height: max-content;
 								}
@@ -389,7 +400,7 @@
 								display: block;
 
 								p {
-									font-size: 0.7rem;
+									font-size: 0.9375rem;
 									padding: 0 !important;
 								}
 							}
