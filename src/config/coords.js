@@ -31,11 +31,11 @@ export const coordinates = {
 		image: require('../assets/Garys.jpg'),
 		caption: `Acclaimed as “one of the most famous vineyards” in the state`
 	},
-	'Soberanes Vineyard': {
+	'Sobernaes Vineyard': {
 		lat: 36.4407934,
 		lng: -121.4391096,
 		location: 'Santa Lucia Highlands, California',
-		image: require('../assets/Soberanes.jpg'),
+		image: require('../assets/Sobernaes.jpg'),
 		caption: `The source of deep, expressive Pinot Noir with coastal influences `
 	},
 	'Bien Nacido Vineyard': {
@@ -115,6 +115,6 @@ export const vineyardNames = [
 	'Oakville Estate Vineyard',
 	'Soda Canyon Ranch Vineyard',
 	"Garys' Vineyard",
-	'Soberanes Vineyard',
+	'Sobernaes Vineyard',
 	'Bien Nacido Vineyard'
 ];

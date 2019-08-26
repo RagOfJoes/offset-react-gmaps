@@ -33,7 +33,7 @@ export const sections = {
 	'central-coast': {
 		sectionTitle: 'Central Coast',
 		appellations: 'Santa Maria Valley, Santa Lucia Highlands',
-		vineyards: ["Garys' Vineyard", 'Soberanes Vineyard', 'Bien Nacido Vineyard'],
+		vineyards: ["Garys' Vineyard", 'Sobernaes Vineyard', 'Bien Nacido Vineyard'],
 		description: `Comprised of six counties from Ventura (north of Los Angeles) to Santa Cruz (south of San Francisco), Central Coast spans much of California’s Pacific coastline.`
 	}
 };
