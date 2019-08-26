@@ -1,6 +1,6 @@
-import React from "react";
-import { Row, Col } from "reactstrap";
-import { isInBoundsVertical, isInBoundsHorizontal } from "./config";
+import React from 'react';
+import { Row, Col } from 'reactstrap';
+import { isInBoundsVertical, isInBoundsHorizontal } from './config';
 
 /**
  * Card View Component
@@ -47,19 +47,37 @@ const Card = React.memo(props => {
 	return (
 		<div className={`card-container ${title}`} ref={cardRef}>
 			<div className="card-container-row justify-content-center row">
-				<Col
-					className="card-image-col"
-					onClick={() => {
-						// Image click | Recenters map and scrolls to Card
-						const { lat, lng } = position;
+				{isMobile && !isList ? (
+					<a href={`https://twomey.com/${cardLink}`} target="_top">
+						<Col
+							className="card-image-col"
+							onClick={() => {
+								// Image click | Recenters map and scrolls to Card
+								const { lat, lng } = position;
 
-						if (!isMapMoving) {
-							cardClick(lat, lng);
-						}
-						cardRef.current.scrollIntoView({ inline: "center", block: "center" });
-					}}>
-					<img src={cardImage} alt={`${title}`} />
-				</Col>
+								if (!isMapMoving) {
+									cardClick(lat, lng);
+								}
+								cardRef.current.scrollIntoView({ inline: 'center', block: 'center' });
+							}}>
+							<img src={cardImage} alt={`${title}`} />
+						</Col>
+					</a>
+				) : (
+					<Col
+						className="card-image-col"
+						onClick={() => {
+							// Image click | Recenters map and scrolls to Card
+							const { lat, lng } = position;
+
+							if (!isMapMoving) {
+								cardClick(lat, lng);
+							}
+							cardRef.current.scrollIntoView({ inline: 'center', block: 'center' });
+						}}>
+						<img src={cardImage} alt={`${title}`} />
+					</Col>
+				)}
 				<Col>
 					<Row>
 						<Col className="card-title-col col-12">
@@ -72,7 +90,7 @@ const Card = React.memo(props => {
 							<p>{caption}</p>
 						</Col>
 						<Col className="card-button-col col-12">
-							<a target="_parent" href={`/${cardLink}`} className="btn btn-primary">
+							<a target="_top" href={`https://twomey.com/${cardLink}`} className="btn btn-primary">
 								Explore Vineyard
 							</a>
 						</Col>

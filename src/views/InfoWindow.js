@@ -11,8 +11,6 @@ import React from "react";
 const InfoWindow = props => {
 	const { image, region, description, link } = props;
 
-	// Will essentially replace all spaces with - to make URL for SEO friendly
-
 	return (
 		<div className="popup-container">
 			<div className="popup-image">
@@ -22,7 +20,7 @@ const InfoWindow = props => {
 				<p className="info-window-region">{region}</p>
 				<p className="info-window-appellations">{description}</p>
 				<p className="info-window-link">
-					<a href={`/${link}`} target="_parent">
+					<a href={`https://twomey.com/${link}`} target="_top">
 						Explore Vineyard
 					</a>{" "}
 				</p>
