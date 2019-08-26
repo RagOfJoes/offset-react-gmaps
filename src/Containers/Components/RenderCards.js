@@ -11,7 +11,7 @@ const RenderCards = React.memo(props => {
 		const { lat, lng, image, caption, location } = coordinates[vineyard]; // Get vineyard's info
 
 		// Creates Card Link
-		const cardLink = `${vineyard.replace(/\s+/g, '-').toLowerCase()}`;
+		const cardLink = `${section.sectionTitle.replace(/\s+/g, '-').toLowerCase()}/${vineyard.replace(/\s+/g, '-').toLowerCase()}`;
 		return (
 			<Card
 				key={vineyard}
