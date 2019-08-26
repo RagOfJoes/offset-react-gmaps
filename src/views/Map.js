@@ -18,6 +18,7 @@ const MapV2 = React.memo(props => {
 			reuseMap
 			reuseMaps
 			preserveDrawingBuffer
+			attributionControl={false}
 			// Viewport object *required*
 			{...viewport}
 			// Style *required*
@@ -25,7 +26,7 @@ const MapV2 = React.memo(props => {
 			height={height}
 			// Map functions to enable animations
 			onLoad={() => mapLoaded(true)}
-			onViewportChange={viewport => changeView(viewport)}
+			onViewportChange={newView => changeView(newView)}
 			// Enables Users to look around the map
 			touchZoom={true}
 			onMouseUp={() => onTransition(false)}
