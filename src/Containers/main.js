@@ -1,10 +1,11 @@
 import Map from '../views/Map';
 import React, { useState } from 'react';
+import { sections } from '../config/regions';
+import { coordinates } from '../config/coords';
 import { NavigationControl } from 'react-map-gl';
 import { handleMapPan } from './config/handleMapPan';
 import { mainMapOptions } from '../config/mapOptions';
 import RenderMarkers from './Components/RenderMarkers2';
-import { vineyardNames, coordinates } from '../config/coords';
 
 const App = React.memo(() => {
 	const [isLoaded, setMapLoaded] = useState(false);
@@ -18,7 +19,7 @@ const App = React.memo(() => {
 				width="100vw"
 				height="100vh"
 				viewport={viewport}
-				mapStyle="mapbox://styles/victorfigure/cjz0v85ya62js1cp78ox6765k?optimize=true"
+				mapStyle="mapbox://styles/silveroak/cjzsvl8kh0dv31cs5s9ilp8c2?optimize=true"
 				changeView={newView => changeViewport(newView)}
 				mapLoaded={() => {
 					if (!isLoaded) {
@@ -34,22 +35,29 @@ const App = React.memo(() => {
 				<div className="navControl">
 					<NavigationControl showZoom showCompass={false} />
 				</div>
-				<RenderMarkers
-					viewport={viewport}
-					isPopupOpen={isPopupOpen}
-					togglePopup={togglePopup}
-					vineyards={vineyardNames}
-					coordinates={coordinates}
-					onClick={(endLat, endLng) => {
-						if (isLoaded) {
-							handleMapPan(endLat, endLng, changeViewport);
+				{Object.keys(sections).map(section => {
+					const { sectionTitle, vineyards } = sections[section];
+					return (
+						<RenderMarkers
+							key={section}
+							viewport={viewport}
+							region={sectionTitle}
+							vineyards={vineyards}
+							isPopupOpen={isPopupOpen}
+							togglePopup={togglePopup}
+							coordinates={coordinates}
+							onClick={(endLat, endLng) => {
+								if (isLoaded) {
+									handleMapPan(endLat, endLng, changeViewport);
 
-							if (!isPopupOpen) {
-								togglePopup(true);
-							}
-						}
-					}}
-				/>
+									if (!isPopupOpen) {
+										togglePopup(true);
+									}
+								}
+							}}
+						/>
+					);
+				})}
 			</Map>
 		</div>
 	);
