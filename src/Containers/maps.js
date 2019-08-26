@@ -65,7 +65,7 @@ const App = props => {
 						width="100%"
 						viewport={viewport}
 						height={isMobile ? '65vh' : '100vh'}
-						mapStyle="mapbox://styles/victorfigure/cjz0v85ya62js1cp78ox6765k?optimize=true"
+						mapStyle="mapbox://styles/silveroak/cjzsvl8kh0dv31cs5s9ilp8c2?optimize=true"
 						changeView={newView => changeViewport(newView)}
 						mapLoaded={() => {
 							if (!isLoaded) {
@@ -81,6 +81,7 @@ const App = props => {
 						<RenderMarkers
 							isMobile={isMobile}
 							viewport={viewport}
+							region={sectionTitle}
 							vineyards={vineyards}
 							isPopupOpen={isPopupOpen}
 							togglePopup={togglePopup}
