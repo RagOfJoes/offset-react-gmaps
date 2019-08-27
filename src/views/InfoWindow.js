@@ -20,7 +20,7 @@ const InfoWindow = props => {
 				<p className="info-window-region">{region}</p>
 				<p className="info-window-appellations">{description}</p>
 				<p className="info-window-link">
-					<a href={`https://twomey.com/${link}`} target="_top">
+					<a href={`https://twomey.com/vineyards/${link}`} target="_top">
 						Explore Vineyard
 					</a>{" "}
 				</p>

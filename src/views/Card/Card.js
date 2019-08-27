@@ -48,7 +48,7 @@ const Card = React.memo(props => {
 		<div className={`card-container ${title}`} ref={cardRef}>
 			<div className="card-container-row justify-content-center row">
 				{isMobile && !isList ? (
-					<a href={`https://twomey.com/${cardLink}`} target="_top">
+					<a href={`https://twomey.com/vineyards/${cardLink}`} target="_top">
 						<Col
 							className="card-image-col"
 							onClick={() => {
@@ -90,7 +90,7 @@ const Card = React.memo(props => {
 							<p>{caption}</p>
 						</Col>
 						<Col className="card-button-col col-12">
-							<a target="_top" href={`https://twomey.com/${cardLink}`} className="btn btn-primary">
+							<a target="_top" href={`https://twomey.com/vineyards/${cardLink}`} className="btn btn-primary">
 								Explore Vineyard
 							</a>
 						</Col>
