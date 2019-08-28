@@ -60,11 +60,27 @@
 	}
 }
 
-.card-container-row {
-	flex-direction: column;
+.card-container {
+	width: 100%;
+	& > * {
+		flex-shrink: 0;
+	}
+	.card-container-row {
+		width: 100%;
+		flex-direction: column;
 
-	.card-image-col {
-		cursor: pointer;
+		.col {
+			height: 100%;
+			flex-basis: auto;
+		}
+
+		.card-image-col {
+			cursor: pointer;
+
+			img {
+				max-height: 845px;
+			}
+		}
 	}
 }
 
@@ -236,8 +252,6 @@
 					height: auto;
 					display: block;
 					margin-bottom: 0.1rem;
-					max-width: max-content;
-					max-height: max-content;
 				}
 			}
 
@@ -391,8 +405,6 @@
 									height: auto;
 									display: block;
 									margin-bottom: 1em;
-									max-width: max-content;
-									max-height: max-content;
 								}
 							}
 
@@ -514,9 +526,7 @@
 						width: 100%;
 						height: auto;
 						display: block;
-						max-width: fit-content;
 						margin-bottom: 0.1rem;
-						max-height: max-content;
 					}
 				}
 
@@ -572,7 +582,6 @@
 						height: auto;
 						display: block;
 						margin-bottom: 0.1rem;
-						max-height: max-content;
 					}
 				}
 
