@@ -6,13 +6,13 @@ import { checkCoord } from '../config/checkCoords';
 import PointMarker from '../../views/Marker/PointMarker';
 
 const RenderMarkers = React.memo(props => {
-	const { vineyards, coordinates, onClick, isPopupOpen, togglePopup, viewport } = props;
+	const { region, vineyards, coordinates, onClick, isPopupOpen, togglePopup, viewport } = props;
 
 	const Markers = vineyards.map(vineyard => {
 		const { latitude, longitude } = viewport;
 		const { lat, lng, image, location } = coordinates[vineyard];
 
-		const cardLink = `${vineyard.replace(/\s+/g, '-').replace("'", "").toLowerCase()}`;
+		const cardLink = `${region.replace(/\s+/g, '-').toLowerCase()}/${vineyard.replace(/\s+/g, '-').replace("'", "").toLowerCase()}`;
 
 		const shouldPopup = checkCoord(latitude, longitude, lat, lng) && isPopupOpen;
 		const fill = checkCoord(latitude, longitude, lat, lng) ? '#618549' : '#A69C80';
