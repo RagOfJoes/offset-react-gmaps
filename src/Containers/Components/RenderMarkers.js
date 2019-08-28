@@ -12,7 +12,7 @@ const RenderMarkers = React.memo(props => {
 		const { latitude, longitude } = viewport;
 		const { lat, lng, image, location } = coordinates[vineyard];
 
-		const cardLink = `${region.replace(/\s+/g, '-').toLowerCase()}/${vineyard.replace(/\s+/g, '-').toLowerCase()}`;
+		const cardLink = `${region.replace(/\s+/g, '-').toLowerCase()}/${vineyard.replace(/\s+/g, '-').replace("'", "").toLowerCase()}`;
 		const vineyardCard = document.getElementsByClassName(`${vineyard}`)[0];
 
 		const fill = checkCoord(latitude, longitude, lat, lng) ? '#618549' : '#A69C80';
