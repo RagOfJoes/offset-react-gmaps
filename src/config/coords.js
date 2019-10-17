@@ -99,7 +99,7 @@ export const coordinates = {
 		lng: -123.4917431,
 		location: 'Anderson Valley, California',
 		image: require('../assets/Philo Estate.jpg'),
-		caption: `Located in western Mendocino County and home to a tasting room—to open soon!`
+		caption: `Sheep can be seen grazing to help maintain grass`
 	}
 };
 
