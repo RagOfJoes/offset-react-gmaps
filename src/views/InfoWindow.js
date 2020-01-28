@@ -22,7 +22,7 @@ const InfoWindow = props => {
 				<p className="info-window-link">
 					<a href={`https://www.twomey.com/vineyards/${link}`} target="_top">
 						Explore Vineyard
-					</a>{" "}
+					</a>
 				</p>
 			</div>
 		</div>

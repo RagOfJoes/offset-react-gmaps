@@ -30,9 +30,9 @@ const MapV2 = React.memo(props => {
 			// Enables Users to look around the map
 			touchZoom={true}
 			onMouseUp={() => onTransition(false)}
-			onMouseDown={() => onTransition(true)}
+			// onMouseDown={() => onTransition(true)} might be interfering with the link
 			onTouchEnd={() => onTransition(false)}
-			onTouchStart={() => onTransition(true)}
+			// onTouchStart={() => onTransition(true)} might be interfering with the link
 			// Tracks Map Transition
 			onTransitionEnd={() => onTransition(false)}
 			onTransitionStart={() => onTransition(true)}
