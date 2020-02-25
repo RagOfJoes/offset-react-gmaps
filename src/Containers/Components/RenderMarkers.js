@@ -31,11 +31,11 @@ const RenderMarkers = React.memo(props => {
 				</Marker>
 				{shouldPopup ? (
 					<Popup
-						closeOnClick
 						offsetTop={0}
 						latitude={lat}
 						offsetLeft={8}
 						longitude={lng}
+						closeOnClick={false}
 						dynamicPosition={false}
 						onClose={() => togglePopup(false)}>
 						<InfoWindow image={image} region={vineyard} link={cardLink} description={location} />
