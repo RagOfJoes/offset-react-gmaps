@@ -30,6 +30,7 @@ const RenderMarkers = React.memo(props => {
 						latitude={lat}
 						offsetLeft={8}
 						longitude={lng}
+						closeOnClick={false}
 						dynamicPosition={true}
 						onClose={() => togglePopup(false)}>
 						<InfoWindow image={image} region={vineyard} link={cardLink} description={location} />
