@@ -94,11 +94,11 @@ export const coordinates = {
 		image: require('../assets/Monument Tree Vineyard.jpg'),
 		caption: `Once you see the tree, you won’t forget the name`
 	},
-	'Philo Estate Vineyard': {
+	'Bearman Bend Vineyard': {
 		lat: 39.1097857,
 		lng: -123.4917431,
 		location: 'Anderson Valley, California',
-		image: require('../assets/Philo Estate.jpg'),
+		image: require('../assets/Bearman Bend Vineyard.jpg'),
 		caption: `Sheep can be seen grazing to help maintain grass`
 	}
 };
@@ -106,7 +106,7 @@ export const coordinates = {
 export const vineyardNames = [
 	'Prince Hill Vineyard',
 	'Monument Tree Vineyard',
-	'Philo Estate Vineyard',
+	'Bearman Bend Vineyard',
 	'Healdsburg Estate Vineyard',
 	'Westpin Vineyard',
 	'Last Stop',

@@ -20,7 +20,7 @@ export const sections = {
 		description: `Home to renowned California growing regions also known as Wine County, Northern California has deep roots in viticulture and winemaking.`,
 		vineyards: [
 			'Monument Tree Vineyard',
-			'Philo Estate Vineyard',
+			'Bearman Bend Vineyard',
 			'Healdsburg Estate Vineyard',
 			'Westpin Vineyard',
 			'Last Stop',
