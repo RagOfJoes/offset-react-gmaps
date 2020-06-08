@@ -1,4 +1,4 @@
-@import url('https://staging-dawecude.kinsta.cloud/wp-content/themes/twomey_theme/style.css?ver=5.2.3');
+@import url('https://www.twomey.com/wp-content/themes/twomey_theme/style.css?ver=5.2.3');
 
 .navControl {
 	left: 1vw;
@@ -641,7 +641,10 @@
 	@for $i from 0 through $steps {
 		#{percentage($i*(1/$steps))} {
 			clip: rect(random(100) + px, 9999px, random(100) + px, 0);
-			text-shadow: (random(20)-10 + px) (random(20)-10 + px) (random(40) + px) rgba(random(255), random(255), random(255), 0.6);
+			text-shadow: (random(20)-10 + px)
+				(random(20)-10 + px)
+				(random(40) + px)
+				rgba(random(255), random(255), random(255), 0.6);
 		}
 	}
 }
