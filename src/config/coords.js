@@ -73,13 +73,6 @@ export const coordinates = {
 		image: require('../assets/Oakville Estate.jpg'),
 		caption: `Fun fact: Rows surrounding Silver Oak in Oakville are planted for (our) Sauvignon Blanc`
 	},
-	'Soda Canyon Ranch Vineyard': {
-		lat: 38.357897,
-		lng: -122.278065,
-		location: 'Napa Valley, California',
-		image: require('../assets/Soda Canyon.jpg'),
-		caption: `The estate that started it all—for both Twomey and Silver Oak`
-	},
 	'Calistoga Estate Vineyard': {
 		lat: 38.5658304,
 		lng: -122.5561176,
@@ -113,7 +106,6 @@ export const vineyardNames = [
 	'Merino Vineyard',
 	'Calistoga Estate Vineyard',
 	'Oakville Estate Vineyard',
-	'Soda Canyon Ranch Vineyard',
 	"Garys' Vineyard",
 	'Soberanes Vineyard',
 	'Bien Nacido Vineyard'

@@ -27,7 +27,6 @@ export const sections = {
 			'Merino Vineyard',
 			'Calistoga Estate Vineyard',
 			'Oakville Estate Vineyard',
-			'Soda Canyon Ranch Vineyard'
 		]
 	},
 	'central-coast': {
