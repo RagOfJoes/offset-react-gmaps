@@ -67,17 +67,19 @@
   }
   .card-container-row {
     flex-direction: column;
-
     .col {
       height: 100%;
       flex-basis: auto;
     }
-
     .card-image-col {
       cursor: pointer;
-
       img {
         max-height: 845px;
+      }
+    }
+    .card-title-col {
+      .club-name {
+        letter-spacing: 0.01em;
       }
     }
   }

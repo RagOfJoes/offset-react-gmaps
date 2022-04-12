@@ -15,7 +15,7 @@ const RenderMarkers = React.memo(props => {
 		const cardLink = `${region.replace(/\s+/g, '-').toLowerCase()}/${vineyard.replace(/\s+/g, '-').replace("'", "").toLowerCase()}`;
 
 		const shouldPopup = checkCoord(latitude, longitude, lat, lng) && isPopupOpen;
-		const fill = checkCoord(latitude, longitude, lat, lng) ? '#618549' : '#A69C80';
+		const fill = checkCoord(latitude, longitude, lat, lng) ? '#618549' : '#978A5E';
 		return (
 			<React.Fragment key={vineyard}>
 				<Marker lat={lat} lng={lng} offsetTop={-40} offsetLeft={-12}>
@@ -26,9 +26,9 @@ const RenderMarkers = React.memo(props => {
 				</Marker>
 				{shouldPopup ? (
 					<Popup
-						offsetTop={0}
+						offsetTop={4}
 						latitude={lat}
-						offsetLeft={8}
+						offsetLeft={10}
 						longitude={lng}
 						closeOnClick={false}
 						dynamicPosition={true}
