@@ -37,9 +37,9 @@ const PointMarker = React.memo((props) => {
           width="43.8037"
           id="filter0_d_1668_20560"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             type="matrix"
             in="SourceAlpha"
