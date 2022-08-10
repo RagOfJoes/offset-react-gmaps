@@ -109,18 +109,3 @@ export const coordinates = {
     caption: "Acclaimed as one of the “most important California vineyards”",
   },
 };
-
-export const vineyardNames = [
-	'Prince Hill Vineyard',
-	'Monument Tree Vineyard',
-	'Bearman Bend Vineyard',
-	'Healdsburg Estate Vineyard',
-	'Westpin Vineyard',
-	'Last Stop',
-	'Merino Vineyard',
-	'Calistoga Estate Vineyard',
-	'Oakville Estate Vineyard',
-	"Garys' Vineyard",
-	'Soberanes Vineyard',
-	'Bien Nacido Vineyard'
-];
