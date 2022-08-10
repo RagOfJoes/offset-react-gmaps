@@ -19,7 +19,7 @@ const App = React.memo(() => {
 				width="100vw"
 				height="100vh"
 				viewport={viewport}
-				mapStyle="mapbox://styles/silveroak/cl08hwmtp00lj15n7gpvyt06j"
+				mapStyle="mapbox://styles/silveroak/cl6dr0ipq002614qpgglswo8q"
 				changeView={newView => changeViewport(newView)}
 				mapLoaded={() => {
 					if (!isLoaded) {

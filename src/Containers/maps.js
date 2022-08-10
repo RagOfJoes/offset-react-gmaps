@@ -65,7 +65,7 @@ const App = props => {
 						width="100%"
 						viewport={viewport}
 						height={isMobile ? '65vh' : '100vh'}
-						mapStyle="mapbox://styles/silveroak/cl08hwmtp00lj15n7gpvyt06j"
+						mapStyle="mapbox://styles/silveroak/cl6dr0ipq002614qpgglswo8q"
 						changeView={newView => changeViewport(newView)}
 						mapLoaded={() => {
 							if (!isLoaded) {
