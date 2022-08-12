@@ -1,0 +1,110 @@
+.mapboxgl-popup {
+  z-index: 1000;
+
+  .mapboxgl-popup-content {
+    padding: 0;
+
+    .popup-container {
+      max-width: 256px;
+
+      .popup-image {
+        width: 100%;
+        height: 100%;
+        img {
+          display: block;
+        }
+      }
+
+      .info-window-information {
+        padding: 16px;
+
+        p {
+          margin: 0;
+          padding: 0 !important;
+        }
+
+        .info-window-region {
+          color: #221f20;
+          font-weight: 500;
+          font-size: 15.6px;
+          font-style: normal;
+          letter-spacing: 0.05em;
+          text-transform: uppercase;
+          font-family: brandon-grotesque, sans-serif;
+        }
+
+        .info-window-appellations {
+          color: #221f20;
+          margin-top: 4px;
+          font-size: 15.6px;
+          font-style: italic;
+          line-height: 127.2%;
+          font-weight: normal;
+          letter-spacing: 0.02em;
+          font-family: brandon-grotesque, sans-serif;
+          strong {
+            font-family: brandon-grotesque, sans-serif;
+          }
+        }
+
+        a {
+          text-decoration: none;
+
+          .info-window-link {
+            color: inherit;
+            margin-top: 6px;
+            font-weight: 500;
+            font-size: 15.6px;
+            line-height: 120%;
+            font-style: normal;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-family: brandon-grotesque, sans-serif;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: $medium) {
+    .mapboxgl-popup-content {
+      .popup-container {
+        max-width: 200px;
+        max-height: 175px;
+
+        .popup-image {
+          width: 100%;
+          height: 100%;
+
+          img {
+            width: auto;
+            height: auto;
+            display: block;
+            max-width: 200px;
+            max-height: 175px;
+          }
+        }
+
+        .info-window-information {
+          padding: 0.5rem;
+
+          .info-window-region {
+            font-size: 0.6rem;
+          }
+
+          .info-window-appellations {
+            margin: 0;
+            font-size: 0.6rem;
+          }
+
+          a {
+            .info-window-link {
+              margin-top: 2px;
+              font-size: 0.6rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

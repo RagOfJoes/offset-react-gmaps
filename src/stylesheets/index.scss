@@ -1,0 +1,169 @@
+@import url("https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css");
+@import url("https://www.twomey.smrtsrc.com/wp-content/themes/twomey_theme/style.css?ver=5.8.3");
+
+// Weird values but just accept it
+$medium: 767.8px;
+$small: 375px;
+
+.App {
+  // Remove any bootstrap settings from this class
+  .section-row {
+    margin: 0;
+  }
+
+  @import "cards";
+  @import "invalid";
+  @import "map";
+  @import "popup";
+  @import "tabs";
+
+  .scroll-places-row {
+    width: 50%;
+    padding: 3rem calc(3rem - 15px);
+
+    .section-container {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: $medium) {
+    flex-direction: column-reverse;
+
+    .scroll-places-row {
+      z-index: 1;
+      width: 100vw;
+      height: 35vh;
+      display: flex;
+      padding: 0 1rem;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
+      overflow: auto hidden;
+
+      .section-row {
+        margin: 0;
+        flex-wrap: nowrap;
+        position: relative;
+        flex-direction: row;
+
+        h1 {
+          display: none;
+        }
+
+        p {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+// List view
+@media (max-width: 767.8px) {
+  .scroll-places-list {
+    z-index: 1;
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    overflow-y: auto;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+    padding: 40px 1rem;
+    align-items: center;
+    flex-direction: column;
+
+    .section-row {
+      margin: 0;
+      width: 100%;
+      flex-wrap: nowrap;
+      position: relative;
+      flex-direction: column;
+
+      h1 {
+        top: 0px;
+        font-size: 1.625rem;
+        letter-spacing: 0.02em;
+        text-transform: capitalize;
+      }
+
+      p {
+        display: block;
+        font-size: 0.9375rem;
+      }
+
+      .appellations {
+        padding: 0px !important;
+      }
+
+      .appellation-description {
+        margin-bottom: 0;
+        padding-bottom: 1rem !important;
+      }
+    }
+
+    .section-card-row {
+      width: 100%;
+      flex-wrap: nowrap;
+      margin: 1rem 0 0 0;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .card-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+
+        &:not(:first-child) {
+          margin: 2rem 0 0 0;
+        }
+
+        .card-container-row {
+          width: 100vw;
+          flex-wrap: nowrap;
+          align-items: start;
+          flex-direction: column;
+
+          h2 {
+            font-weight: 600;
+            margin-top: 0.2rem;
+            letter-spacing: 0px;
+            font-size: 0.9375rem;
+            margin-bottom: 0.1rem;
+            text-transform: uppercase;
+            font-family: trade-gothic-next-condensed, sans-serif;
+          }
+
+          h3 {
+            font-weight: 100;
+            letter-spacing: 0px;
+            font-size: 0.9375rem;
+            text-transform: capitalize;
+          }
+
+          .btn {
+            width: auto;
+            display: block !important;
+          }
+
+          .card-image-col {
+            img {
+              width: 100%;
+              height: auto;
+              display: block;
+              margin-bottom: 1em;
+            }
+          }
+
+          .card-caption-col {
+            display: block;
+
+            p {
+              font-size: 0.9375rem;
+              padding: 0 !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
