@@ -45,7 +45,7 @@ export const vineyards = {
     lat: 36.4422663,
     lng: -121.4402578,
     location: 'Santa Lucia Highlands, California',
-    slug: 'central-coast/garys’-vineyard',
+    slug: 'central-coast/garys-vineyard',
   },
   'Healdsburg Estate Vineyard': {
     caption:
