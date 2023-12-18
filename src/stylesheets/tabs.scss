@@ -1,73 +1,73 @@
 .scroll-tabs {
-  width: 0px;
-  height: 0px;
-  display: none;
+	width: 0px;
+	height: 0px;
+	display: none;
 
-  @media screen and (max-width: $medium) {
-    z-index: 1;
-    width: 100vw;
-    height: 40px;
-    display: flex;
-    padding: 0 1rem;
-    align-items: center;
-    background-color: #fff;
-    box-shadow: 0px -3px 10px #393d40;
+	@media screen and (max-width: $medium) {
+		z-index: 1;
+		width: 100vw;
+		height: 40px;
+		display: flex;
+		padding: 0 1rem;
+		align-items: center;
+		background-color: #fff;
+		box-shadow: 0px -3px 10px #393d40;
 
-    .tabTitle {
-      display: flex;
-      overflow: hidden;
-      align-items: center;
+		.tabTitle {
+			display: flex;
+			overflow: hidden;
+			align-items: center;
 
-      h1 {
-        top: 0px;
-        font-weight: 600;
-        font-size: 0.7rem;
-        margin-bottom: 0px;
-        letter-spacing: 0px;
-        text-transform: uppercase;
-        transition: 1s linear all;
-        font-family: trade-gothic-next-condensed, sans-serif;
-      }
-    }
+			h1 {
+				top: 0px;
+				font-weight: 600;
+				font-size: 0.7rem;
+				margin-bottom: 0px;
+				letter-spacing: 0px;
+				text-transform: uppercase;
+				transition: 1s linear all;
+				font-family: trade-gothic-next-condensed, sans-serif;
+			}
+		}
 
-    .tabsContainer {
-      display: flex;
-      margin-left: auto;
-      flex-direction: row;
-      h3 {
-        margin: 0;
-        line-height: 100%;
-        cursor: pointer;
-        font-weight: 100;
-        font-size: 0.75rem;
-        letter-spacing: 0px;
-        text-transform: capitalize;
-      }
+		.tabsContainer {
+			display: flex;
+			margin-left: auto;
+			flex-direction: row;
+			h3 {
+				margin: 0;
+				line-height: 100%;
+				cursor: pointer;
+				font-weight: 100;
+				font-size: 0.75rem;
+				letter-spacing: 0px;
+				text-transform: capitalize;
+			}
 
-      .mapTabContainer {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+			.mapTabContainer {
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 
-        .mapTab {
-          padding: 0px;
-          padding-right: 0.3rem;
-          border-right: 0.125px solid #9a9494;
-        }
-      }
+				.mapTab {
+					padding: 0px;
+					padding-right: 0.3rem;
+					border-right: 0.125px solid #9a9494;
+				}
+			}
 
-      .listTabContainer {
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+			.listTabContainer {
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 
-        .listTab {
-          padding: 0px;
-          padding-left: 0.3rem;
-        }
-      }
-    }
-  }
+				.listTab {
+					padding: 0px;
+					padding-left: 0.3rem;
+				}
+			}
+		}
+	}
 }

@@ -1,1 +1,1 @@
-export { default } from './Vineyards';
+export * from "./Vineyards";

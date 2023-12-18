@@ -1,39 +1,40 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import useRafState from '@/hooks/useRafState';
-import { off, on } from '@/lib/listener';
+import { useRafState } from "@/hooks/useRafState";
+import { off, on } from "@/lib/listener";
 
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof window !== "undefined";
 
-const useWindowSize = (initialWidth = Infinity, initialHeight = Infinity) => {
-  const [state, setState] = useRafState<{ width: number; height: number }>({
-    width: isBrowser ? window.innerWidth : initialWidth,
-    height: isBrowser ? window.innerHeight : initialHeight,
-  });
+export function useWindowSize(
+	initialWidth = Infinity,
+	initialHeight = Infinity,
+) {
+	const [state, setState] = useRafState<{ width: number; height: number }>({
+		height: isBrowser ? window.innerHeight : initialHeight,
+		width: isBrowser ? window.innerWidth : initialWidth,
+	});
 
-  useEffect((): (() => void) | void => {
-    if (!isBrowser) {
-      return;
-    }
+	useEffect((): (() => void) | void => {
+		if (!isBrowser) {
+			return;
+		}
 
-    const handler = () => {
-      setState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
+		const handler = () => {
+			setState({
+				height: window.innerHeight,
+				width: window.innerWidth,
+			});
+		};
 
-    on(window, 'resize', handler);
+		on(window, "resize", handler);
 
-    // eslint-disable-next-line consistent-return
-    return () => {
-      off(window, 'resize', handler);
-    };
+		// eslint-disable-next-line consistent-return
+		return () => {
+			off(window, "resize", handler);
+		};
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-  return state;
-};
-
-export default useWindowSize;
+	return state;
+}

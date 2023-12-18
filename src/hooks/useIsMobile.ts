@@ -1,9 +1,7 @@
-import useWindowSize from '@/hooks/useWindowSize';
+import { useWindowSize } from "@/hooks/useWindowSize";
 
-const useIsMobile = () => {
-  const windowSize = useWindowSize();
+export function useIsMobile() {
+	const windowSize = useWindowSize();
 
-  return windowSize.width < 767.8;
-};
-
-export default useIsMobile;
+	return windowSize.width < 767.8;
+}
