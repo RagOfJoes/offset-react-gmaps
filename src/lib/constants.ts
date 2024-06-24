@@ -8,7 +8,6 @@ import LastStop from "/Last Stop.jpg";
 import Merino from "/Merino Vineyard.jpg";
 import MonumentTree from "/Monument Tree Vineyard.jpg";
 import Oakville from "/Oakville Estate.jpg";
-import PrinceHill from "/Prince Hill.jpg";
 import Soberanes from "/Soberanes.jpg";
 import WestPin from "/Westpin Vineyard.jpg";
 
@@ -98,15 +97,6 @@ export const vineyards = {
 		location: "Napa Valley, California",
 		slug: "north-coast/oakville-estate-vineyard",
 	},
-	"Prince Hill Vineyard": {
-		caption:
-			"Our home (in Dundee, Oregon) away from home named after music royalty",
-		image: PrinceHill,
-		lat: 45.2825284,
-		lng: -123.0408265,
-		location: "Dundee Hills, Oregon",
-		slug: "willamette-valley/prince-hill-vineyard",
-	},
 	"Soberanes Vineyard": {
 		image: Soberanes,
 		caption:
@@ -134,13 +124,6 @@ export const regions: {
 		vineyards: Array<keyof typeof vineyards>;
 	};
 } = {
-	"willamette-valley": {
-		sectionTitle: "Willamette Valley",
-		appellations: "Willamette Valley, Dundee Hills",
-		description:
-			"Oregon’s largest appellation, the Willamette Valley sits between the Oregon Coast Range in the west and the Cascade Mountains in the east.",
-		vineyards: ["Prince Hill Vineyard"],
-	},
 	"north-coast": {
 		sectionTitle: "North Coast",
 		appellations:
