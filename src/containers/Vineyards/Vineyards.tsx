@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-import { MapRef, Popup, ViewState } from "react-map-gl";
+import { MapRef, Popup, ViewState } from "react-map-gl/mapbox";
 import { useParams } from "react-router-dom";
 
 import { Cards } from "./Cards";
@@ -10,7 +10,6 @@ import { Marker } from "@/components/Marker";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { regions, vineyards } from "@/lib/constants";
 import { isCoordinatesEqual } from "@/lib/isCoordinatesEqual";
-import { Offset } from "mapbox-gl";
 
 const initialViewState: ViewState = {
 	zoom: 9,
@@ -185,7 +184,7 @@ export function Vineyards() {
 						latitude={popup.latitude}
 						longitude={popup.longitude}
 						maxWidth="none"
-						offset={[0, -10] satisfies Offset}
+						offset={[0, -10]}
 						onClose={() => setPopup(null)}
 					>
 						<InfoWindow {...popup} />

@@ -1,4 +1,4 @@
-import { Marker as MarkerGL, MarkerProps as MarkerGLProps } from "react-map-gl";
+import { Marker as MarkerGL, MarkerProps as MarkerGLProps } from "react-map-gl/mapbox";
 
 export function Marker(props: MarkerGLProps & { fill: string }) {
 	const { fill } = props;

@@ -1,7 +1,7 @@
 import { Dispatch, RefObject, SetStateAction, useEffect } from "react";
 
 import { useInView } from "react-intersection-observer";
-import { MapRef, ViewState } from "react-map-gl";
+import { MapRef, ViewState } from "react-map-gl/mapbox";
 
 import { Card } from "@/components/Card";
 import { InfoWindowProps } from "@/components/InfoWindow";

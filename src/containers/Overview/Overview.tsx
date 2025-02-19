@@ -1,13 +1,12 @@
 import { useMemo, useRef, useState } from "react";
 
-import { MapRef, NavigationControl, Popup, ViewState } from "react-map-gl";
+import { MapRef, NavigationControl, Popup, ViewState } from "react-map-gl/mapbox";
 
 import { InfoWindow, InfoWindowProps } from "@/components/InfoWindow";
 import { Map } from "@/components/Map";
 import { Marker } from "@/components/Marker";
 import { vineyards } from "@/lib/constants";
 import { isCoordinatesEqual } from "@/lib/isCoordinatesEqual";
-import { Offset } from "mapbox-gl";
 
 const initialViewState: ViewState = {
 	pitch: 65,
@@ -104,7 +103,7 @@ export function Overview() {
 						latitude={popup.latitude}
 						longitude={popup.longitude}
 						maxWidth="none"
-						offset={[0, -10] satisfies Offset}
+						offset={[0, -10]}
 						onClose={() => setPopup(null)}
 					>
 						<InfoWindow {...popup} />
