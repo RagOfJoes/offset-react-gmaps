@@ -31,7 +31,7 @@ export const vineyards = {
 	},
 	"Calistoga Estate Vineyard": {
 		caption:
-			"Planted to Sauvignon Blanc clones and surrounds our tasting room on Dunaweal Lane",
+			"Planted to Sauvignon Blanc clones from California and France",
 		image: Calistoga,
 		lat: 38.5658304,
 		lng: -122.5561176,
